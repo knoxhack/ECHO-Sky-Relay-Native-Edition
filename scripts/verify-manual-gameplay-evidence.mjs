@@ -422,7 +422,7 @@ function normalizeNoteText(value) {
     .trim();
 }
 
-function validateGameplayLog({ text, relPath, label, index, blockers }) {
+function validateGameplayLog({ text, relPath, label, index, blockers, provenance }) {
   const signatures = [];
   for (const signature of BLOCKING_LOG_SIGNATURES) {
     if (signature.pattern.test(text)) signatures.push(signature.label);
@@ -433,9 +433,23 @@ function validateGameplayLog({ text, relPath, label, index, blockers }) {
     blockers.push(`${label}[${index}] target contains blocking log signature "${signature}": ${relPath}`);
   }
 
+  const provenanceMatches = [];
+  for (const [field, value] of Object.entries(provenance ?? {})) {
+    if (value === undefined || value === null || value === '') {
+      blockers.push(`${label}[${index}] cannot validate missing provenance field ${field}: ${relPath}`);
+      continue;
+    }
+    if (!text.includes(String(value))) {
+      blockers.push(`${label}[${index}] target is missing required provenance ${field}=${value}: ${relPath}`);
+    } else {
+      provenanceMatches.push(field);
+    }
+  }
+
   return {
     lineCount: text.split(/\r?\n/u).filter((line) => line.trim()).length,
-    blockingSignatures: signatures.length
+    blockingSignatures: signatures.length,
+    provenanceMatches
   };
 }
 
@@ -693,7 +707,20 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
     blockers,
     fileValidator: async ({ filePath, relPath, blockers: fileBlockers, label, index }) => {
       const text = await fs.readFile(filePath, 'utf8');
-      return validateGameplayLog({ text, relPath, label, index, blockers: fileBlockers });
+      return validateGameplayLog({
+        text,
+        relPath,
+        label,
+        index,
+        blockers: fileBlockers,
+        provenance: {
+          packId: evidence.packId,
+          releaseTag: evidence.run?.releaseTag,
+          artifactAsset: evidence.run?.artifactAsset,
+          artifactSha256: evidence.run?.artifactSha256,
+          artifactSize: evidence.run?.artifactSize
+        }
+      });
     }
   });
   result.checked.saveSnapshots = await validateFileList({

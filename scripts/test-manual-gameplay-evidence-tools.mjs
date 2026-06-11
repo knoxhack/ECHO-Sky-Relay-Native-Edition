@@ -265,6 +265,19 @@ function artifactFor(packId) {
   }[packId];
 }
 
+function logFixture(evidence, relPath) {
+  const kind = /launcher|pack/u.test(relPath) ? 'launcher install' : 'client playthrough';
+  return [
+    `Sky Relay ${kind} log`,
+    `Pack ID: ${evidence.packId}`,
+    `Release tag: ${evidence.run.releaseTag}`,
+    `Artifact asset: ${evidence.run.artifactAsset}`,
+    `Artifact SHA-256: ${evidence.run.artifactSha256}`,
+    `Artifact size: ${evidence.run.artifactSize}`,
+    'Status: completed without blocking crash'
+  ].join('\n');
+}
+
 function sessionFixture(evidence) {
   const supportingFiles = Object.fromEntries(evidence.supportingFiles.map((relPath) => [relPath, relPath]));
   const screenshots = Object.fromEntries(evidence.screenshots.map((relPath) => [relPath, relPath]));
@@ -377,7 +390,7 @@ async function completeEvidence(root) {
 
   for (const relPath of evidence.supportingFiles) await writeText(root, relPath, noteFixture(relPath));
   for (const relPath of evidence.screenshots) await writeBytes(root, relPath, pngFixture());
-  for (const relPath of evidence.logs) await writeText(root, relPath);
+  for (const relPath of evidence.logs) await writeText(root, relPath, logFixture(evidence, relPath));
   for (const relPath of evidence.saveSnapshots) await writeBytes(root, relPath, zipFixture());
 
   await fs.writeFile(filePath, `${JSON.stringify(evidence, null, 2)}\n`, 'utf8');
@@ -475,6 +488,13 @@ try {
   assert.match(`${blockingLogSignature.stdout}\n${blockingLogSignature.stderr}`, /blocking log signature.*crash report/u);
 
   await completeEvidence(tmp);
+  const launcherLogPath = 'fixtures/sky-relay/gameplay-qa/evidence/logs/launcher-install.log';
+  await writeText(tmp, launcherLogPath, 'Sky Relay launcher install log\nStatus: completed without blocking crash\n');
+  const missingLogProvenance = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(missingLogProvenance.status, 1);
+  assert.match(`${missingLogProvenance.stdout}\n${missingLogProvenance.stderr}`, /missing required provenance artifactSha256/u);
+
+  await completeEvidence(tmp);
   await writeBytes(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png', pngHeaderOnlyFixture());
   const incompletePng = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(incompletePng.status, 1);
@@ -495,6 +515,7 @@ try {
   assert.ok(readyReport.manualEvidence.checked.screenshots[0].chunks >= 3);
   assert.equal(readyReport.manualEvidence.checked.logs[0].blockingSignatures, 0);
   assert.ok(readyReport.manualEvidence.checked.logs[0].lineCount >= 1);
+  assert.deepEqual(readyReport.manualEvidence.checked.logs[0].provenanceMatches, ['packId', 'releaseTag', 'artifactAsset', 'artifactSha256', 'artifactSize']);
   assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 1);
 } finally {
   await fs.rm(tmp, { recursive: true, force: true });

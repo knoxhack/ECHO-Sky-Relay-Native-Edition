@@ -67,7 +67,9 @@ dimensions at least 640x360. Save snapshots must be ZIP archives with at least
 one entry. Text and log files must be non-empty. Logs must not contain blocking
 crash or corruption signatures such as `crash report`, `fatal`,
 `uncaught exception`, `unhandled exception`, `exception in thread`, Java stack
-trace lines, `failed to load world`, or world/save corruption markers.
+trace lines, `failed to load world`, or world/save corruption markers. Logs must
+also include the same pack ID, release tag, artifact asset name, artifact
+SHA-256, and artifact byte size recorded in the `run` object.
 
 The local verifier records byte size and SHA-256 for every accepted evidence
 file. Screenshot entries also include PNG dimensions, so the Release Index handoff
