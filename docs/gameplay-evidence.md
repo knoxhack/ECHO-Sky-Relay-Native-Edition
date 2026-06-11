@@ -44,6 +44,9 @@ Release-ready sessions must be chronological: every session starts at or after
 starts after Signal Crown; no-crash review starts after save/reload.
 Each session's `durationMinutes` must match its start/end timestamps within one
 minute, and `generatedAt` must be after the recorded sessions have ended.
+Notes, screenshots, logs, and save snapshots must not be copied placeholder
+content reused under different filenames; each accepted evidence file must have
+unique content within its group.
 
 Do not leave `TBD` values or `1970-01-01T...` template timestamps in release-ready
 evidence.

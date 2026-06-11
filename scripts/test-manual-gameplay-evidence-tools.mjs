@@ -21,13 +21,19 @@ const noteTemplatePaths = [
 ];
 const pngSignature = Buffer.from('89504e470d0a1a0a', 'hex');
 
-function pngFixture(width = 1280, height = 720) {
+function pngFixture(width = 1280, height = 720, shade = 0) {
   const ihdr = Buffer.alloc(13);
   ihdr.writeUInt32BE(width, 0);
   ihdr.writeUInt32BE(height, 4);
   ihdr[8] = 8;
   ihdr[9] = 0;
   const rawScanlines = Buffer.alloc((width + 1) * height);
+  const pixel = shade & 0xff;
+  for (let row = 0; row < height; row += 1) {
+    const rowStart = row * (width + 1);
+    rawScanlines[rowStart] = 0;
+    rawScanlines.fill(pixel, rowStart + 1, rowStart + 1 + width);
+  }
   return Buffer.concat([
     pngSignature,
     pngChunk('IHDR', ihdr),
@@ -390,9 +396,11 @@ async function completeEvidence(root) {
   evidence.generatedAt = '2026-06-11T02:24:00Z';
 
   for (const relPath of evidence.supportingFiles) await writeText(root, relPath, noteFixture(relPath));
-  for (const relPath of evidence.screenshots) await writeBytes(root, relPath, pngFixture());
+  for (const [index, relPath] of evidence.screenshots.entries()) await writeBytes(root, relPath, pngFixture(1280, 720, index + 1));
   for (const relPath of evidence.logs) await writeText(root, relPath, logFixture(evidence, relPath));
-  for (const relPath of evidence.saveSnapshots) await writeBytes(root, relPath, zipFixture());
+  for (const [index, relPath] of evidence.saveSnapshots.entries()) {
+    await writeBytes(root, relPath, zipFixture('save/level.dat', `fixture save snapshot ${index + 1}: ${relPath}\n`));
+  }
 
   await fs.writeFile(filePath, `${JSON.stringify(evidence, null, 2)}\n`, 'utf8');
 }
@@ -494,6 +502,22 @@ try {
   assert.match(`${earlyGenerated.stdout}\n${earlyGenerated.stderr}`, /generatedAt must be at or after manualEvidence\.sessions\.signal_crown_completion\.endedAt/u);
 
   await completeEvidence(tmp);
+  await writeBytes(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-30-minutes.png', pngFixture(1280, 720, 1));
+  const duplicateScreenshot = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(duplicateScreenshot.status, 1);
+  assert.match(`${duplicateScreenshot.stdout}\n${duplicateScreenshot.stderr}`, /manualEvidence\.screenshots must contain unique file content/u);
+
+  await completeEvidence(tmp);
+  await writeBytes(
+    tmp,
+    'fixtures/sky-relay/gameplay-qa/evidence/saves/first-2-hours-save.zip',
+    zipFixture('save/level.dat', 'fixture save snapshot 1: fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip\n')
+  );
+  const duplicateSaveSnapshot = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(duplicateSaveSnapshot.status, 1);
+  assert.match(`${duplicateSaveSnapshot.stdout}\n${duplicateSaveSnapshot.stderr}`, /manualEvidence\.saveSnapshots must contain unique file content/u);
+
+  await completeEvidence(tmp);
   const firstNotePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';
   await writeText(tmp, firstNotePath, noteFixture(firstNotePath).replace('- Tester: test fixture', '- Tester:'));
   const blankField = run(verifyScript, tmp, ['--require-release-ready']);
@@ -540,6 +564,7 @@ try {
   assert.ok(readyReport.manualEvidence.checked.supportingFiles[0].size > 100);
   assert.ok(readyReport.manualEvidence.checked.screenshots[0].size > 33);
   assert.match(readyReport.manualEvidence.checked.screenshots[0].sha256, /^[a-f0-9]{64}$/u);
+  assert.equal(new Set(readyReport.manualEvidence.checked.screenshots.map((screenshot) => screenshot.sha256)).size, 4);
   assert.deepEqual(readyReport.manualEvidence.checked.screenshots[0].dimensions, { width: 1280, height: 720 });
   assert.equal(readyReport.manualEvidence.checked.screenshots[0].idatChunks, 1);
   assert.ok(readyReport.manualEvidence.checked.screenshots[0].chunks >= 3);
@@ -547,6 +572,7 @@ try {
   assert.ok(readyReport.manualEvidence.checked.logs[0].lineCount >= 1);
   assert.deepEqual(readyReport.manualEvidence.checked.logs[0].provenanceMatches, ['packId', 'releaseTag', 'artifactAsset', 'artifactSha256', 'artifactSize']);
   assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 1);
+  assert.equal(new Set(readyReport.manualEvidence.checked.saveSnapshots.map((snapshot) => snapshot.sha256)).size, 3);
 } finally {
   await fs.rm(tmp, { recursive: true, force: true });
 }

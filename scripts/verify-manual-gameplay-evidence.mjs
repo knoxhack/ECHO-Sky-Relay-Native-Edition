@@ -707,6 +707,18 @@ async function validateFileList({ root, label, values, minItems, requiredPattern
   return checked;
 }
 
+function validateUniqueCheckedHashes({ label, records, blockers }) {
+  const seen = new Map();
+  for (const record of records) {
+    const existingPath = seen.get(record.sha256);
+    if (existingPath) {
+      blockers.push(`${label} must contain unique file content; ${record.path} matches ${existingPath}.`);
+    } else {
+      seen.set(record.sha256, record.path);
+    }
+  }
+}
+
 function validateCommonEvidenceShape({ root, manifest, evidence, label, blockers }) {
   if (evidence.schemaVersion !== 'echo.skyrelay.gameplay-qa.manual.v1') {
     blockers.push(`${label} schemaVersion must be echo.skyrelay.gameplay-qa.manual.v1.`);
@@ -791,6 +803,7 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
       validateMarkdownNote({ text, relPath, label, index, blockers: fileBlockers });
     }
   });
+  validateUniqueCheckedHashes({ label: 'manualEvidence.supportingFiles', records: result.checked.supportingFiles, blockers });
   result.checked.screenshots = await validateFileList({
     root,
     label: 'manualEvidence.screenshots',
@@ -811,6 +824,7 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
       return pngInfo;
     }
   });
+  validateUniqueCheckedHashes({ label: 'manualEvidence.screenshots', records: result.checked.screenshots, blockers });
   result.checked.logs = await validateFileList({
     root,
     label: 'manualEvidence.logs',
@@ -836,6 +850,7 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
       });
     }
   });
+  validateUniqueCheckedHashes({ label: 'manualEvidence.logs', records: result.checked.logs, blockers });
   result.checked.saveSnapshots = await validateFileList({
     root,
     label: 'manualEvidence.saveSnapshots',
@@ -852,6 +867,7 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
       return zipInfo;
     }
   });
+  validateUniqueCheckedHashes({ label: 'manualEvidence.saveSnapshots', records: result.checked.saveSnapshots, blockers });
 
   return result;
 }
