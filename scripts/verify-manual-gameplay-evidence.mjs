@@ -6,6 +6,7 @@ import process from 'node:process';
 
 const DEFAULT_EVIDENCE = 'fixtures/sky-relay/gameplay-qa/manual-evidence.json';
 const DEFAULT_TEMPLATE = 'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json';
+const TEMPLATE_MARKER = 'ECHO_SKY_RELAY_TEMPLATE_ONLY';
 const PNG_SIGNATURE = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 const ZIP_SIGNATURES = [
   Buffer.from([0x50, 0x4b, 0x03, 0x04]),
@@ -280,7 +281,13 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
     values: evidence.supportingFiles,
     minItems: 4,
     requiredPatterns: REQUIRED_SUPPORTING_PATTERNS,
-    blockers
+    blockers,
+    fileValidator: async ({ filePath, relPath, blockers: fileBlockers, label, index }) => {
+      const text = await fs.readFile(filePath, 'utf8');
+      if (text.includes(TEMPLATE_MARKER)) {
+        fileBlockers.push(`${label}[${index}] target still contains template marker ${TEMPLATE_MARKER}: ${relPath}`);
+      }
+    }
   });
   result.checked.screenshots = await validateFileList({
     root,

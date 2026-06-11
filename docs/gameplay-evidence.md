@@ -49,6 +49,10 @@ Initialize the evidence capture layout before the manual run:
 node scripts\init-manual-gameplay-evidence.mjs
 ```
 
+The initializer also creates Markdown worksheets for the required notes. These
+files start with `ECHO_SKY_RELAY_TEMPLATE_ONLY`; the verifier rejects that marker
+until the worksheet is replaced with real playthrough observations.
+
 Before sending evidence to the Release Index, run the local edition verifier:
 
 ```powershell

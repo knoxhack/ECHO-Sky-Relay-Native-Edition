@@ -6,6 +6,7 @@ import process from 'node:process';
 const DEFAULT_TEMPLATE = 'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json';
 const DEFAULT_EVIDENCE = 'fixtures/sky-relay/gameplay-qa/manual-evidence.json';
 const PATH_GROUPS = ['supportingFiles', 'screenshots', 'logs', 'saveSnapshots'];
+const NOTE_TEMPLATE_ROOT = 'fixtures/sky-relay/gameplay-qa/evidence/templates';
 
 function usage() {
   return `Usage: node scripts/init-manual-gameplay-evidence.mjs [options]
@@ -79,6 +80,13 @@ function uniqueSorted(values) {
   return [...new Set(values)].sort((left, right) => left.localeCompare(right));
 }
 
+function noteTemplateFor(relPath) {
+  const normalized = relPath.replace(/\\/g, '/');
+  if (!normalized.endsWith('.md')) return null;
+  const parsed = path.posix.parse(normalized);
+  return `${NOTE_TEMPLATE_ROOT}/${parsed.name}.template.md`;
+}
+
 function evidenceFromTemplate(template) {
   const claims = {};
   for (const [claim] of Object.entries(template.claims ?? {})) claims[claim] = false;
@@ -104,6 +112,7 @@ async function buildPlan(args) {
   }
 
   const directories = [];
+  const noteFiles = [];
   for (const group of PATH_GROUPS) {
     if (!Array.isArray(template[group])) {
       blockers.push(`Template ${group} must be an array.`);
@@ -116,6 +125,26 @@ async function buildPlan(args) {
         continue;
       }
       directories.push(path.relative(root, path.dirname(resolved.target)).replace(/\\/g, '/'));
+      if (group === 'supportingFiles') {
+        const templateRel = noteTemplateFor(relPath);
+        if (!templateRel) continue;
+        const templateResolved = resolveInside(root, templateRel);
+        if (templateResolved.error) {
+          blockers.push(`Note template path must stay inside the repo: ${templateRel}`);
+          continue;
+        }
+        if (!(await fileExists(templateResolved.target))) {
+          blockers.push(`Missing note template for ${relPath}: ${templateRel}`);
+          continue;
+        }
+        const targetExists = await fileExists(resolved.target);
+        noteFiles.push({
+          path: relPath,
+          template: templateRel,
+          exists: targetExists,
+          willWrite: !targetExists
+        });
+      }
     }
   }
 
@@ -130,6 +159,7 @@ async function buildPlan(args) {
     template,
     blockers,
     directories: uniqueSorted(directories),
+    noteFiles,
     evidenceTarget: evidencePath.target,
     evidenceExists,
     willWriteEvidence
@@ -153,12 +183,20 @@ async function main() {
     evidenceExists: plan.evidenceExists,
     willWriteEvidence: plan.willWriteEvidence,
     directories: plan.directories,
+    noteFiles: plan.noteFiles,
     blockers: plan.blockers
   };
 
   if (!args.dryRun && report.status === 'PASS') {
     for (const directory of plan.directories) {
       await fs.mkdir(path.join(plan.root, directory), { recursive: true });
+    }
+    for (const noteFile of plan.noteFiles) {
+      if (!noteFile.willWrite) continue;
+      const target = resolveInside(plan.root, noteFile.path);
+      const source = resolveInside(plan.root, noteFile.template);
+      await fs.mkdir(path.dirname(target.target), { recursive: true });
+      await fs.copyFile(source.target, target.target);
     }
     if (plan.willWriteEvidence) {
       await fs.mkdir(path.dirname(plan.evidenceTarget), { recursive: true });

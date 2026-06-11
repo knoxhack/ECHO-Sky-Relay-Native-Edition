@@ -20,7 +20,11 @@ const requiredDocs = [
   'docs/troubleshooting.md',
   `evidence/${manifest.runtimeTarget === 'echo_native' ? 'native' : manifest.runtimeTarget === 'neoforge' ? 'neoforge' : 'standalone'}-harness-driver-manifest.template.json`,
   'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json',
-  'fixtures/sky-relay/gameplay-qa/evidence/CAPTURE_CHECKLIST.md'
+  'fixtures/sky-relay/gameplay-qa/evidence/CAPTURE_CHECKLIST.md',
+  'fixtures/sky-relay/gameplay-qa/evidence/templates/first-30-minutes-notes.template.md',
+  'fixtures/sky-relay/gameplay-qa/evidence/templates/first-2-hours-notes.template.md',
+  'fixtures/sky-relay/gameplay-qa/evidence/templates/signal-crown-verification.template.md',
+  'fixtures/sky-relay/gameplay-qa/evidence/templates/no-crash-review.template.md'
 ];
 
 if (!manifest.packId?.startsWith('sky-relay-')) fail('packId must start with sky-relay-.');
