@@ -39,6 +39,18 @@ files. Text and log files must be non-empty.
 
 ## Verification
 
+Before sending evidence to the Release Index, run the local edition verifier:
+
+```powershell
+node scripts\verify-manual-gameplay-evidence.mjs --require-release-ready
+```
+
+CI also runs the same verifier in template mode:
+
+```powershell
+node scripts\verify-manual-gameplay-evidence.mjs --template-only
+```
+
 After replacing the template with real evidence, run from
 `ECHO-Release-Index`:
 

@@ -8,6 +8,7 @@ const fail = (message) => { throw new Error(message); };
 
 const requiredDocs = [
   'README.md',
+  'scripts/verify-manual-gameplay-evidence.mjs',
   'docs/install.md',
   'docs/update-flow.md',
   'docs/rollback.md',
