@@ -1,0 +1,57 @@
+name: Edition Audit
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate edition manifest and docs
+        run: node scripts/validate-sky-relay-edition.mjs
+
+      - name: Validate gameplay evidence template
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          const manifest = JSON.parse(fs.readFileSync('release-manifest.template.json', 'utf8'));
+          const evidence = JSON.parse(fs.readFileSync('fixtures/sky-relay/gameplay-qa/manual-evidence.template.json', 'utf8'));
+          const requiredClaims = [
+            'realFirst30Playthrough',
+            'realFirst2HourPlaythrough',
+            'realSignalCrownPlaythrough',
+            'freshWorldCreated',
+            'saveReloadVerified',
+            'noCrashEvidence'
+          ];
+
+          if (evidence.schemaVersion !== 'echo.skyrelay.gameplay-qa.manual.v1') {
+            throw new Error(`Unexpected evidence schema ${evidence.schemaVersion}.`);
+          }
+          if (evidence.packId !== manifest.packId) {
+            throw new Error(`Evidence packId ${evidence.packId} does not match manifest ${manifest.packId}.`);
+          }
+          for (const claim of requiredClaims) {
+            if (evidence.claims?.[claim] !== false) {
+              throw new Error(`Template claim ${claim} must remain false until real manual evidence is captured.`);
+            }
+          }
+          for (const group of ['supportingFiles', 'screenshots', 'logs', 'saveSnapshots']) {
+            if (!Array.isArray(evidence[group]) || evidence[group].length === 0) {
+              throw new Error(`Evidence template must define ${group}.`);
+            }
+          }
+
+          console.log(JSON.stringify({ ok: true, packId: evidence.packId }, null, 2));
+          NODE
