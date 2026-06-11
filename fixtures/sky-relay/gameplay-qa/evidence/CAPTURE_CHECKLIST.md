@@ -59,6 +59,14 @@ This file is a checklist, not release evidence. Do not list it in
 - Update the `signal_crown_completion` session with real start/end timestamps,
   duration, and matching evidence paths.
 
+## Save Reload Verification
+
+- Close and reopen the world/profile after the first-30, first-2-hours, and
+  Signal Crown save snapshots have been created.
+- Confirm each save snapshot opens or imports successfully.
+- Update the `save_reload_verification` session with real review timestamps and
+  links to all three save snapshots plus the client log.
+
 ## Final Review
 
 - Record the client playthrough log at

@@ -43,7 +43,13 @@ for (const doc of requiredDocs) {
 }
 
 const template = JSON.parse(fs.readFileSync(path.join(root, 'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json'), 'utf8'));
-const requiredSessionIds = ['first_30_minutes', 'first_2_hours', 'signal_crown_completion', 'no_crash_review'];
+const requiredSessionIds = [
+  'first_30_minutes',
+  'first_2_hours',
+  'signal_crown_completion',
+  'save_reload_verification',
+  'no_crash_review'
+];
 if (template.run?.releaseTag !== releaseTagByPackId[manifest.packId]) {
   fail('manual evidence template run.releaseTag must match the edition public alpha tag.');
 }

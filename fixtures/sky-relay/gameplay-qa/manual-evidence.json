@@ -84,10 +84,23 @@
       }
     },
     {
-      "id": "no_crash_review",
-      "claim": "noCrashEvidence",
+      "id": "save_reload_verification",
+      "claim": "saveReloadVerified",
       "startedAt": "1970-01-01T02:01:00Z",
       "endedAt": "1970-01-01T02:02:00Z",
+      "durationMinutes": 1,
+      "evidence": {
+        "first30SaveSnapshot": "fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip",
+        "first2HourSaveSnapshot": "fixtures/sky-relay/gameplay-qa/evidence/saves/first-2-hours-save.zip",
+        "signalCrownSaveSnapshot": "fixtures/sky-relay/gameplay-qa/evidence/saves/signal-crown-save.zip",
+        "clientLog": "fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log"
+      }
+    },
+    {
+      "id": "no_crash_review",
+      "claim": "noCrashEvidence",
+      "startedAt": "1970-01-01T02:02:00Z",
+      "endedAt": "1970-01-01T02:03:00Z",
       "durationMinutes": 1,
       "evidence": {
         "notes": "fixtures/sky-relay/gameplay-qa/evidence/no-crash-review.md",

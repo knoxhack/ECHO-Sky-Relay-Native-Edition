@@ -30,6 +30,8 @@ Fill the `sessions` array with these required records:
   screenshot, save snapshot, and client log.
 - `signal_crown_completion`: linked to Signal Crown notes, screenshot, save
   snapshot, and client log.
+- `save_reload_verification`: linked to the first-30, first-2-hour, and Signal
+  Crown save snapshots plus the client log.
 - `no_crash_review`: linked to the no-crash review, client log, and launcher
   install log.
 

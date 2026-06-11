@@ -109,6 +109,17 @@ const REQUIRED_SESSIONS = [
     }
   },
   {
+    id: 'save_reload_verification',
+    claim: 'saveReloadVerified',
+    minDurationMinutes: 1,
+    evidence: {
+      first30SaveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[0] },
+      first2HourSaveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[1] },
+      signalCrownSaveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[2] },
+      clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] }
+    }
+  },
+  {
     id: 'no_crash_review',
     claim: 'noCrashEvidence',
     minDurationMinutes: 1,
