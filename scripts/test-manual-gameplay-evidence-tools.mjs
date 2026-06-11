@@ -56,6 +56,65 @@ async function writeText(root, relPath, value = 'test fixture\n') {
   await fs.writeFile(filePath, value, 'utf8');
 }
 
+function noteFixture(relPath) {
+  if (relPath.includes('no-crash')) {
+    return `# No Crash Review
+
+## Reviewed Files
+
+- Client playthrough log: client-playthrough.log reviewed
+- Launcher install log: launcher-install.log reviewed
+- Save snapshots: all snapshots opened
+- Screenshots: all screenshots reviewed
+
+## Required Checks
+
+- No blocking crash: confirmed
+- No world corruption: confirmed
+- Save reload verified: confirmed
+- Fresh world/profile confirmed: confirmed
+- Known non-blocking warnings: none
+
+## Reviewer Notes
+
+- Reviewer: test fixture
+- Date: 2026-06-11
+- Decision: pass
+- Follow-up: none
+`;
+  }
+  const routeSection = relPath.includes('signal-crown') ? 'Required Completion Checks' : 'Required Route Checks';
+  return `# Gameplay Notes
+
+## Run Identity
+
+- Pack: sky-relay-test-edition
+- Release tag: sky-relay-test-0.1.0-alpha
+- Tester: test fixture
+- Date: 2026-06-11
+- World or profile: fixture-world
+
+## ${routeSection}
+
+- Gate reached: confirmed
+- Terminal state: confirmed
+- Lens scan state: confirmed
+- Save state: confirmed
+
+## Evidence Links
+
+- Screenshot: fixture.png
+- Save snapshot: fixture.zip
+- Client log: client-playthrough.log
+
+## Notes
+
+- Observations: fixture observations recorded
+- Issues: none
+- Follow-up: none
+`;
+}
+
 async function writeBytes(root, relPath, value) {
   const filePath = path.join(root, relPath);
   await fs.mkdir(path.dirname(filePath), { recursive: true });
@@ -67,7 +126,7 @@ async function completeEvidence(root) {
   const evidence = JSON.parse(await fs.readFile(filePath, 'utf8'));
   for (const claim of Object.keys(evidence.claims)) evidence.claims[claim] = true;
 
-  for (const relPath of evidence.supportingFiles) await writeText(root, relPath);
+  for (const relPath of evidence.supportingFiles) await writeText(root, relPath, noteFixture(relPath));
   for (const relPath of evidence.screenshots) await writeBytes(root, relPath, pngFixture());
   for (const relPath of evidence.logs) await writeText(root, relPath);
   for (const relPath of evidence.saveSnapshots) await writeBytes(root, relPath, zipFixture);
@@ -109,12 +168,24 @@ try {
   assert.match(`${blocked.stdout}\n${blocked.stderr}`, /template marker ECHO_SKY_RELAY_TEMPLATE_ONLY/u);
 
   await completeEvidence(tmp);
+  const firstNotePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';
+  await writeText(tmp, firstNotePath, noteFixture(firstNotePath).replace('- Tester: test fixture', '- Tester:'));
+  const blankField = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(blankField.status, 1);
+  assert.match(`${blankField.stdout}\n${blankField.stderr}`, /blank worksheet fields/u);
+
+  await writeText(tmp, firstNotePath, noteFixture(firstNotePath).replace('## Evidence Links\n\n', ''));
+  const missingSection = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(missingSection.status, 1);
+  assert.match(`${missingSection.stdout}\n${missingSection.stderr}`, /missing section ## Evidence Links/u);
+
+  await writeText(tmp, firstNotePath, noteFixture(firstNotePath));
   const ready = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(ready.status, 0, `${ready.stdout}\n${ready.stderr}`);
   const readyReport = JSON.parse(ready.stdout);
   assert.equal(readyReport.status, 'PASS');
   assert.match(readyReport.manualEvidence.checked.supportingFiles[0].sha256, /^[a-f0-9]{64}$/u);
-  assert.equal(readyReport.manualEvidence.checked.supportingFiles[0].size, 13);
+  assert.ok(readyReport.manualEvidence.checked.supportingFiles[0].size > 100);
   assert.equal(readyReport.manualEvidence.checked.screenshots[0].size, 33);
   assert.match(readyReport.manualEvidence.checked.screenshots[0].sha256, /^[a-f0-9]{64}$/u);
   assert.deepEqual(readyReport.manualEvidence.checked.screenshots[0].dimensions, { width: 1280, height: 720 });
