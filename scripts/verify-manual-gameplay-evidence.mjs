@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
@@ -121,6 +122,10 @@ async function fileSize(filePath) {
   return (await fs.stat(filePath)).size;
 }
 
+async function sha256File(filePath) {
+  return crypto.createHash('sha256').update(await fs.readFile(filePath)).digest('hex');
+}
+
 async function fileStartsWith(filePath, signatures) {
   const longest = Math.max(...signatures.map((signature) => signature.length));
   const handle = await fs.open(filePath, 'r');
@@ -186,12 +191,21 @@ async function validateFileList({ root, label, values, minItems, requiredPattern
       blockers.push(`${label}[${index}] target does not exist: ${relPath}`);
       continue;
     }
-    if ((await fileSize(resolved.target)) < 1) {
+    const size = await fileSize(resolved.target);
+    if (size < 1) {
       blockers.push(`${label}[${index}] target must be at least 1 byte: ${relPath}`);
       continue;
     }
-    if (fileValidator) await fileValidator({ filePath: resolved.target, relPath, blockers, label, index });
-    checked.push(normalizeRel(relPath));
+    const record = {
+      path: normalizeRel(relPath),
+      size,
+      sha256: await sha256File(resolved.target)
+    };
+    if (fileValidator) {
+      const metadata = await fileValidator({ filePath: resolved.target, relPath, blockers, label, index });
+      if (metadata) Object.assign(record, metadata);
+    }
+    checked.push(record);
   }
   return checked;
 }
@@ -283,7 +297,9 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
       const dimensions = await pngDimensions(filePath);
       if (!dimensions || dimensions.width < 640 || dimensions.height < 360) {
         fileBlockers.push(`${label}[${index}] PNG dimensions must be at least 640x360: ${relPath}`);
+        return null;
       }
+      return { dimensions };
     }
   });
   result.checked.logs = await validateFileList({

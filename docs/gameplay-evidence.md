@@ -37,6 +37,10 @@ that match the same patterns:
 Screenshots must be PNG files at least 640x360. Save snapshots must be ZIP
 files. Text and log files must be non-empty.
 
+The local verifier records byte size and SHA-256 for every accepted evidence
+file. Screenshot entries also include PNG dimensions, so the Release Index handoff
+can identify the exact notes, logs, screenshots, and save snapshots reviewed.
+
 ## Verification
 
 Initialize the evidence capture layout before the manual run:

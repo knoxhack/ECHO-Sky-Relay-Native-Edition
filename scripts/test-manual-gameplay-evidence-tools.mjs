@@ -95,6 +95,11 @@ try {
   assert.equal(ready.status, 0, `${ready.stdout}\n${ready.stderr}`);
   const readyReport = JSON.parse(ready.stdout);
   assert.equal(readyReport.status, 'PASS');
+  assert.match(readyReport.manualEvidence.checked.supportingFiles[0].sha256, /^[a-f0-9]{64}$/u);
+  assert.equal(readyReport.manualEvidence.checked.supportingFiles[0].size, 13);
+  assert.equal(readyReport.manualEvidence.checked.screenshots[0].size, 33);
+  assert.match(readyReport.manualEvidence.checked.screenshots[0].sha256, /^[a-f0-9]{64}$/u);
+  assert.deepEqual(readyReport.manualEvidence.checked.screenshots[0].dimensions, { width: 1280, height: 720 });
 } finally {
   await fs.rm(tmp, { recursive: true, force: true });
 }
