@@ -80,7 +80,9 @@ The initializer also creates Markdown worksheets for the required notes. These
 files start with `ECHO_SKY_RELAY_TEMPLATE_ONLY`; the verifier rejects that marker
 until the worksheet is replaced with real playthrough observations.
 Keep the worksheet section headings and fill every `- Field:` line; blank
-worksheet fields are blocked.
+worksheet fields are blocked. Each worksheet must also mention the gameplay
+objects and actions named by its checklist, such as `relay_anchor_key`,
+`hydroponics_deck`, `weather_mast`, and `sky_relay_badge` where applicable.
 
 Before sending evidence to the Release Index, run the local edition verifier:
 

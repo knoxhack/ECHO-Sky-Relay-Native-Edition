@@ -56,23 +56,40 @@ const REQUIRED_SAVE_PATTERNS = [
 const NOTE_SECTION_REQUIREMENTS = [
   {
     pattern: /(^|\/)fresh[-_]?world[^/]*\.md$/iu,
-    sections: ['## Run Identity', '## Required Fresh World Checks', '## Evidence Links', '## Notes']
+    sections: ['## Run Identity', '## Required Fresh World Checks', '## Evidence Links', '## Notes'],
+    terms: ['public alpha', 'new sky relay', 'no existing save', 'initial spawn', 'damaged relay core']
   },
   {
     pattern: /(^|\/)first[-_]?30[-_]?minutes[^/]*\.md$/iu,
-    sections: ['## Run Identity', '## Required Route Checks', '## Evidence Links', '## Notes']
+    sections: ['## Run Identity', '## Required Route Checks', '## Evidence Links', '## Notes'],
+    terms: ['damaged relay core', 'terminal', 'lens', 'hand crank', 'small battery', 'relay_anchor_key', 'hydroponics_deck']
   },
   {
     pattern: /(^|\/)first[-_]?2[-_]?hours[^/]*\.md$/iu,
-    sections: ['## Run Identity', '## Required Route Checks', '## Evidence Links', '## Notes']
+    sections: ['## Run Identity', '## Required Route Checks', '## Evidence Links', '## Notes'],
+    terms: [
+      'food',
+      'water',
+      'atmospheric_condenser',
+      'aero_salvage_yard',
+      'relay_alloy_plate',
+      'storm_shield_pylon',
+      'solar_wing',
+      'logistics',
+      'weather_mast',
+      'severe storm',
+      'stabilized_platform_core'
+    ]
   },
   {
     pattern: /(^|\/)signal[-_]?crown[^/]*\.md$/iu,
-    sections: ['## Run Identity', '## Required Completion Checks', '## Evidence Links', '## Notes']
+    sections: ['## Run Identity', '## Required Completion Checks', '## Evidence Links', '## Notes'],
+    terms: ['stabilized platform core', 'relay_signal_array', 'storm shield', 'logistics', 'orbital alloy', 'terminal restoration', 'sky_relay_badge']
   },
   {
     pattern: /(^|\/)no[-_]?crash[^/]*\.md$/iu,
-    sections: ['## Reviewed Files', '## Required Checks', '## Reviewer Notes']
+    sections: ['## Reviewed Files', '## Required Checks', '## Reviewer Notes'],
+    terms: ['client playthrough log', 'launcher install log', 'no blocking crash', 'no world corruption', 'save reload', 'fresh world', 'known non-blocking warnings']
   }
 ];
 
@@ -353,10 +370,25 @@ function validateMarkdownNote({ text, relPath, label, index, blockers }) {
       blockers.push(`${label}[${index}] target is missing section ${section}: ${relPath}`);
     }
   }
+  const normalizedText = normalizeNoteText(text);
+  for (const term of requirement.terms ?? []) {
+    if (!normalizedText.includes(normalizeNoteText(term))) {
+      blockers.push(`${label}[${index}] target is missing required note term "${term}": ${relPath}`);
+    }
+  }
   if (BLANK_NOTE_FIELD.test(text)) {
     blockers.push(`${label}[${index}] target still contains blank worksheet fields: ${relPath}`);
   }
   BLANK_NOTE_FIELD.lastIndex = 0;
+}
+
+function normalizeNoteText(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/[`*_]/gu, ' ')
+    .replace(/[-/]+/gu, ' ')
+    .replace(/\s+/gu, ' ')
+    .trim();
 }
 
 function validateRunIdentity({ manifest, evidence, label, blockers, requireReal }) {

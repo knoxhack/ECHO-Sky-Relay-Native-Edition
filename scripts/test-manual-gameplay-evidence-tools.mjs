@@ -161,6 +161,7 @@ function noteFixture(relPath) {
     : relPath.includes('signal-crown')
       ? 'Required Completion Checks'
       : 'Required Route Checks';
+  const checks = noteChecks(relPath);
   return `# Gameplay Notes
 
 ## Run Identity
@@ -173,10 +174,7 @@ function noteFixture(relPath) {
 
 ## ${routeSection}
 
-- Gate reached: confirmed
-- Terminal state: confirmed
-- Lens scan state: confirmed
-- Save state: confirmed
+${checks.map((line) => `- ${line}: confirmed`).join('\n')}
 
 ## Evidence Links
 
@@ -190,6 +188,53 @@ function noteFixture(relPath) {
 - Issues: none
 - Follow-up: none
 `;
+}
+
+function noteChecks(relPath) {
+  if (relPath.includes('fresh-world')) {
+    return [
+      'Public alpha package installed from launcher',
+      'New Sky Relay profile or world created',
+      'No existing save or copied world used',
+      'Initial spawn loaded successfully',
+      'Damaged Relay Core visible or reachable'
+    ];
+  }
+  if (relPath.includes('first-30')) {
+    return [
+      'Damaged Relay Core reached',
+      'Terminal relay status opened',
+      'Lens scan completed',
+      'Hand crank restored',
+      'Small battery power restored',
+      'relay_anchor_key claimed',
+      'hydroponics_deck revealed and attached'
+    ];
+  }
+  if (relPath.includes('first-2')) {
+    return [
+      'Food stabilized',
+      'Water stabilized',
+      'atmospheric_condenser built',
+      'aero_salvage_yard attached',
+      'relay_alloy_plate processed',
+      'storm_shield_pylon built',
+      'solar_wing attached',
+      'Logistics route started',
+      'weather_mast unlocked',
+      'Severe storm survived',
+      'stabilized_platform_core crafted'
+    ];
+  }
+  return [
+    'Stabilized platform core restored',
+    'relay_signal_array online',
+    'Storm shield network confirmed',
+    'Logistics route confirmed',
+    'Orbital alloy components collected',
+    'Terminal restoration sequence completed',
+    'sky_relay_badge awarded'
+  ];
 }
 
 function releaseTagFor(packId) {
@@ -387,6 +432,11 @@ try {
   const missingSection = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(missingSection.status, 1);
   assert.match(`${missingSection.stdout}\n${missingSection.stderr}`, /missing section ## Evidence Links/u);
+
+  await writeText(tmp, firstNotePath, noteFixture(firstNotePath).replace('hydroponics_deck revealed and attached', 'garden deck revealed and attached'));
+  const missingNoteTerm = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(missingNoteTerm.status, 1);
+  assert.match(`${missingNoteTerm.stdout}\n${missingNoteTerm.stderr}`, /missing required note term.*hydroponics_deck/u);
 
   await completeEvidence(tmp);
   await writeBytes(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png', pngHeaderOnlyFixture());
