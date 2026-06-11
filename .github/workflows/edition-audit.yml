@@ -1,0 +1,30 @@
+name: Edition Audit
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate edition manifest and docs
+        run: node scripts/validate-sky-relay-edition.mjs
+
+      - name: Validate gameplay evidence template
+        run: node scripts/verify-manual-gameplay-evidence.mjs --template-only
+
+      - name: Validate evidence capture initializer
+        run: node scripts/init-manual-gameplay-evidence.mjs --dry-run
+
+      - name: Test gameplay evidence tooling
+        run: node scripts/test-manual-gameplay-evidence-tools.mjs
