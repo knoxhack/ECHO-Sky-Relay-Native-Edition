@@ -40,6 +40,9 @@
   "run": {
     "tester": "TBD",
     "releaseTag": "sky-relay-native-0.1.0-alpha",
+    "artifactAsset": "sky-relay-native-edition-0.1.0.zip",
+    "artifactSha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa",
+    "artifactSize": 39163330,
     "launcherChannel": "alpha",
     "worldOrProfile": "TBD",
     "installedFrom": "ECHO Launcher",

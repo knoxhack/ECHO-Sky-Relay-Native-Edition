@@ -11,6 +11,23 @@ const releaseTagByPackId = {
   'sky-relay-neoforge-edition': 'sky-relay-neoforge-0.1.0-alpha',
   'sky-relay-standalone-edition': 'sky-relay-standalone-0.1.0-alpha'
 };
+const artifactByPackId = {
+  'sky-relay-native-edition': {
+    artifactAsset: 'sky-relay-native-edition-0.1.0.zip',
+    artifactSha256: '8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa',
+    artifactSize: 39163330
+  },
+  'sky-relay-neoforge-edition': {
+    artifactAsset: 'sky-relay-neoforge-edition-0.1.0.zip',
+    artifactSha256: '04fde5ab03cd89ee3717a90491d818de2659cf77cfc5ea9b0e1ad43e64a9ca7b',
+    artifactSize: 40132235
+  },
+  'sky-relay-standalone-edition': {
+    artifactAsset: 'sky-relay-standalone-edition-0.1.0.zip',
+    artifactSha256: '93c7ae635467138c2b0e594d18de535ee7a25075e361e64c111b2505d84f8cf2',
+    artifactSize: 40131817
+  }
+};
 
 const requiredDocs = [
   'README.md',
@@ -52,6 +69,11 @@ const requiredSessionIds = [
 ];
 if (template.run?.releaseTag !== releaseTagByPackId[manifest.packId]) {
   fail('manual evidence template run.releaseTag must match the edition public alpha tag.');
+}
+for (const [field, expected] of Object.entries(artifactByPackId[manifest.packId] ?? {})) {
+  if (template.run?.[field] !== expected) {
+    fail(`manual evidence template run.${field} must match the edition public alpha artifact.`);
+  }
 }
 if (template.run?.launcherChannel !== 'alpha') fail('manual evidence template run.launcherChannel must be alpha.');
 if (!Array.isArray(template.sessions)) fail('manual evidence template sessions must be an array.');

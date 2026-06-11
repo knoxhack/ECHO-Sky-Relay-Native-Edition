@@ -27,6 +27,24 @@ const RELEASE_TAG_BY_PACK_ID = {
   'sky-relay-standalone-edition': 'sky-relay-standalone-0.1.0-alpha'
 };
 
+const EXPECTED_PUBLIC_ALPHA_ARTIFACT_BY_PACK_ID = {
+  'sky-relay-native-edition': {
+    artifactAsset: 'sky-relay-native-edition-0.1.0.zip',
+    artifactSha256: '8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa',
+    artifactSize: 39163330
+  },
+  'sky-relay-neoforge-edition': {
+    artifactAsset: 'sky-relay-neoforge-edition-0.1.0.zip',
+    artifactSha256: '04fde5ab03cd89ee3717a90491d818de2659cf77cfc5ea9b0e1ad43e64a9ca7b',
+    artifactSize: 40132235
+  },
+  'sky-relay-standalone-edition': {
+    artifactAsset: 'sky-relay-standalone-edition-0.1.0.zip',
+    artifactSha256: '93c7ae635467138c2b0e594d18de535ee7a25075e361e64c111b2505d84f8cf2',
+    artifactSize: 40131817
+  }
+};
+
 const REQUIRED_SUPPORTING_PATTERNS = [
   /(^|\/)fresh[-_]?world[^/]*\.md$/iu,
   /(^|\/)first[-_]?30[-_]?minutes[^/]*\.md$/iu,
@@ -429,6 +447,16 @@ function validateRunIdentity({ manifest, evidence, label, blockers, requireReal 
   const expectedTag = RELEASE_TAG_BY_PACK_ID[manifest.packId];
   if (expectedTag && evidence.run.releaseTag !== expectedTag) {
     blockers.push(`${label}.run.releaseTag must be ${expectedTag}.`);
+  }
+  const expectedArtifact = EXPECTED_PUBLIC_ALPHA_ARTIFACT_BY_PACK_ID[manifest.packId];
+  if (!expectedArtifact) {
+    blockers.push(`${label}.run expected public alpha artifact is not configured for ${manifest.packId}.`);
+  } else {
+    for (const [field, expected] of Object.entries(expectedArtifact)) {
+      if (evidence.run[field] !== expected) {
+        blockers.push(`${label}.run.${field} must be ${expected}.`);
+      }
+    }
   }
   if (evidence.run.launcherChannel !== 'alpha') {
     blockers.push(`${label}.run.launcherChannel must be alpha.`);

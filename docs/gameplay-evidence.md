@@ -19,8 +19,10 @@ Every claim must be true:
 ## Required Run Ledger
 
 Fill the `run` object in `manual-evidence.json` with the real tester,
-release tag, launcher channel, world or profile name, install path, and run
-start time. The release tag must match this edition's public alpha tag.
+release tag, public ZIP artifact name, artifact SHA-256, artifact byte size,
+launcher channel, world or profile name, install path, and run start time. The
+release tag and artifact identity must match this edition's public alpha
+release.
 
 Fill the `sessions` array with these required records:
 

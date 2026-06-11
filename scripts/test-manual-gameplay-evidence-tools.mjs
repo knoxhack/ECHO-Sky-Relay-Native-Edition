@@ -245,6 +245,26 @@ function releaseTagFor(packId) {
   }[packId];
 }
 
+function artifactFor(packId) {
+  return {
+    'sky-relay-native-edition': {
+      artifactAsset: 'sky-relay-native-edition-0.1.0.zip',
+      artifactSha256: '8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa',
+      artifactSize: 39163330
+    },
+    'sky-relay-neoforge-edition': {
+      artifactAsset: 'sky-relay-neoforge-edition-0.1.0.zip',
+      artifactSha256: '04fde5ab03cd89ee3717a90491d818de2659cf77cfc5ea9b0e1ad43e64a9ca7b',
+      artifactSize: 40132235
+    },
+    'sky-relay-standalone-edition': {
+      artifactAsset: 'sky-relay-standalone-edition-0.1.0.zip',
+      artifactSha256: '93c7ae635467138c2b0e594d18de535ee7a25075e361e64c111b2505d84f8cf2',
+      artifactSize: 40131817
+    }
+  }[packId];
+}
+
 function sessionFixture(evidence) {
   const supportingFiles = Object.fromEntries(evidence.supportingFiles.map((relPath) => [relPath, relPath]));
   const screenshots = Object.fromEntries(evidence.screenshots.map((relPath) => [relPath, relPath]));
@@ -347,6 +367,7 @@ async function completeEvidence(root) {
   evidence.run = {
     tester: 'test fixture',
     releaseTag: releaseTagFor(evidence.packId),
+    ...artifactFor(evidence.packId),
     launcherChannel: 'alpha',
     worldOrProfile: 'fixture-world',
     installedFrom: 'ECHO Launcher',
@@ -420,6 +441,14 @@ try {
   const shortSessionRun = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(shortSessionRun.status, 1);
   assert.match(`${shortSessionRun.stdout}\n${shortSessionRun.stderr}`, /first_30_minutes.*durationMinutes must be at least 30/u);
+
+  await completeEvidence(tmp);
+  const mismatchedArtifactEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  mismatchedArtifactEvidence.run.artifactSha256 = 'f'.repeat(64);
+  await fs.writeFile(path.join(tmp, evidencePath), `${JSON.stringify(mismatchedArtifactEvidence, null, 2)}\n`, 'utf8');
+  const mismatchedArtifact = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(mismatchedArtifact.status, 1);
+  assert.match(`${mismatchedArtifact.stdout}\n${mismatchedArtifact.stderr}`, /run\.artifactSha256 must be/u);
 
   await completeEvidence(tmp);
   const firstNotePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';
