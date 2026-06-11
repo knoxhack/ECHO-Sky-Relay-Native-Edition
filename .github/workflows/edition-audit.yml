@@ -25,3 +25,6 @@ jobs:
 
       - name: Validate evidence capture initializer
         run: node scripts/init-manual-gameplay-evidence.mjs --dry-run
+
+      - name: Test gameplay evidence tooling
+        run: node scripts/test-manual-gameplay-evidence-tools.mjs

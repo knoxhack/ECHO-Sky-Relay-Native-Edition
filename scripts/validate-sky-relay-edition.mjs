@@ -9,6 +9,7 @@ const fail = (message) => { throw new Error(message); };
 const requiredDocs = [
   'README.md',
   'scripts/init-manual-gameplay-evidence.mjs',
+  'scripts/test-manual-gameplay-evidence-tools.mjs',
   'scripts/verify-manual-gameplay-evidence.mjs',
   'docs/install.md',
   'docs/update-flow.md',

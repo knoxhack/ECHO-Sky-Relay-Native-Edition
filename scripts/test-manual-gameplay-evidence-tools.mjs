@@ -1,0 +1,102 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import process from 'node:process';
+
+const repoRoot = process.cwd();
+const initScript = path.join(repoRoot, 'scripts', 'init-manual-gameplay-evidence.mjs');
+const verifyScript = path.join(repoRoot, 'scripts', 'verify-manual-gameplay-evidence.mjs');
+const evidencePath = 'fixtures/sky-relay/gameplay-qa/manual-evidence.json';
+const templatePath = 'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json';
+const pngSignature = Buffer.from('89504e470d0a1a0a', 'hex');
+const zipFixture = Buffer.from([0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x00, 0x00]);
+
+function pngFixture(width = 1280, height = 720) {
+  const header = Buffer.alloc(33);
+  pngSignature.copy(header, 0);
+  header.writeUInt32BE(13, 8);
+  header.write('IHDR', 12, 'ascii');
+  header.writeUInt32BE(width, 16);
+  header.writeUInt32BE(height, 20);
+  header[24] = 8;
+  header[25] = 6;
+  return header;
+}
+
+function run(script, root, args = []) {
+  return spawnSync(process.execPath, [script, '--root', root, ...args], {
+    encoding: 'utf8',
+    windowsHide: true
+  });
+}
+
+async function copySeedFiles(root) {
+  await fs.mkdir(path.join(root, 'fixtures/sky-relay/gameplay-qa'), { recursive: true });
+  await fs.copyFile(path.join(repoRoot, 'release-manifest.template.json'), path.join(root, 'release-manifest.template.json'));
+  await fs.copyFile(path.join(repoRoot, templatePath), path.join(root, templatePath));
+}
+
+async function writeText(root, relPath, value = 'test fixture\n') {
+  const filePath = path.join(root, relPath);
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  await fs.writeFile(filePath, value, 'utf8');
+}
+
+async function writeBytes(root, relPath, value) {
+  const filePath = path.join(root, relPath);
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  await fs.writeFile(filePath, value);
+}
+
+async function completeEvidence(root) {
+  const filePath = path.join(root, evidencePath);
+  const evidence = JSON.parse(await fs.readFile(filePath, 'utf8'));
+  for (const claim of Object.keys(evidence.claims)) evidence.claims[claim] = true;
+
+  for (const relPath of evidence.supportingFiles) await writeText(root, relPath);
+  for (const relPath of evidence.screenshots) await writeBytes(root, relPath, pngFixture());
+  for (const relPath of evidence.logs) await writeText(root, relPath);
+  for (const relPath of evidence.saveSnapshots) await writeBytes(root, relPath, zipFixture);
+
+  await fs.writeFile(filePath, `${JSON.stringify(evidence, null, 2)}\n`, 'utf8');
+}
+
+const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'sky-relay-edition-evidence-tools-'));
+try {
+  await copySeedFiles(tmp);
+
+  const dryRun = run(initScript, tmp, ['--dry-run']);
+  assert.equal(dryRun.status, 0, `${dryRun.stdout}\n${dryRun.stderr}`);
+  const dryRunReport = JSON.parse(dryRun.stdout);
+  assert.equal(dryRunReport.status, 'PASS');
+  await assert.rejects(fs.stat(path.join(tmp, evidencePath)));
+
+  const init = run(initScript, tmp);
+  assert.equal(init.status, 0, `${init.stdout}\n${init.stderr}`);
+  const initReport = JSON.parse(init.stdout);
+  assert.equal(initReport.status, 'PASS');
+  assert.equal(initReport.willWriteEvidence, true);
+
+  const initializedEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  assert.ok(Object.values(initializedEvidence.claims).every((claim) => claim === false));
+
+  const templateOnly = run(verifyScript, tmp, ['--template-only']);
+  assert.equal(templateOnly.status, 0, `${templateOnly.stdout}\n${templateOnly.stderr}`);
+
+  const blocked = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(blocked.status, 1);
+  assert.match(`${blocked.stdout}\n${blocked.stderr}`, /manualEvidence claim realFirst30Playthrough must be true|target does not exist/u);
+
+  await completeEvidence(tmp);
+  const ready = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(ready.status, 0, `${ready.stdout}\n${ready.stderr}`);
+  const readyReport = JSON.parse(ready.stdout);
+  assert.equal(readyReport.status, 'PASS');
+} finally {
+  await fs.rm(tmp, { recursive: true, force: true });
+}
+
+console.log('Sky Relay edition gameplay evidence tools passed.');
