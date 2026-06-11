@@ -25,3 +25,5 @@ artifact, launcher install flow, update flow, repair flow, rollback flow, first
 30-minute playthrough, first 2-hour playthrough, and Signal Crown completion
 evidence all pass.
 
+Gameplay evidence must follow `docs/gameplay-evidence.md` and the template at
+`fixtures/sky-relay/gameplay-qa/manual-evidence.template.json`.

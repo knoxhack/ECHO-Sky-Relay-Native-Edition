@@ -11,10 +11,12 @@ const requiredDocs = [
   'docs/install.md',
   'docs/update-flow.md',
   'docs/rollback.md',
+  'docs/gameplay-evidence.md',
   'docs/module-requirements.md',
   'docs/runtime-evidence.md',
   'docs/troubleshooting.md',
-  `evidence/${manifest.runtimeTarget === 'echo_native' ? 'native' : manifest.runtimeTarget === 'neoforge' ? 'neoforge' : 'standalone'}-harness-driver-manifest.template.json`
+  `evidence/${manifest.runtimeTarget === 'echo_native' ? 'native' : manifest.runtimeTarget === 'neoforge' ? 'neoforge' : 'standalone'}-harness-driver-manifest.template.json`,
+  'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json'
 ];
 
 if (!manifest.packId?.startsWith('sky-relay-')) fail('packId must start with sky-relay-.');
