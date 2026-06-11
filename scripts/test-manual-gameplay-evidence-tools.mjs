@@ -98,40 +98,71 @@ function crc32(buffer) {
 }
 
 function zipFixture(filename = 'save/level.dat', content = 'fixture save snapshot\n') {
-  const name = Buffer.from(filename, 'utf8');
-  const data = Buffer.from(content, 'utf8');
-  const checksum = crc32(data);
-  const localHeader = Buffer.alloc(30);
-  localHeader.writeUInt32LE(0x04034b50, 0);
-  localHeader.writeUInt16LE(20, 4);
-  localHeader.writeUInt16LE(0, 6);
-  localHeader.writeUInt16LE(0, 8);
-  localHeader.writeUInt32LE(checksum, 14);
-  localHeader.writeUInt32LE(data.length, 18);
-  localHeader.writeUInt32LE(data.length, 22);
-  localHeader.writeUInt16LE(name.length, 26);
+  const entries = Array.isArray(filename)
+    ? filename
+    : [{ filename, content }];
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
 
-  const centralDirectoryOffset = localHeader.length + name.length + data.length;
-  const centralHeader = Buffer.alloc(46);
-  centralHeader.writeUInt32LE(0x02014b50, 0);
-  centralHeader.writeUInt16LE(20, 4);
-  centralHeader.writeUInt16LE(20, 6);
-  centralHeader.writeUInt16LE(0, 8);
-  centralHeader.writeUInt16LE(0, 10);
-  centralHeader.writeUInt32LE(checksum, 16);
-  centralHeader.writeUInt32LE(data.length, 20);
-  centralHeader.writeUInt32LE(data.length, 24);
-  centralHeader.writeUInt16LE(name.length, 28);
+  for (const entry of entries) {
+    const name = Buffer.from(entry.filename, 'utf8');
+    const data = Buffer.from(entry.content, 'utf8');
+    const checksum = crc32(data);
+    const localHeader = Buffer.alloc(30);
+    localHeader.writeUInt32LE(0x04034b50, 0);
+    localHeader.writeUInt16LE(20, 4);
+    localHeader.writeUInt16LE(0, 6);
+    localHeader.writeUInt16LE(0, 8);
+    localHeader.writeUInt32LE(checksum, 14);
+    localHeader.writeUInt32LE(data.length, 18);
+    localHeader.writeUInt32LE(data.length, 22);
+    localHeader.writeUInt16LE(name.length, 26);
 
-  const centralDirectorySize = centralHeader.length + name.length;
+    const centralHeader = Buffer.alloc(46);
+    centralHeader.writeUInt32LE(0x02014b50, 0);
+    centralHeader.writeUInt16LE(20, 4);
+    centralHeader.writeUInt16LE(20, 6);
+    centralHeader.writeUInt16LE(0, 8);
+    centralHeader.writeUInt16LE(0, 10);
+    centralHeader.writeUInt32LE(checksum, 16);
+    centralHeader.writeUInt32LE(data.length, 20);
+    centralHeader.writeUInt32LE(data.length, 24);
+    centralHeader.writeUInt16LE(name.length, 28);
+    centralHeader.writeUInt32LE(offset, 42);
+
+    localParts.push(localHeader, name, data);
+    centralParts.push(centralHeader, name);
+    offset += localHeader.length + name.length + data.length;
+  }
+
+  const centralDirectoryOffset = offset;
+  const centralDirectorySize = centralParts.reduce((total, part) => total + part.length, 0);
   const endOfCentralDirectory = Buffer.alloc(22);
   endOfCentralDirectory.writeUInt32LE(0x06054b50, 0);
-  endOfCentralDirectory.writeUInt16LE(1, 8);
-  endOfCentralDirectory.writeUInt16LE(1, 10);
+  endOfCentralDirectory.writeUInt16LE(entries.length, 8);
+  endOfCentralDirectory.writeUInt16LE(entries.length, 10);
   endOfCentralDirectory.writeUInt32LE(centralDirectorySize, 12);
   endOfCentralDirectory.writeUInt32LE(centralDirectoryOffset, 16);
 
-  return Buffer.concat([localHeader, name, data, centralHeader, name, endOfCentralDirectory]);
+  return Buffer.concat([...localParts, ...centralParts, endOfCentralDirectory]);
+}
+
+function worldSaveZipFixture(index, relPath) {
+  return zipFixture([
+    {
+      filename: 'save/level.dat',
+      content: `fixture level.dat ${index + 1}: ${relPath}\n`
+    },
+    {
+      filename: 'save/region/r.0.0.mca',
+      content: `fixture region chunk ${index + 1}: ${relPath}\n`
+    },
+    {
+      filename: `save/playerdata/test-player-${index + 1}.dat`,
+      content: `fixture player state ${index + 1}: ${relPath}\n`
+    }
+  ]);
 }
 
 function run(script, root, args = []) {
@@ -463,7 +494,7 @@ async function completeEvidence(root) {
   for (const [index, relPath] of evidence.screenshots.entries()) await writeBytes(root, relPath, pngFixture(1280, 720, index + 1));
   for (const relPath of evidence.logs) await writeText(root, relPath, logFixture(evidence, relPath));
   for (const [index, relPath] of evidence.saveSnapshots.entries()) {
-    await writeBytes(root, relPath, zipFixture('save/level.dat', `fixture save snapshot ${index + 1}: ${relPath}\n`));
+    await writeBytes(root, relPath, worldSaveZipFixture(index, relPath));
   }
 
   await fs.writeFile(filePath, `${JSON.stringify(evidence, null, 2)}\n`, 'utf8');
@@ -584,11 +615,8 @@ try {
   assert.match(`${duplicateScreenshot.stdout}\n${duplicateScreenshot.stderr}`, /manualEvidence\.screenshots must contain unique file content/u);
 
   await completeEvidence(tmp);
-  await writeBytes(
-    tmp,
-    'fixtures/sky-relay/gameplay-qa/evidence/saves/first-2-hours-save.zip',
-    zipFixture('save/level.dat', 'fixture save snapshot 1: fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip\n')
-  );
+  const first30SaveBytes = await fs.readFile(path.join(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip'));
+  await writeBytes(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/saves/first-2-hours-save.zip', first30SaveBytes);
   const duplicateSaveSnapshot = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(duplicateSaveSnapshot.status, 1);
   assert.match(`${duplicateSaveSnapshot.stdout}\n${duplicateSaveSnapshot.stderr}`, /manualEvidence\.saveSnapshots must contain unique file content/u);
@@ -602,6 +630,16 @@ try {
   const missingLevelDat = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(missingLevelDat.status, 1);
   assert.match(`${missingLevelDat.stdout}\n${missingLevelDat.stderr}`, /ZIP must contain a level\.dat world save entry/u);
+
+  await completeEvidence(tmp);
+  await writeBytes(
+    tmp,
+    'fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip',
+    zipFixture('save/level.dat', 'level.dat alone is not a full captured world state\n')
+  );
+  const missingWorldState = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(missingWorldState.status, 1);
+  assert.match(`${missingWorldState.stdout}\n${missingWorldState.stderr}`, /captured world state entries beyond level\.dat/u);
 
   await completeEvidence(tmp);
   const firstNotePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';
@@ -690,8 +728,11 @@ try {
     'runStartedAt'
   ]);
   assert.ok(readyReport.manualEvidence.checked.logs[0].sessionMatches.includes('signal_crown_completion.startedAt'));
-  assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 1);
+  assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 3);
   assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].hasLevelDat, true);
+  assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].hasRegionChunk, true);
+  assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].hasPlayerOrDataState, true);
+  assert.ok(readyReport.manualEvidence.checked.saveSnapshots[0].worldStateEntries.length >= 2);
   assert.deepEqual(readyReport.manualEvidence.checked.saveSnapshots[0].unsafeEntries, []);
   assert.equal(new Set(readyReport.manualEvidence.checked.saveSnapshots.map((snapshot) => snapshot.sha256)).size, 3);
 } finally {

@@ -76,8 +76,10 @@ that match the same patterns:
 
 Screenshots must be complete PNG images with valid chunks, an `IEND` chunk,
 dimensions at least 640x360, and visible pixel variation rather than blank
-placeholder frames. Save snapshots must be ZIP archives with at least one entry,
-a `level.dat` world save entry, and no absolute or parent-directory entry paths.
+placeholder frames. Save snapshots must be ZIP archives with `level.dat`, at
+least one `region/r.*.*.mca` chunk entry, at least one player/profile data entry
+under `playerdata/`, `data/`, `stats/`, or `advancements/`, and no absolute or
+parent-directory entry paths.
 Text and log files must be non-empty. Logs must not contain blocking
 crash or corruption signatures such as `crash report`, `fatal`,
 `uncaught exception`, `unhandled exception`, `exception in thread`, Java stack
