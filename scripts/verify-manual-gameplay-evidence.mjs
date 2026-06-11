@@ -28,6 +28,7 @@ const RELEASE_TAG_BY_PACK_ID = {
 };
 
 const REQUIRED_SUPPORTING_PATTERNS = [
+  /(^|\/)fresh[-_]?world[^/]*\.md$/iu,
   /(^|\/)first[-_]?30[-_]?minutes[^/]*\.md$/iu,
   /(^|\/)first[-_]?2[-_]?hours[^/]*\.md$/iu,
   /(^|\/)signal[-_]?crown[^/]*\.md$/iu,
@@ -35,6 +36,7 @@ const REQUIRED_SUPPORTING_PATTERNS = [
 ];
 
 const REQUIRED_SCREENSHOT_PATTERNS = [
+  /(^|\/)fresh[-_]?world[^/]*\.png$/iu,
   /(^|\/)first[-_]?30[-_]?minutes[^/]*\.png$/iu,
   /(^|\/)first[-_]?2[-_]?hours[^/]*\.png$/iu,
   /(^|\/)signal[-_]?crown[^/]*\.png$/iu
@@ -52,6 +54,10 @@ const REQUIRED_SAVE_PATTERNS = [
 ];
 
 const NOTE_SECTION_REQUIREMENTS = [
+  {
+    pattern: /(^|\/)fresh[-_]?world[^/]*\.md$/iu,
+    sections: ['## Run Identity', '## Required Fresh World Checks', '## Evidence Links', '## Notes']
+  },
   {
     pattern: /(^|\/)first[-_]?30[-_]?minutes[^/]*\.md$/iu,
     sections: ['## Run Identity', '## Required Route Checks', '## Evidence Links', '## Notes']
@@ -74,12 +80,23 @@ const BLANK_NOTE_FIELD = /^-\s+[^:\n]+:\s*$/gmu;
 
 const REQUIRED_SESSIONS = [
   {
+    id: 'fresh_world_creation',
+    claim: 'freshWorldCreated',
+    minDurationMinutes: 1,
+    evidence: {
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[0] },
+      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[0] },
+      clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] },
+      launcherLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[1] }
+    }
+  },
+  {
     id: 'first_30_minutes',
     claim: 'realFirst30Playthrough',
     minDurationMinutes: 30,
     evidence: {
-      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[0] },
-      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[0] },
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[1] },
+      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[1] },
       saveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[0] },
       clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] }
     }
@@ -89,8 +106,8 @@ const REQUIRED_SESSIONS = [
     claim: 'realFirst2HourPlaythrough',
     minDurationMinutes: 120,
     evidence: {
-      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[1] },
-      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[1] },
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[2] },
+      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[2] },
       saveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[1] },
       clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] }
     }
@@ -100,8 +117,8 @@ const REQUIRED_SESSIONS = [
     claim: 'realSignalCrownPlaythrough',
     minDurationMinutes: 1,
     evidence: {
-      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[2] },
-      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[2] },
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[3] },
+      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[3] },
       saveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[2] },
       clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] }
     }
@@ -122,7 +139,7 @@ const REQUIRED_SESSIONS = [
     claim: 'noCrashEvidence',
     minDurationMinutes: 1,
     evidence: {
-      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[3] },
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[4] },
       clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] },
       launcherLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[1] }
     }
@@ -451,8 +468,8 @@ function validateCommonEvidenceShape({ root, manifest, evidence, label, blockers
   if (evidence.packId !== manifest.packId) {
     blockers.push(`${label} packId must match manifest packId ${manifest.packId}.`);
   }
-  validatePathListShape({ root, label: `${label}.supportingFiles`, values: evidence.supportingFiles, minItems: 4, requiredPatterns: REQUIRED_SUPPORTING_PATTERNS, blockers });
-  validatePathListShape({ root, label: `${label}.screenshots`, values: evidence.screenshots, minItems: 3, requiredPatterns: REQUIRED_SCREENSHOT_PATTERNS, blockers });
+  validatePathListShape({ root, label: `${label}.supportingFiles`, values: evidence.supportingFiles, minItems: 5, requiredPatterns: REQUIRED_SUPPORTING_PATTERNS, blockers });
+  validatePathListShape({ root, label: `${label}.screenshots`, values: evidence.screenshots, minItems: 4, requiredPatterns: REQUIRED_SCREENSHOT_PATTERNS, blockers });
   validatePathListShape({ root, label: `${label}.logs`, values: evidence.logs, minItems: 2, requiredPatterns: REQUIRED_LOG_PATTERNS, blockers });
   validatePathListShape({ root, label: `${label}.saveSnapshots`, values: evidence.saveSnapshots, minItems: 3, requiredPatterns: REQUIRED_SAVE_PATTERNS, blockers });
   validateRunIdentity({ manifest, evidence, label, blockers, requireReal: false });
@@ -520,7 +537,7 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
     root,
     label: 'manualEvidence.supportingFiles',
     values: evidence.supportingFiles,
-    minItems: 4,
+    minItems: 5,
     requiredPatterns: REQUIRED_SUPPORTING_PATTERNS,
     blockers,
     fileValidator: async ({ filePath, relPath, blockers: fileBlockers, label, index }) => {
@@ -532,7 +549,7 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
     root,
     label: 'manualEvidence.screenshots',
     values: evidence.screenshots,
-    minItems: 3,
+    minItems: 4,
     requiredPatterns: REQUIRED_SCREENSHOT_PATTERNS,
     blockers,
     fileValidator: async ({ filePath, relPath, blockers: fileBlockers, label, index }) => {

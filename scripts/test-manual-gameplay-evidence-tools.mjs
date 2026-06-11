@@ -12,6 +12,7 @@ const verifyScript = path.join(repoRoot, 'scripts', 'verify-manual-gameplay-evid
 const evidencePath = 'fixtures/sky-relay/gameplay-qa/manual-evidence.json';
 const templatePath = 'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json';
 const noteTemplatePaths = [
+  'fixtures/sky-relay/gameplay-qa/evidence/templates/fresh-world-notes.template.md',
   'fixtures/sky-relay/gameplay-qa/evidence/templates/first-30-minutes-notes.template.md',
   'fixtures/sky-relay/gameplay-qa/evidence/templates/first-2-hours-notes.template.md',
   'fixtures/sky-relay/gameplay-qa/evidence/templates/signal-crown-verification.template.md',
@@ -130,7 +131,11 @@ function noteFixture(relPath) {
 - Follow-up: none
 `;
   }
-  const routeSection = relPath.includes('signal-crown') ? 'Required Completion Checks' : 'Required Route Checks';
+  const routeSection = relPath.includes('fresh-world')
+    ? 'Required Fresh World Checks'
+    : relPath.includes('signal-crown')
+      ? 'Required Completion Checks'
+      : 'Required Route Checks';
   return `# Gameplay Notes
 
 ## Run Identity
@@ -179,6 +184,19 @@ function sessionFixture(evidence) {
   const clientLog = find(logs, /client/i);
   const launcherLog = find(logs, /(launcher|pack)[-_]?install/i);
   return [
+    {
+      id: 'fresh_world_creation',
+      claim: 'freshWorldCreated',
+      startedAt: '2026-06-11T00:00:00Z',
+      endedAt: '2026-06-11T00:02:00Z',
+      durationMinutes: 2,
+      evidence: {
+        notes: find(supportingFiles, /fresh[-_]?world/i),
+        screenshot: find(screenshots, /fresh[-_]?world/i),
+        clientLog,
+        launcherLog
+      }
+    },
     {
       id: 'first_30_minutes',
       claim: 'realFirst30Playthrough',
@@ -282,7 +300,7 @@ try {
   assert.equal(dryRun.status, 0, `${dryRun.stdout}\n${dryRun.stderr}`);
   const dryRunReport = JSON.parse(dryRun.stdout);
   assert.equal(dryRunReport.status, 'PASS');
-  assert.equal(dryRunReport.noteFiles.length, 4);
+  assert.equal(dryRunReport.noteFiles.length, 5);
   await assert.rejects(fs.stat(path.join(tmp, evidencePath)));
 
   const init = run(initScript, tmp);
@@ -314,6 +332,14 @@ try {
   const missingSession = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(missingSession.status, 1);
   assert.match(`${missingSession.stdout}\n${missingSession.stderr}`, /sessions must include save_reload_verification/u);
+
+  await completeEvidence(tmp);
+  const missingFreshSessionEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  missingFreshSessionEvidence.sessions = missingFreshSessionEvidence.sessions.filter((session) => session.id !== 'fresh_world_creation');
+  await fs.writeFile(path.join(tmp, evidencePath), `${JSON.stringify(missingFreshSessionEvidence, null, 2)}\n`, 'utf8');
+  const missingFreshSession = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(missingFreshSession.status, 1);
+  assert.match(`${missingFreshSession.stdout}\n${missingFreshSession.stderr}`, /sessions must include fresh_world_creation/u);
 
   await completeEvidence(tmp);
   const shortSessionEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));

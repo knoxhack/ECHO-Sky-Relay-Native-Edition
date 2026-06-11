@@ -14,6 +14,19 @@ This file is a checklist, not release evidence. Do not list it in
 - Record the launcher install log at
   `fixtures/sky-relay/gameplay-qa/evidence/logs/launcher-install.log`.
 
+## Fresh World Creation
+
+- Create a new Sky Relay profile or world for this edition.
+- Confirm no existing save, copied world, or previous test profile is reused.
+- Load the initial spawn successfully.
+- Confirm the Damaged Relay Core is visible or reachable.
+- Capture notes at
+  `fixtures/sky-relay/gameplay-qa/evidence/fresh-world-notes.md`.
+- Capture a PNG screenshot at least 640x360 at
+  `fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png`.
+- Update the `fresh_world_creation` session with real start/end timestamps,
+  duration, matching note and screenshot paths, and log links.
+
 ## First 30 Minutes
 
 - Reach the Damaged Relay Core.

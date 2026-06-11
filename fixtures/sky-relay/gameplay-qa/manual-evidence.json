@@ -11,12 +11,14 @@
     "noCrashEvidence": false
   },
   "supportingFiles": [
+    "fixtures/sky-relay/gameplay-qa/evidence/fresh-world-notes.md",
     "fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md",
     "fixtures/sky-relay/gameplay-qa/evidence/first-2-hours-notes.md",
     "fixtures/sky-relay/gameplay-qa/evidence/signal-crown-verification.md",
     "fixtures/sky-relay/gameplay-qa/evidence/no-crash-review.md"
   ],
   "screenshots": [
+    "fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png",
     "fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-30-minutes.png",
     "fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-2-hours.png",
     "fixtures/sky-relay/gameplay-qa/evidence/screenshots/signal-crown-complete.png"
@@ -44,6 +46,19 @@
     "startedAt": "1970-01-01T00:00:00Z"
   },
   "sessions": [
+    {
+      "id": "fresh_world_creation",
+      "claim": "freshWorldCreated",
+      "startedAt": "1970-01-01T00:00:00Z",
+      "endedAt": "1970-01-01T00:01:00Z",
+      "durationMinutes": 1,
+      "evidence": {
+        "notes": "fixtures/sky-relay/gameplay-qa/evidence/fresh-world-notes.md",
+        "screenshot": "fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png",
+        "clientLog": "fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log",
+        "launcherLog": "fixtures/sky-relay/gameplay-qa/evidence/logs/launcher-install.log"
+      }
+    },
     {
       "id": "first_30_minutes",
       "claim": "realFirst30Playthrough",

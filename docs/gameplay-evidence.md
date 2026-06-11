@@ -24,6 +24,8 @@ start time. The release tag must match this edition's public alpha tag.
 
 Fill the `sessions` array with these required records:
 
+- `fresh_world_creation`: linked to fresh-world notes, screenshot, client log,
+  and launcher install log.
 - `first_30_minutes`: at least 30 elapsed minutes, linked to first-30 notes,
   screenshot, save snapshot, and client log.
 - `first_2_hours`: at least 120 elapsed minutes, linked to first-2-hours notes,
@@ -43,10 +45,12 @@ evidence.
 The Release Index verifier requires these relative paths or equivalent names
 that match the same patterns:
 
+- `fixtures/sky-relay/gameplay-qa/evidence/fresh-world-notes.md`
 - `fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md`
 - `fixtures/sky-relay/gameplay-qa/evidence/first-2-hours-notes.md`
 - `fixtures/sky-relay/gameplay-qa/evidence/signal-crown-verification.md`
 - `fixtures/sky-relay/gameplay-qa/evidence/no-crash-review.md`
+- `fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png`
 - `fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-30-minutes.png`
 - `fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-2-hours.png`
 - `fixtures/sky-relay/gameplay-qa/evidence/screenshots/signal-crown-complete.png`
