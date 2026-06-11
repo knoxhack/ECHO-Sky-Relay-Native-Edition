@@ -53,6 +53,19 @@ const REQUIRED_SAVE_PATTERNS = [
   /(^|\/)signal[-_]?crown[^/]*\.zip$/iu
 ];
 
+const BLOCKING_LOG_SIGNATURES = [
+  { label: 'crash report', pattern: /\bcrash report\b/iu },
+  { label: 'client crashed', pattern: /\bcrashed\b/iu },
+  { label: 'fatal error', pattern: /\bfatal\b/iu },
+  { label: 'uncaught exception', pattern: /\buncaught exception\b/iu },
+  { label: 'unhandled exception', pattern: /\bunhandled exception\b/iu },
+  { label: 'exception in thread', pattern: /\bexception in thread\b/iu },
+  { label: 'world or save corruption', pattern: /\b(world|save)\s+corrupt(?:ed|ion)\b/iu },
+  { label: 'failed to load world', pattern: /\bfailed to load world\b/iu }
+];
+
+const JAVA_STACK_TRACE_LINE = /^\s+at\s+[\w.$/]+\(.*:\d+\)$/mu;
+
 const NOTE_SECTION_REQUIREMENTS = [
   {
     pattern: /(^|\/)fresh[-_]?world[^/]*\.md$/iu,
@@ -391,6 +404,23 @@ function normalizeNoteText(value) {
     .trim();
 }
 
+function validateGameplayLog({ text, relPath, label, index, blockers }) {
+  const signatures = [];
+  for (const signature of BLOCKING_LOG_SIGNATURES) {
+    if (signature.pattern.test(text)) signatures.push(signature.label);
+  }
+  if (JAVA_STACK_TRACE_LINE.test(text)) signatures.push('java stack trace');
+
+  for (const signature of signatures) {
+    blockers.push(`${label}[${index}] target contains blocking log signature "${signature}": ${relPath}`);
+  }
+
+  return {
+    lineCount: text.split(/\r?\n/u).filter((line) => line.trim()).length,
+    blockingSignatures: signatures.length
+  };
+}
+
 function validateRunIdentity({ manifest, evidence, label, blockers, requireReal }) {
   if (!evidence.run || typeof evidence.run !== 'object' || Array.isArray(evidence.run)) {
     blockers.push(`${label}.run must be an object.`);
@@ -632,7 +662,11 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
     values: evidence.logs,
     minItems: 2,
     requiredPatterns: REQUIRED_LOG_PATTERNS,
-    blockers
+    blockers,
+    fileValidator: async ({ filePath, relPath, blockers: fileBlockers, label, index }) => {
+      const text = await fs.readFile(filePath, 'utf8');
+      return validateGameplayLog({ text, relPath, label, index, blockers: fileBlockers });
+    }
   });
   result.checked.saveSnapshots = await validateFileList({
     root,

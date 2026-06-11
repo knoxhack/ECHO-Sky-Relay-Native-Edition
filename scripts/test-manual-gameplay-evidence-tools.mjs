@@ -439,6 +439,13 @@ try {
   assert.match(`${missingNoteTerm.stdout}\n${missingNoteTerm.stderr}`, /missing required note term.*hydroponics_deck/u);
 
   await completeEvidence(tmp);
+  const clientLogPath = 'fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log';
+  await writeText(tmp, clientLogPath, '[main/FATAL] Crash report generated after failed to load world\n');
+  const blockingLogSignature = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(blockingLogSignature.status, 1);
+  assert.match(`${blockingLogSignature.stdout}\n${blockingLogSignature.stderr}`, /blocking log signature.*crash report/u);
+
+  await completeEvidence(tmp);
   await writeBytes(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png', pngHeaderOnlyFixture());
   const incompletePng = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(incompletePng.status, 1);
@@ -457,6 +464,8 @@ try {
   assert.deepEqual(readyReport.manualEvidence.checked.screenshots[0].dimensions, { width: 1280, height: 720 });
   assert.equal(readyReport.manualEvidence.checked.screenshots[0].idatChunks, 1);
   assert.ok(readyReport.manualEvidence.checked.screenshots[0].chunks >= 3);
+  assert.equal(readyReport.manualEvidence.checked.logs[0].blockingSignatures, 0);
+  assert.ok(readyReport.manualEvidence.checked.logs[0].lineCount >= 1);
   assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 1);
 } finally {
   await fs.rm(tmp, { recursive: true, force: true });
