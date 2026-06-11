@@ -387,6 +387,7 @@ async function completeEvidence(root) {
     startedAt: '2026-06-11T00:00:00Z'
   };
   evidence.sessions = sessionFixture(evidence);
+  evidence.generatedAt = '2026-06-11T02:24:00Z';
 
   for (const relPath of evidence.supportingFiles) await writeText(root, relPath, noteFixture(relPath));
   for (const relPath of evidence.screenshots) await writeBytes(root, relPath, pngFixture());
@@ -474,6 +475,23 @@ try {
     `${chronologyRun.stdout}\n${chronologyRun.stderr}`,
     /save_reload_verification\.startedAt must be at or after signal_crown_completion\.endedAt/u
   );
+
+  await completeEvidence(tmp);
+  const durationMismatchEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  const first2HourSession = durationMismatchEvidence.sessions.find((session) => session.id === 'first_2_hours');
+  first2HourSession.durationMinutes = 121;
+  await fs.writeFile(path.join(tmp, evidencePath), `${JSON.stringify(durationMismatchEvidence, null, 2)}\n`, 'utf8');
+  const durationMismatch = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(durationMismatch.status, 1);
+  assert.match(`${durationMismatch.stdout}\n${durationMismatch.stderr}`, /first_2_hours\.durationMinutes must match startedAt\/endedAt/u);
+
+  await completeEvidence(tmp);
+  const earlyGeneratedEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  earlyGeneratedEvidence.generatedAt = '2026-06-11T02:10:00Z';
+  await fs.writeFile(path.join(tmp, evidencePath), `${JSON.stringify(earlyGeneratedEvidence, null, 2)}\n`, 'utf8');
+  const earlyGenerated = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(earlyGenerated.status, 1);
+  assert.match(`${earlyGenerated.stdout}\n${earlyGenerated.stderr}`, /generatedAt must be at or after manualEvidence\.sessions\.signal_crown_completion\.endedAt/u);
 
   await completeEvidence(tmp);
   const firstNotePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';

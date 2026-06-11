@@ -426,6 +426,13 @@ function timestampMs(value) {
   return Number.isNaN(timestamp) ? null : timestamp;
 }
 
+function elapsedMinutesBetween(startedAt, endedAt) {
+  const start = timestampMs(startedAt);
+  const end = timestampMs(endedAt);
+  if (start === null || end === null) return null;
+  return (end - start) / 60000;
+}
+
 function validatePathListShape({ root, label, values, minItems, requiredPatterns, blockers }) {
   if (!Array.isArray(values)) {
     blockers.push(`${label} must be an array.`);
@@ -567,6 +574,12 @@ function validateSessionChronology({ evidence, label, blockers, requireReal }) {
   const sessions = new Map(evidence.sessions.map((session) => [session?.id, session]));
   const runStartedAt = timestampMs(evidence.run?.startedAt);
   const hasRealRunStart = runStartedAt !== null && !isTemplateTimestamp(evidence.run?.startedAt);
+  const generatedAt = timestampMs(evidence.generatedAt);
+  const hasRealGeneratedAt = generatedAt !== null && !isTemplateTimestamp(evidence.generatedAt);
+
+  if (generatedAt !== null && isTemplateTimestamp(evidence.generatedAt)) {
+    blockers.push(`${label}.generatedAt must not use the template timestamp.`);
+  }
 
   if (hasRealRunStart) {
     for (const sessionId of REQUIRED_SESSION_ORDER) {
@@ -587,6 +600,16 @@ function validateSessionChronology({ evidence, label, blockers, requireReal }) {
       blockers.push(
         `${label}.sessions.${rule.laterId}.${rule.laterField} must be at or after ${rule.earlierId}.${rule.earlierField}.`
       );
+    }
+  }
+
+  if (hasRealGeneratedAt) {
+    for (const sessionId of REQUIRED_SESSION_ORDER) {
+      const session = sessions.get(sessionId);
+      const endedAt = timestampMs(session?.endedAt);
+      if (endedAt !== null && endedAt > generatedAt) {
+        blockers.push(`${label}.generatedAt must be at or after ${label}.sessions.${sessionId}.endedAt.`);
+      }
     }
   }
 }
@@ -627,6 +650,11 @@ function validateSessions({ root, evidence, label, blockers, requireReal }) {
       blockers.push(`${label}.sessions.${requirement.id}.durationMinutes must be a number.`);
     } else if (requireReal && session.durationMinutes < requirement.minDurationMinutes) {
       blockers.push(`${label}.sessions.${requirement.id}.durationMinutes must be at least ${requirement.minDurationMinutes}.`);
+    } else if (requireReal) {
+      const elapsedMinutes = elapsedMinutesBetween(session.startedAt, session.endedAt);
+      if (elapsedMinutes !== null && Math.abs(session.durationMinutes - elapsedMinutes) > 1) {
+        blockers.push(`${label}.sessions.${requirement.id}.durationMinutes must match startedAt/endedAt elapsed minutes within 1 minute.`);
+      }
     }
     if (requireReal && (isTemplateTimestamp(session.startedAt) || isTemplateTimestamp(session.endedAt))) {
       blockers.push(`${label}.sessions.${requirement.id} must not use template timestamps.`);
