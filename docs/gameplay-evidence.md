@@ -47,9 +47,10 @@ minute, and `generatedAt` must be after the recorded sessions have ended.
 Notes, screenshots, logs, and save snapshots must not be copied placeholder
 content reused under different filenames; each accepted evidence file must have
 unique content within its group.
-Each note must include this run's pack ID, release tag, artifact asset, artifact
-SHA-256, artifact size, session ID, session start/end timestamps, and the exact
-session evidence paths it is documenting.
+Each note must include this run's pack ID, tester, release tag, artifact asset,
+artifact SHA-256, artifact size, launcher channel, install source,
+world/profile, run start time, session ID, session start/end timestamps, session
+duration, and the exact session evidence paths it is documenting.
 
 Do not leave `TBD` values or `1970-01-01T...` template timestamps in release-ready
 evidence.

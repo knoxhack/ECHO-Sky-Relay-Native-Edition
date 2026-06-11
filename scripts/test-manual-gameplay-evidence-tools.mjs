@@ -197,13 +197,19 @@ function noteIdentityLines(relPath, evidence) {
   const session = sessionForNote(evidence, relPath);
   return [
     `- Pack: ${evidence?.packId ?? 'sky-relay-test-edition'}`,
+    `- Tester: ${evidence?.run?.tester ?? 'test fixture'}`,
     `- Release tag: ${evidence?.run?.releaseTag ?? 'sky-relay-test-0.1.0-alpha'}`,
     `- Artifact asset: ${evidence?.run?.artifactAsset ?? 'sky-relay-test-edition-0.1.0.zip'}`,
     `- Artifact SHA-256: ${evidence?.run?.artifactSha256 ?? '0'.repeat(64)}`,
     `- Artifact size: ${evidence?.run?.artifactSize ?? 1}`,
+    `- Launcher channel: ${evidence?.run?.launcherChannel ?? 'alpha'}`,
+    `- Installed from: ${evidence?.run?.installedFrom ?? 'ECHO Launcher'}`,
+    `- World/profile: ${evidence?.run?.worldOrProfile ?? 'fixture-world'}`,
+    `- Run started at: ${evidence?.run?.startedAt ?? '2026-06-11T00:00:00Z'}`,
     `- Session ID: ${session?.id ?? 'fixture_session'}`,
     `- Session started at: ${session?.startedAt ?? '2026-06-11T00:00:00Z'}`,
-    `- Session ended at: ${session?.endedAt ?? '2026-06-11T00:01:00Z'}`
+    `- Session ended at: ${session?.endedAt ?? '2026-06-11T00:01:00Z'}`,
+    `- Session duration minutes: ${session?.durationMinutes ?? 1}`
   ];
 }
 
@@ -256,9 +262,7 @@ ${evidenceLines.join('\n')}
 ## Run Identity
 
 ${identityLines.join('\n')}
-- Tester: test fixture
 - Date: 2026-06-11
-- World or profile: fixture-world
 
 ## ${routeSection}
 
@@ -578,6 +582,17 @@ try {
   const noteProvenance = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(noteProvenance.status, 1);
   assert.match(`${noteProvenance.stdout}\n${noteProvenance.stderr}`, /missing required note provenance artifactSha256/u);
+
+  await completeEvidence(tmp);
+  const noteRunProvenanceEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  await writeText(
+    tmp,
+    noteProvenancePath,
+    noteFixture(noteProvenancePath, noteRunProvenanceEvidence).replace(noteRunProvenanceEvidence.run.installedFrom, 'Manual side-load')
+  );
+  const noteRunProvenance = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(noteRunProvenance.status, 1);
+  assert.match(`${noteRunProvenance.stdout}\n${noteRunProvenance.stderr}`, /missing required note provenance installedFrom/u);
 
   await completeEvidence(tmp);
   const chronologyEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));

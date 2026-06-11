@@ -632,13 +632,19 @@ function validateMarkdownNote({ text, relPath, label, index, blockers, evidence 
 
   const requiredProvenance = {
     packId: evidence.packId,
+    tester: evidence.run?.tester,
     releaseTag: evidence.run?.releaseTag,
     artifactAsset: evidence.run?.artifactAsset,
     artifactSha256: evidence.run?.artifactSha256,
     artifactSize: evidence.run?.artifactSize,
+    launcherChannel: evidence.run?.launcherChannel,
+    installedFrom: evidence.run?.installedFrom,
+    worldOrProfile: evidence.run?.worldOrProfile,
+    runStartedAt: evidence.run?.startedAt,
     sessionId: session.id,
     sessionStartedAt: session.startedAt,
-    sessionEndedAt: session.endedAt
+    sessionEndedAt: session.endedAt,
+    sessionDurationMinutes: session.durationMinutes
   };
   for (const [field, value] of Object.entries(requiredProvenance)) {
     if (value === undefined || value === null || value === '') {
