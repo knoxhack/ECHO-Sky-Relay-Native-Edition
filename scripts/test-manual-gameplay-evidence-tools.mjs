@@ -18,7 +18,6 @@ const noteTemplatePaths = [
   'fixtures/sky-relay/gameplay-qa/evidence/templates/no-crash-review.template.md'
 ];
 const pngSignature = Buffer.from('89504e470d0a1a0a', 'hex');
-const zipFixture = Buffer.from([0x50, 0x4b, 0x03, 0x04, 0x14, 0x00, 0x00, 0x00]);
 
 function pngFixture(width = 1280, height = 720) {
   const header = Buffer.alloc(33);
@@ -30,6 +29,54 @@ function pngFixture(width = 1280, height = 720) {
   header[24] = 8;
   header[25] = 6;
   return header;
+}
+
+function crc32(buffer) {
+  let crc = 0xffffffff;
+  for (const byte of buffer) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = (crc >>> 1) ^ (0xedb88320 & -(crc & 1));
+    }
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function zipFixture(filename = 'save/level.dat', content = 'fixture save snapshot\n') {
+  const name = Buffer.from(filename, 'utf8');
+  const data = Buffer.from(content, 'utf8');
+  const checksum = crc32(data);
+  const localHeader = Buffer.alloc(30);
+  localHeader.writeUInt32LE(0x04034b50, 0);
+  localHeader.writeUInt16LE(20, 4);
+  localHeader.writeUInt16LE(0, 6);
+  localHeader.writeUInt16LE(0, 8);
+  localHeader.writeUInt32LE(checksum, 14);
+  localHeader.writeUInt32LE(data.length, 18);
+  localHeader.writeUInt32LE(data.length, 22);
+  localHeader.writeUInt16LE(name.length, 26);
+
+  const centralDirectoryOffset = localHeader.length + name.length + data.length;
+  const centralHeader = Buffer.alloc(46);
+  centralHeader.writeUInt32LE(0x02014b50, 0);
+  centralHeader.writeUInt16LE(20, 4);
+  centralHeader.writeUInt16LE(20, 6);
+  centralHeader.writeUInt16LE(0, 8);
+  centralHeader.writeUInt16LE(0, 10);
+  centralHeader.writeUInt32LE(checksum, 16);
+  centralHeader.writeUInt32LE(data.length, 20);
+  centralHeader.writeUInt32LE(data.length, 24);
+  centralHeader.writeUInt16LE(name.length, 28);
+
+  const centralDirectorySize = centralHeader.length + name.length;
+  const endOfCentralDirectory = Buffer.alloc(22);
+  endOfCentralDirectory.writeUInt32LE(0x06054b50, 0);
+  endOfCentralDirectory.writeUInt16LE(1, 8);
+  endOfCentralDirectory.writeUInt16LE(1, 10);
+  endOfCentralDirectory.writeUInt32LE(centralDirectorySize, 12);
+  endOfCentralDirectory.writeUInt32LE(centralDirectoryOffset, 16);
+
+  return Buffer.concat([localHeader, name, data, centralHeader, name, endOfCentralDirectory]);
 }
 
 function run(script, root, args = []) {
@@ -222,7 +269,7 @@ async function completeEvidence(root) {
   for (const relPath of evidence.supportingFiles) await writeText(root, relPath, noteFixture(relPath));
   for (const relPath of evidence.screenshots) await writeBytes(root, relPath, pngFixture());
   for (const relPath of evidence.logs) await writeText(root, relPath);
-  for (const relPath of evidence.saveSnapshots) await writeBytes(root, relPath, zipFixture);
+  for (const relPath of evidence.saveSnapshots) await writeBytes(root, relPath, zipFixture());
 
   await fs.writeFile(filePath, `${JSON.stringify(evidence, null, 2)}\n`, 'utf8');
 }
@@ -300,6 +347,7 @@ try {
   assert.equal(readyReport.manualEvidence.checked.screenshots[0].size, 33);
   assert.match(readyReport.manualEvidence.checked.screenshots[0].sha256, /^[a-f0-9]{64}$/u);
   assert.deepEqual(readyReport.manualEvidence.checked.screenshots[0].dimensions, { width: 1280, height: 720 });
+  assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 1);
 } finally {
   await fs.rm(tmp, { recursive: true, force: true });
 }

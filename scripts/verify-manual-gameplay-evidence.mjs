@@ -8,11 +8,9 @@ const DEFAULT_EVIDENCE = 'fixtures/sky-relay/gameplay-qa/manual-evidence.json';
 const DEFAULT_TEMPLATE = 'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json';
 const TEMPLATE_MARKER = 'ECHO_SKY_RELAY_TEMPLATE_ONLY';
 const PNG_SIGNATURE = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-const ZIP_SIGNATURES = [
-  Buffer.from([0x50, 0x4b, 0x03, 0x04]),
-  Buffer.from([0x50, 0x4b, 0x05, 0x06]),
-  Buffer.from([0x50, 0x4b, 0x07, 0x08])
-];
+const ZIP_LOCAL_FILE_HEADER = Buffer.from([0x50, 0x4b, 0x03, 0x04]);
+const ZIP_CENTRAL_DIRECTORY_HEADER = Buffer.from([0x50, 0x4b, 0x01, 0x02]);
+const ZIP_END_OF_CENTRAL_DIRECTORY = Buffer.from([0x50, 0x4b, 0x05, 0x06]);
 
 const REQUIRED_CLAIMS = [
   'realFirst30Playthrough',
@@ -237,6 +235,22 @@ async function pngDimensions(filePath) {
   } finally {
     await handle.close();
   }
+}
+
+async function zipArchiveInfo(filePath) {
+  const bytes = await fs.readFile(filePath);
+  const eocdIndex = bytes.lastIndexOf(ZIP_END_OF_CENTRAL_DIRECTORY);
+  if (eocdIndex < 0 || eocdIndex + 22 > bytes.length) return null;
+  const commentLength = bytes.readUInt16LE(eocdIndex + 20);
+  if (eocdIndex + 22 + commentLength > bytes.length) return null;
+  const entryCount = bytes.readUInt16LE(eocdIndex + 10);
+  const centralDirectorySize = bytes.readUInt32LE(eocdIndex + 12);
+  const centralDirectoryOffset = bytes.readUInt32LE(eocdIndex + 16);
+  if (entryCount < 1) return null;
+  if (centralDirectoryOffset + centralDirectorySize > eocdIndex) return null;
+  if (!bytes.subarray(0, ZIP_LOCAL_FILE_HEADER.length).equals(ZIP_LOCAL_FILE_HEADER)) return null;
+  if (!bytes.subarray(centralDirectoryOffset, centralDirectoryOffset + ZIP_CENTRAL_DIRECTORY_HEADER.length).equals(ZIP_CENTRAL_DIRECTORY_HEADER)) return null;
+  return { entries: entryCount, centralDirectorySize };
 }
 
 function uniqueStrings(values) {
@@ -550,9 +564,12 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
     requiredPatterns: REQUIRED_SAVE_PATTERNS,
     blockers,
     fileValidator: async ({ filePath, relPath, blockers: fileBlockers, label, index }) => {
-      if (!(await fileStartsWith(filePath, ZIP_SIGNATURES))) {
-        fileBlockers.push(`${label}[${index}] target is not a ZIP file: ${relPath}`);
+      const zipInfo = await zipArchiveInfo(filePath);
+      if (!zipInfo) {
+        fileBlockers.push(`${label}[${index}] target is not a ZIP archive with entries: ${relPath}`);
+        return null;
       }
+      return zipInfo;
     }
   });
 
