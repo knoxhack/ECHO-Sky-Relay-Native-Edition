@@ -607,6 +607,16 @@ try {
   );
 
   await completeEvidence(tmp);
+  const splitRouteEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  const splitRouteSession = splitRouteEvidence.sessions.find((session) => session.id === 'first_2_hours');
+  splitRouteSession.startedAt = '2026-06-11T00:01:00Z';
+  splitRouteSession.durationMinutes = 124;
+  await fs.writeFile(path.join(tmp, evidencePath), `${JSON.stringify(splitRouteEvidence, null, 2)}\n`, 'utf8');
+  const splitRoute = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(splitRoute.status, 1);
+  assert.match(`${splitRoute.stdout}\n${splitRoute.stderr}`, /first_2_hours\.startedAt must match manualEvidence\.run\.startedAt/u);
+
+  await completeEvidence(tmp);
   const durationMismatchEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
   const first2HourSession = durationMismatchEvidence.sessions.find((session) => session.id === 'first_2_hours');
   first2HourSession.durationMinutes = 121;

@@ -206,6 +206,12 @@ const REQUIRED_SESSION_ORDER = [
   'no_crash_review'
 ];
 
+const SAME_PLAYTHROUGH_START_SESSION_IDS = [
+  'fresh_world_creation',
+  'first_30_minutes',
+  'first_2_hours'
+];
+
 const SESSION_CHRONOLOGY_RULES = [
   {
     earlierId: 'fresh_world_creation',
@@ -800,6 +806,13 @@ function validateSessionChronology({ evidence, label, blockers, requireReal }) {
       const startedAt = timestampMs(session?.startedAt);
       if (startedAt !== null && startedAt < runStartedAt) {
         blockers.push(`${label}.sessions.${sessionId}.startedAt must be at or after ${label}.run.startedAt.`);
+      }
+    }
+    for (const sessionId of SAME_PLAYTHROUGH_START_SESSION_IDS) {
+      const session = sessions.get(sessionId);
+      const startedAt = timestampMs(session?.startedAt);
+      if (startedAt !== null && startedAt !== runStartedAt) {
+        blockers.push(`${label}.sessions.${sessionId}.startedAt must match ${label}.run.startedAt for the same cumulative playthrough route.`);
       }
     }
   }

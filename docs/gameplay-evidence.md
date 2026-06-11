@@ -40,8 +40,10 @@ Fill the `sessions` array with these required records:
   install log.
 
 Release-ready sessions must be chronological: every session starts at or after
-`run.startedAt`; Signal Crown starts after the two-hour route window; save/reload
-starts after Signal Crown; no-crash review starts after save/reload.
+`run.startedAt`; `fresh_world_creation`, `first_30_minutes`, and
+`first_2_hours` must all start exactly at `run.startedAt` as the same cumulative
+playthrough route; Signal Crown starts after the two-hour route window;
+save/reload starts after Signal Crown; no-crash review starts after save/reload.
 Each session's `durationMinutes` must match its start/end timestamps within one
 minute, and `generatedAt` must be after the recorded sessions have ended.
 Notes, screenshots, logs, and save snapshots must not be copied placeholder
