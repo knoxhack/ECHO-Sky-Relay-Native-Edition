@@ -33,5 +33,66 @@
   "notes": [
     "Template only. Do not set claims true until each referenced file is real playthrough evidence.",
     "Copy this file to manual-evidence.json before running the Release Index verifier."
+  ],
+  "run": {
+    "tester": "TBD",
+    "releaseTag": "sky-relay-native-0.1.0-alpha",
+    "launcherChannel": "alpha",
+    "worldOrProfile": "TBD",
+    "installedFrom": "ECHO Launcher",
+    "startedAt": "1970-01-01T00:00:00Z"
+  },
+  "sessions": [
+    {
+      "id": "first_30_minutes",
+      "claim": "realFirst30Playthrough",
+      "startedAt": "1970-01-01T00:00:00Z",
+      "endedAt": "1970-01-01T00:30:00Z",
+      "durationMinutes": 30,
+      "evidence": {
+        "notes": "fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md",
+        "screenshot": "fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-30-minutes.png",
+        "saveSnapshot": "fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip",
+        "clientLog": "fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log"
+      }
+    },
+    {
+      "id": "first_2_hours",
+      "claim": "realFirst2HourPlaythrough",
+      "startedAt": "1970-01-01T00:00:00Z",
+      "endedAt": "1970-01-01T02:00:00Z",
+      "durationMinutes": 120,
+      "evidence": {
+        "notes": "fixtures/sky-relay/gameplay-qa/evidence/first-2-hours-notes.md",
+        "screenshot": "fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-2-hours.png",
+        "saveSnapshot": "fixtures/sky-relay/gameplay-qa/evidence/saves/first-2-hours-save.zip",
+        "clientLog": "fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log"
+      }
+    },
+    {
+      "id": "signal_crown_completion",
+      "claim": "realSignalCrownPlaythrough",
+      "startedAt": "1970-01-01T02:00:00Z",
+      "endedAt": "1970-01-01T02:01:00Z",
+      "durationMinutes": 1,
+      "evidence": {
+        "notes": "fixtures/sky-relay/gameplay-qa/evidence/signal-crown-verification.md",
+        "screenshot": "fixtures/sky-relay/gameplay-qa/evidence/screenshots/signal-crown-complete.png",
+        "saveSnapshot": "fixtures/sky-relay/gameplay-qa/evidence/saves/signal-crown-save.zip",
+        "clientLog": "fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log"
+      }
+    },
+    {
+      "id": "no_crash_review",
+      "claim": "noCrashEvidence",
+      "startedAt": "1970-01-01T02:01:00Z",
+      "endedAt": "1970-01-01T02:02:00Z",
+      "durationMinutes": 1,
+      "evidence": {
+        "notes": "fixtures/sky-relay/gameplay-qa/evidence/no-crash-review.md",
+        "clientLog": "fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log",
+        "launcherLog": "fixtures/sky-relay/gameplay-qa/evidence/logs/launcher-install.log"
+      }
+    }
   ]
 }

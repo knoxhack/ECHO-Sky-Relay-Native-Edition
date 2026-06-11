@@ -115,6 +115,77 @@ function noteFixture(relPath) {
 `;
 }
 
+function releaseTagFor(packId) {
+  return {
+    'sky-relay-native-edition': 'sky-relay-native-0.1.0-alpha',
+    'sky-relay-neoforge-edition': 'sky-relay-neoforge-0.1.0-alpha',
+    'sky-relay-standalone-edition': 'sky-relay-standalone-0.1.0-alpha'
+  }[packId];
+}
+
+function sessionFixture(evidence) {
+  const supportingFiles = Object.fromEntries(evidence.supportingFiles.map((relPath) => [relPath, relPath]));
+  const screenshots = Object.fromEntries(evidence.screenshots.map((relPath) => [relPath, relPath]));
+  const saveSnapshots = Object.fromEntries(evidence.saveSnapshots.map((relPath) => [relPath, relPath]));
+  const logs = Object.fromEntries(evidence.logs.map((relPath) => [relPath, relPath]));
+  const find = (source, pattern) => Object.keys(source).find((relPath) => pattern.test(relPath));
+  const clientLog = find(logs, /client/i);
+  const launcherLog = find(logs, /(launcher|pack)[-_]?install/i);
+  return [
+    {
+      id: 'first_30_minutes',
+      claim: 'realFirst30Playthrough',
+      startedAt: '2026-06-11T00:00:00Z',
+      endedAt: '2026-06-11T00:31:00Z',
+      durationMinutes: 31,
+      evidence: {
+        notes: find(supportingFiles, /first[-_]?30[-_]?minutes/i),
+        screenshot: find(screenshots, /first[-_]?30[-_]?minutes/i),
+        saveSnapshot: find(saveSnapshots, /first[-_]?30[-_]?minutes/i),
+        clientLog
+      }
+    },
+    {
+      id: 'first_2_hours',
+      claim: 'realFirst2HourPlaythrough',
+      startedAt: '2026-06-11T00:00:00Z',
+      endedAt: '2026-06-11T02:05:00Z',
+      durationMinutes: 125,
+      evidence: {
+        notes: find(supportingFiles, /first[-_]?2[-_]?hours/i),
+        screenshot: find(screenshots, /first[-_]?2[-_]?hours/i),
+        saveSnapshot: find(saveSnapshots, /first[-_]?2[-_]?hours/i),
+        clientLog
+      }
+    },
+    {
+      id: 'signal_crown_completion',
+      claim: 'realSignalCrownPlaythrough',
+      startedAt: '2026-06-11T02:05:00Z',
+      endedAt: '2026-06-11T02:20:00Z',
+      durationMinutes: 15,
+      evidence: {
+        notes: find(supportingFiles, /signal[-_]?crown/i),
+        screenshot: find(screenshots, /signal[-_]?crown/i),
+        saveSnapshot: find(saveSnapshots, /signal[-_]?crown/i),
+        clientLog
+      }
+    },
+    {
+      id: 'no_crash_review',
+      claim: 'noCrashEvidence',
+      startedAt: '2026-06-11T02:20:00Z',
+      endedAt: '2026-06-11T02:21:00Z',
+      durationMinutes: 1,
+      evidence: {
+        notes: find(supportingFiles, /no[-_]?crash/i),
+        clientLog,
+        launcherLog
+      }
+    }
+  ];
+}
+
 async function writeBytes(root, relPath, value) {
   const filePath = path.join(root, relPath);
   await fs.mkdir(path.dirname(filePath), { recursive: true });
@@ -125,6 +196,15 @@ async function completeEvidence(root) {
   const filePath = path.join(root, evidencePath);
   const evidence = JSON.parse(await fs.readFile(filePath, 'utf8'));
   for (const claim of Object.keys(evidence.claims)) evidence.claims[claim] = true;
+  evidence.run = {
+    tester: 'test fixture',
+    releaseTag: releaseTagFor(evidence.packId),
+    launcherChannel: 'alpha',
+    worldOrProfile: 'fixture-world',
+    installedFrom: 'ECHO Launcher',
+    startedAt: '2026-06-11T00:00:00Z'
+  };
+  evidence.sessions = sessionFixture(evidence);
 
   for (const relPath of evidence.supportingFiles) await writeText(root, relPath, noteFixture(relPath));
   for (const relPath of evidence.screenshots) await writeBytes(root, relPath, pngFixture());
@@ -166,6 +246,24 @@ try {
   assert.equal(blocked.status, 1);
   assert.match(`${blocked.stdout}\n${blocked.stderr}`, /manualEvidence claim realFirst30Playthrough must be true|target does not exist/u);
   assert.match(`${blocked.stdout}\n${blocked.stderr}`, /template marker ECHO_SKY_RELAY_TEMPLATE_ONLY/u);
+
+  await completeEvidence(tmp);
+  const missingSessionEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  missingSessionEvidence.sessions = missingSessionEvidence.sessions.filter((session) => session.id !== 'first_2_hours');
+  await fs.writeFile(path.join(tmp, evidencePath), `${JSON.stringify(missingSessionEvidence, null, 2)}\n`, 'utf8');
+  const missingSession = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(missingSession.status, 1);
+  assert.match(`${missingSession.stdout}\n${missingSession.stderr}`, /sessions must include first_2_hours/u);
+
+  await completeEvidence(tmp);
+  const shortSessionEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  const shortSession = shortSessionEvidence.sessions.find((session) => session.id === 'first_30_minutes');
+  shortSession.endedAt = '2026-06-11T00:05:00Z';
+  shortSession.durationMinutes = 5;
+  await fs.writeFile(path.join(tmp, evidencePath), `${JSON.stringify(shortSessionEvidence, null, 2)}\n`, 'utf8');
+  const shortSessionRun = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(shortSessionRun.status, 1);
+  assert.match(`${shortSessionRun.stdout}\n${shortSessionRun.stderr}`, /first_30_minutes.*durationMinutes must be at least 30/u);
 
   await completeEvidence(tmp);
   const firstNotePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';

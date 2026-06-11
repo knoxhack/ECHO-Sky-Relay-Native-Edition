@@ -23,6 +23,12 @@ const REQUIRED_CLAIMS = [
   'noCrashEvidence'
 ];
 
+const RELEASE_TAG_BY_PACK_ID = {
+  'sky-relay-native-edition': 'sky-relay-native-0.1.0-alpha',
+  'sky-relay-neoforge-edition': 'sky-relay-neoforge-0.1.0-alpha',
+  'sky-relay-standalone-edition': 'sky-relay-standalone-0.1.0-alpha'
+};
+
 const REQUIRED_SUPPORTING_PATTERNS = [
   /(^|\/)first[-_]?30[-_]?minutes[^/]*\.md$/iu,
   /(^|\/)first[-_]?2[-_]?hours[^/]*\.md$/iu,
@@ -67,6 +73,52 @@ const NOTE_SECTION_REQUIREMENTS = [
 ];
 
 const BLANK_NOTE_FIELD = /^-\s+[^:\n]+:\s*$/gmu;
+
+const REQUIRED_SESSIONS = [
+  {
+    id: 'first_30_minutes',
+    claim: 'realFirst30Playthrough',
+    minDurationMinutes: 30,
+    evidence: {
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[0] },
+      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[0] },
+      saveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[0] },
+      clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] }
+    }
+  },
+  {
+    id: 'first_2_hours',
+    claim: 'realFirst2HourPlaythrough',
+    minDurationMinutes: 120,
+    evidence: {
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[1] },
+      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[1] },
+      saveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[1] },
+      clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] }
+    }
+  },
+  {
+    id: 'signal_crown_completion',
+    claim: 'realSignalCrownPlaythrough',
+    minDurationMinutes: 1,
+    evidence: {
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[2] },
+      screenshot: { list: 'screenshots', pattern: REQUIRED_SCREENSHOT_PATTERNS[2] },
+      saveSnapshot: { list: 'saveSnapshots', pattern: REQUIRED_SAVE_PATTERNS[2] },
+      clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] }
+    }
+  },
+  {
+    id: 'no_crash_review',
+    claim: 'noCrashEvidence',
+    minDurationMinutes: 1,
+    evidence: {
+      notes: { list: 'supportingFiles', pattern: REQUIRED_SUPPORTING_PATTERNS[3] },
+      clientLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[0] },
+      launcherLog: { list: 'logs', pattern: REQUIRED_LOG_PATTERNS[1] }
+    }
+  }
+];
 
 function usage() {
   return `Usage: node scripts/verify-manual-gameplay-evidence.mjs [options]
@@ -184,6 +236,24 @@ function matchesAny(values, pattern) {
   return values.some((value) => pattern.test(normalizeRel(value)));
 }
 
+function hasPath(values, relPath) {
+  return Array.isArray(values) && values.some((value) => normalizeRel(value) === normalizeRel(relPath));
+}
+
+function isIsoTimestamp(value) {
+  return typeof value === 'string' && !Number.isNaN(Date.parse(value));
+}
+
+function isTemplateTimestamp(value) {
+  return typeof value === 'string' && value.startsWith('1970-01-01T');
+}
+
+function isPlaceholderText(value) {
+  if (typeof value !== 'string') return true;
+  const normalized = value.trim().toLowerCase();
+  return normalized === '' || ['tbd', 'todo', 'pending', 'template'].includes(normalized);
+}
+
 function validatePathListShape({ root, label, values, minItems, requiredPatterns, blockers }) {
   if (!Array.isArray(values)) {
     blockers.push(`${label} must be an array.`);
@@ -216,6 +286,106 @@ function validateMarkdownNote({ text, relPath, label, index, blockers }) {
     blockers.push(`${label}[${index}] target still contains blank worksheet fields: ${relPath}`);
   }
   BLANK_NOTE_FIELD.lastIndex = 0;
+}
+
+function validateRunIdentity({ manifest, evidence, label, blockers, requireReal }) {
+  if (!evidence.run || typeof evidence.run !== 'object' || Array.isArray(evidence.run)) {
+    blockers.push(`${label}.run must be an object.`);
+    return;
+  }
+  const expectedTag = RELEASE_TAG_BY_PACK_ID[manifest.packId];
+  if (expectedTag && evidence.run.releaseTag !== expectedTag) {
+    blockers.push(`${label}.run.releaseTag must be ${expectedTag}.`);
+  }
+  if (evidence.run.launcherChannel !== 'alpha') {
+    blockers.push(`${label}.run.launcherChannel must be alpha.`);
+  }
+  if (!isIsoTimestamp(evidence.run.startedAt)) {
+    blockers.push(`${label}.run.startedAt must be an ISO timestamp.`);
+  }
+  if (!requireReal) return;
+  for (const field of ['tester', 'worldOrProfile', 'installedFrom']) {
+    if (isPlaceholderText(evidence.run[field])) {
+      blockers.push(`${label}.run.${field} must be filled with real capture information.`);
+    }
+  }
+  if (isTemplateTimestamp(evidence.run.startedAt)) {
+    blockers.push(`${label}.run.startedAt must not use the template timestamp.`);
+  }
+}
+
+function validateSessionEvidencePath({ root, evidence, label, sessionId, field, rule, relPath, blockers }) {
+  const pathLabel = `${label}.sessions.${sessionId}.evidence.${field}`;
+  const resolved = resolveInside(root, relPath);
+  if (resolved.error === 'relative-path-required') {
+    blockers.push(`${pathLabel} must be a relative file path.`);
+    return;
+  }
+  if (resolved.error === 'outside-root') {
+    blockers.push(`${pathLabel} points outside the repo: ${relPath}`);
+    return;
+  }
+  if (!rule.pattern.test(normalizeRel(relPath))) {
+    blockers.push(`${pathLabel} must match ${rule.pattern}.`);
+  }
+  if (!hasPath(evidence[rule.list], relPath)) {
+    blockers.push(`${pathLabel} must also be listed in ${label}.${rule.list}.`);
+  }
+}
+
+function validateSessions({ root, evidence, label, blockers, requireReal }) {
+  if (!Array.isArray(evidence.sessions)) {
+    blockers.push(`${label}.sessions must be an array.`);
+    return;
+  }
+  const ids = evidence.sessions.map((session) => session?.id).filter(Boolean);
+  if (new Set(ids).size !== ids.length) blockers.push(`${label}.sessions must not contain duplicate ids.`);
+
+  for (const requirement of REQUIRED_SESSIONS) {
+    const session = evidence.sessions.find((entry) => entry?.id === requirement.id);
+    if (!session) {
+      blockers.push(`${label}.sessions must include ${requirement.id}.`);
+      continue;
+    }
+    if (session.claim !== requirement.claim) {
+      blockers.push(`${label}.sessions.${requirement.id}.claim must be ${requirement.claim}.`);
+    }
+    if (!isIsoTimestamp(session.startedAt)) {
+      blockers.push(`${label}.sessions.${requirement.id}.startedAt must be an ISO timestamp.`);
+    }
+    if (!isIsoTimestamp(session.endedAt)) {
+      blockers.push(`${label}.sessions.${requirement.id}.endedAt must be an ISO timestamp.`);
+    }
+    const start = Date.parse(session.startedAt);
+    const end = Date.parse(session.endedAt);
+    if (!Number.isNaN(start) && !Number.isNaN(end)) {
+      if (end <= start) blockers.push(`${label}.sessions.${requirement.id}.endedAt must be after startedAt.`);
+      const elapsedMinutes = (end - start) / 60000;
+      if (requireReal && elapsedMinutes < requirement.minDurationMinutes) {
+        blockers.push(`${label}.sessions.${requirement.id} elapsed minutes must be at least ${requirement.minDurationMinutes}.`);
+      }
+    }
+    if (typeof session.durationMinutes !== 'number' || !Number.isFinite(session.durationMinutes)) {
+      blockers.push(`${label}.sessions.${requirement.id}.durationMinutes must be a number.`);
+    } else if (requireReal && session.durationMinutes < requirement.minDurationMinutes) {
+      blockers.push(`${label}.sessions.${requirement.id}.durationMinutes must be at least ${requirement.minDurationMinutes}.`);
+    }
+    if (requireReal && (isTemplateTimestamp(session.startedAt) || isTemplateTimestamp(session.endedAt))) {
+      blockers.push(`${label}.sessions.${requirement.id} must not use template timestamps.`);
+    }
+    if (!session.evidence || typeof session.evidence !== 'object' || Array.isArray(session.evidence)) {
+      blockers.push(`${label}.sessions.${requirement.id}.evidence must be an object.`);
+      continue;
+    }
+    for (const [field, rule] of Object.entries(requirement.evidence)) {
+      const relPath = session.evidence[field];
+      if (typeof relPath !== 'string' || relPath.trim() === '') {
+        blockers.push(`${label}.sessions.${requirement.id}.evidence.${field} must be a relative file path.`);
+        continue;
+      }
+      validateSessionEvidencePath({ root, evidence, label, sessionId: requirement.id, field, rule, relPath, blockers });
+    }
+  }
 }
 
 async function validateFileList({ root, label, values, minItems, requiredPatterns, blockers, fileValidator }) {
@@ -260,6 +430,8 @@ function validateCommonEvidenceShape({ root, manifest, evidence, label, blockers
   validatePathListShape({ root, label: `${label}.screenshots`, values: evidence.screenshots, minItems: 3, requiredPatterns: REQUIRED_SCREENSHOT_PATTERNS, blockers });
   validatePathListShape({ root, label: `${label}.logs`, values: evidence.logs, minItems: 2, requiredPatterns: REQUIRED_LOG_PATTERNS, blockers });
   validatePathListShape({ root, label: `${label}.saveSnapshots`, values: evidence.saveSnapshots, minItems: 3, requiredPatterns: REQUIRED_SAVE_PATTERNS, blockers });
+  validateRunIdentity({ manifest, evidence, label, blockers, requireReal: false });
+  validateSessions({ root, evidence, label, blockers, requireReal: false });
 }
 
 function validateTemplate({ root, manifest, template, blockers }) {
@@ -276,6 +448,8 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
   const result = {
     found: false,
     claims: {},
+    run: null,
+    sessions: [],
     checked: {
       supportingFiles: [],
       screenshots: [],
@@ -303,6 +477,10 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
 
   result.found = true;
   validateCommonEvidenceShape({ root, manifest, evidence, label: 'manualEvidence', blockers });
+  validateRunIdentity({ manifest, evidence, label: 'manualEvidence', blockers, requireReal: true });
+  validateSessions({ root, evidence, label: 'manualEvidence', blockers, requireReal: true });
+  result.run = evidence.run ?? null;
+  result.sessions = Array.isArray(evidence.sessions) ? evidence.sessions : [];
   if (typeof evidence.generatedAt !== 'string' || Number.isNaN(Date.parse(evidence.generatedAt))) {
     blockers.push('manualEvidence generatedAt must be an ISO timestamp.');
   }

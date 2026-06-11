@@ -9,6 +9,8 @@ This file is a checklist, not release evidence. Do not list it in
 - Install the public `0.1.0` alpha package through the intended launcher path.
 - Run `node scripts\init-manual-gameplay-evidence.mjs` to create local evidence
   directories and `manual-evidence.json` with every claim still false.
+- Fill `manual-evidence.json` `run` fields with the tester, release tag, world
+  or profile, install path, and real start timestamp.
 - Record the launcher install log at
   `fixtures/sky-relay/gameplay-qa/evidence/logs/launcher-install.log`.
 
@@ -26,6 +28,8 @@ This file is a checklist, not release evidence. Do not list it in
   `fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-30-minutes.png`.
 - Save a ZIP snapshot at
   `fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip`.
+- Update the `first_30_minutes` session with real start/end timestamps, duration,
+  and matching evidence paths.
 
 ## First 2 Hours
 
@@ -40,6 +44,8 @@ This file is a checklist, not release evidence. Do not list it in
 - Survive a severe storm.
 - Craft `stabilized_platform_core`.
 - Capture notes, screenshot, and save ZIP at the matching first-2-hours paths.
+- Update the `first_2_hours` session with real start/end timestamps, duration,
+  and matching evidence paths.
 
 ## Signal Crown
 
@@ -50,6 +56,8 @@ This file is a checklist, not release evidence. Do not list it in
 - Complete the Terminal restoration sequence.
 - Record Signal Crown completion notes, screenshot, and save ZIP at the matching
   Signal Crown paths.
+- Update the `signal_crown_completion` session with real start/end timestamps,
+  duration, and matching evidence paths.
 
 ## Final Review
 
@@ -57,6 +65,7 @@ This file is a checklist, not release evidence. Do not list it in
   `fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log`.
 - Record no-crash/support review at
   `fixtures/sky-relay/gameplay-qa/evidence/no-crash-review.md`.
+- Update the `no_crash_review` session with real review timestamps and log links.
 - Set each claim in `manual-evidence.json` to true only after the referenced
   evidence exists.
 - Run `node scripts\verify-manual-gameplay-evidence.mjs --require-release-ready`.

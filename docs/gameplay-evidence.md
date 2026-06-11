@@ -16,6 +16,26 @@ Every claim must be true:
 - `saveReloadVerified`: the world/profile is saved, closed, reopened, and still valid.
 - `noCrashEvidence`: logs and support review show no blocking crash.
 
+## Required Run Ledger
+
+Fill the `run` object in `manual-evidence.json` with the real tester,
+release tag, launcher channel, world or profile name, install path, and run
+start time. The release tag must match this edition's public alpha tag.
+
+Fill the `sessions` array with these required records:
+
+- `first_30_minutes`: at least 30 elapsed minutes, linked to first-30 notes,
+  screenshot, save snapshot, and client log.
+- `first_2_hours`: at least 120 elapsed minutes, linked to first-2-hours notes,
+  screenshot, save snapshot, and client log.
+- `signal_crown_completion`: linked to Signal Crown notes, screenshot, save
+  snapshot, and client log.
+- `no_crash_review`: linked to the no-crash review, client log, and launcher
+  install log.
+
+Do not leave `TBD` values or `1970-01-01T...` template timestamps in release-ready
+evidence.
+
 ## Required Files
 
 The Release Index verifier requires these relative paths or equivalent names
