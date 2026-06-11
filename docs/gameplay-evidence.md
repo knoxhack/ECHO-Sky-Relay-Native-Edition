@@ -83,7 +83,10 @@ crash or corruption signatures such as `crash report`, `fatal`,
 `uncaught exception`, `unhandled exception`, `exception in thread`, Java stack
 trace lines, `failed to load world`, or world/save corruption markers. Logs must
 also include the same pack ID, release tag, artifact asset name, artifact
-SHA-256, and artifact byte size recorded in the `run` object.
+SHA-256, artifact byte size, launcher channel, install source, world/profile,
+and run start time recorded in the `run` object. The client playthrough log must
+also include every required session ID, start time, and end time as explicit
+markers such as `signal_crown_completion.startedAt=2026-06-11T02:05:00Z`.
 
 The local verifier records byte size and SHA-256 for every accepted evidence
 file. Screenshot entries also include PNG dimensions, so the Release Index handoff

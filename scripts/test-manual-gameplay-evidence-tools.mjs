@@ -325,15 +325,27 @@ function artifactFor(packId) {
 
 function logFixture(evidence, relPath) {
   const kind = /launcher|pack/u.test(relPath) ? 'launcher install' : 'client playthrough';
-  return [
+  const lines = [
     `Sky Relay ${kind} log`,
     `Pack ID: ${evidence.packId}`,
     `Release tag: ${evidence.run.releaseTag}`,
     `Artifact asset: ${evidence.run.artifactAsset}`,
     `Artifact SHA-256: ${evidence.run.artifactSha256}`,
     `Artifact size: ${evidence.run.artifactSize}`,
+    `Launcher channel: ${evidence.run.launcherChannel}`,
+    `Installed from: ${evidence.run.installedFrom}`,
+    `World/profile: ${evidence.run.worldOrProfile}`,
+    `Run started at: ${evidence.run.startedAt}`,
     'Status: completed without blocking crash'
-  ].join('\n');
+  ];
+  if (/client/u.test(relPath)) {
+    for (const session of evidence.sessions ?? []) {
+      lines.push(`${session.id}.id=${session.id}`);
+      lines.push(`${session.id}.startedAt=${session.startedAt}`);
+      lines.push(`${session.id}.endedAt=${session.endedAt}`);
+    }
+  }
+  return lines.join('\n');
 }
 
 function sessionFixture(evidence) {
@@ -623,6 +635,19 @@ try {
   assert.match(`${missingLogProvenance.stdout}\n${missingLogProvenance.stderr}`, /missing required provenance artifactSha256/u);
 
   await completeEvidence(tmp);
+  const clientSessionLogEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  const signalCrownSession = clientSessionLogEvidence.sessions.find((session) => session.id === 'signal_crown_completion');
+  const signalCrownStartMarker = `${signalCrownSession.id}.startedAt=${signalCrownSession.startedAt}`;
+  await writeText(
+    tmp,
+    clientLogPath,
+    logFixture(clientSessionLogEvidence, clientLogPath).replace(signalCrownStartMarker, `${signalCrownSession.id}.startedAt=2026-06-11T02:04:59Z`)
+  );
+  const missingClientSessionMarker = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(missingClientSessionMarker.status, 1);
+  assert.match(`${missingClientSessionMarker.stdout}\n${missingClientSessionMarker.stderr}`, /missing required client log session marker signal_crown_completion\.startedAt/u);
+
+  await completeEvidence(tmp);
   await writeBytes(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png', pngHeaderOnlyFixture());
   const incompletePng = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(incompletePng.status, 1);
@@ -653,7 +678,18 @@ try {
   assert.ok(readyReport.manualEvidence.checked.screenshots[0].pixelVariation.uniquePixelSamples >= 16);
   assert.equal(readyReport.manualEvidence.checked.logs[0].blockingSignatures, 0);
   assert.ok(readyReport.manualEvidence.checked.logs[0].lineCount >= 1);
-  assert.deepEqual(readyReport.manualEvidence.checked.logs[0].provenanceMatches, ['packId', 'releaseTag', 'artifactAsset', 'artifactSha256', 'artifactSize']);
+  assert.deepEqual(readyReport.manualEvidence.checked.logs[0].provenanceMatches, [
+    'packId',
+    'releaseTag',
+    'artifactAsset',
+    'artifactSha256',
+    'artifactSize',
+    'launcherChannel',
+    'installedFrom',
+    'worldOrProfile',
+    'runStartedAt'
+  ]);
+  assert.ok(readyReport.manualEvidence.checked.logs[0].sessionMatches.includes('signal_crown_completion.startedAt'));
   assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 1);
   assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].hasLevelDat, true);
   assert.deepEqual(readyReport.manualEvidence.checked.saveSnapshots[0].unsafeEntries, []);

@@ -657,7 +657,7 @@ function normalizeNoteText(value) {
     .trim();
 }
 
-function validateGameplayLog({ text, relPath, label, index, blockers, provenance }) {
+function validateGameplayLog({ text, relPath, label, index, blockers, provenance, sessions }) {
   const signatures = [];
   for (const signature of BLOCKING_LOG_SIGNATURES) {
     if (signature.pattern.test(text)) signatures.push(signature.label);
@@ -681,10 +681,33 @@ function validateGameplayLog({ text, relPath, label, index, blockers, provenance
     }
   }
 
+  const sessionMatches = [];
+  if (REQUIRED_LOG_PATTERNS[0].test(normalizeRel(relPath))) {
+    for (const session of sessions ?? []) {
+      for (const [field, value] of Object.entries({
+        id: session?.id,
+        startedAt: session?.startedAt,
+        endedAt: session?.endedAt
+      })) {
+        if (value === undefined || value === null || value === '') {
+          blockers.push(`${label}[${index}] cannot validate missing client log session field ${session?.id ?? 'unknown'}.${field}: ${relPath}`);
+          continue;
+        }
+        const marker = `${session.id}.${field}=${value}`;
+        if (!text.includes(marker)) {
+          blockers.push(`${label}[${index}] target is missing required client log session marker ${marker}: ${relPath}`);
+        } else {
+          sessionMatches.push(`${session.id}.${field}`);
+        }
+      }
+    }
+  }
+
   return {
     lineCount: text.split(/\r?\n/u).filter((line) => line.trim()).length,
     blockingSignatures: signatures.length,
-    provenanceMatches
+    provenanceMatches,
+    sessionMatches
   };
 }
 
@@ -1024,8 +1047,13 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
           releaseTag: evidence.run?.releaseTag,
           artifactAsset: evidence.run?.artifactAsset,
           artifactSha256: evidence.run?.artifactSha256,
-          artifactSize: evidence.run?.artifactSize
-        }
+          artifactSize: evidence.run?.artifactSize,
+          launcherChannel: evidence.run?.launcherChannel,
+          installedFrom: evidence.run?.installedFrom,
+          worldOrProfile: evidence.run?.worldOrProfile,
+          runStartedAt: evidence.run?.startedAt
+        },
+        sessions: evidence.sessions
       });
     }
   });
