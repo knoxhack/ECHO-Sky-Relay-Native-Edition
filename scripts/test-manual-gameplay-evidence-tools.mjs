@@ -559,6 +559,16 @@ try {
   assert.match(`${duplicateSaveSnapshot.stdout}\n${duplicateSaveSnapshot.stderr}`, /manualEvidence\.saveSnapshots must contain unique file content/u);
 
   await completeEvidence(tmp);
+  await writeBytes(
+    tmp,
+    'fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip',
+    zipFixture('notes/readme.txt', 'not a world save\n')
+  );
+  const missingLevelDat = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(missingLevelDat.status, 1);
+  assert.match(`${missingLevelDat.stdout}\n${missingLevelDat.stderr}`, /ZIP must contain a level\.dat world save entry/u);
+
+  await completeEvidence(tmp);
   const firstNotePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';
   await writeText(tmp, firstNotePath, noteFixture(firstNotePath).replace('- Tester: test fixture', '- Tester:'));
   const blankField = run(verifyScript, tmp, ['--require-release-ready']);
@@ -614,6 +624,8 @@ try {
   assert.ok(readyReport.manualEvidence.checked.logs[0].lineCount >= 1);
   assert.deepEqual(readyReport.manualEvidence.checked.logs[0].provenanceMatches, ['packId', 'releaseTag', 'artifactAsset', 'artifactSha256', 'artifactSize']);
   assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 1);
+  assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].hasLevelDat, true);
+  assert.deepEqual(readyReport.manualEvidence.checked.saveSnapshots[0].unsafeEntries, []);
   assert.equal(new Set(readyReport.manualEvidence.checked.saveSnapshots.map((snapshot) => snapshot.sha256)).size, 3);
 } finally {
   await fs.rm(tmp, { recursive: true, force: true });

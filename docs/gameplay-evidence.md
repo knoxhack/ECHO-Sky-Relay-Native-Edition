@@ -76,7 +76,8 @@ that match the same patterns:
 
 Screenshots must be complete PNG images with valid chunks, an `IEND` chunk, and
 dimensions at least 640x360. Save snapshots must be ZIP archives with at least
-one entry. Text and log files must be non-empty. Logs must not contain blocking
+one entry, a `level.dat` world save entry, and no absolute or parent-directory
+entry paths. Text and log files must be non-empty. Logs must not contain blocking
 crash or corruption signatures such as `crash report`, `fatal`,
 `uncaught exception`, `unhandled exception`, `exception in thread`, Java stack
 trace lines, `failed to load world`, or world/save corruption markers. Logs must

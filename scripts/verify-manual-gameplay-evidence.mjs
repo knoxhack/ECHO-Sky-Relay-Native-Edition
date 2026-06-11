@@ -392,7 +392,47 @@ async function zipArchiveInfo(filePath) {
   if (centralDirectoryOffset + centralDirectorySize > eocdIndex) return null;
   if (!bytes.subarray(0, ZIP_LOCAL_FILE_HEADER.length).equals(ZIP_LOCAL_FILE_HEADER)) return null;
   if (!bytes.subarray(centralDirectoryOffset, centralDirectoryOffset + ZIP_CENTRAL_DIRECTORY_HEADER.length).equals(ZIP_CENTRAL_DIRECTORY_HEADER)) return null;
-  return { entries: entryCount, centralDirectorySize };
+
+  const entryNames = [];
+  const unsafeEntries = [];
+  let offset = centralDirectoryOffset;
+  for (let entryIndex = 0; entryIndex < entryCount; entryIndex += 1) {
+    if (offset + 46 > bytes.length || !bytes.subarray(offset, offset + ZIP_CENTRAL_DIRECTORY_HEADER.length).equals(ZIP_CENTRAL_DIRECTORY_HEADER)) {
+      return null;
+    }
+    const fileNameLength = bytes.readUInt16LE(offset + 28);
+    const extraLength = bytes.readUInt16LE(offset + 30);
+    const commentLength = bytes.readUInt16LE(offset + 32);
+    const localHeaderOffset = bytes.readUInt32LE(offset + 42);
+    const nameStart = offset + 46;
+    const nameEnd = nameStart + fileNameLength;
+    const nextOffset = nameEnd + extraLength + commentLength;
+    if (nameEnd > bytes.length || nextOffset > bytes.length) return null;
+    if (localHeaderOffset + ZIP_LOCAL_FILE_HEADER.length > bytes.length) return null;
+    if (!bytes.subarray(localHeaderOffset, localHeaderOffset + ZIP_LOCAL_FILE_HEADER.length).equals(ZIP_LOCAL_FILE_HEADER)) return null;
+
+    const entryName = bytes.subarray(nameStart, nameEnd).toString('utf8');
+    const normalizedName = entryName.replace(/\\/g, '/');
+    entryNames.push(normalizedName);
+    if (
+      normalizedName === '' ||
+      normalizedName.startsWith('/') ||
+      /^[A-Za-z]:/u.test(normalizedName) ||
+      normalizedName.split('/').includes('..')
+    ) {
+      unsafeEntries.push(normalizedName);
+    }
+    offset = nextOffset;
+  }
+  if (offset !== centralDirectoryOffset + centralDirectorySize) return null;
+
+  return {
+    entries: entryCount,
+    centralDirectorySize,
+    entryNames,
+    hasLevelDat: entryNames.some((entryName) => entryName === 'level.dat' || entryName.endsWith('/level.dat')),
+    unsafeEntries
+  };
 }
 
 function uniqueStrings(values) {
@@ -901,6 +941,12 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
       if (!zipInfo) {
         fileBlockers.push(`${label}[${index}] target is not a ZIP archive with entries: ${relPath}`);
         return null;
+      }
+      if (!zipInfo.hasLevelDat) {
+        fileBlockers.push(`${label}[${index}] ZIP must contain a level.dat world save entry: ${relPath}`);
+      }
+      if (zipInfo.unsafeEntries.length) {
+        fileBlockers.push(`${label}[${index}] ZIP contains unsafe entry paths: ${zipInfo.unsafeEntries.join(', ')}`);
       }
       return zipInfo;
     }
