@@ -39,6 +39,12 @@ files. Text and log files must be non-empty.
 
 ## Verification
 
+Initialize the evidence capture layout before the manual run:
+
+```powershell
+node scripts\init-manual-gameplay-evidence.mjs
+```
+
 Before sending evidence to the Release Index, run the local edition verifier:
 
 ```powershell

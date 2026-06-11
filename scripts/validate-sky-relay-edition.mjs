@@ -8,6 +8,7 @@ const fail = (message) => { throw new Error(message); };
 
 const requiredDocs = [
   'README.md',
+  'scripts/init-manual-gameplay-evidence.mjs',
   'scripts/verify-manual-gameplay-evidence.mjs',
   'docs/install.md',
   'docs/update-flow.md',
@@ -17,7 +18,8 @@ const requiredDocs = [
   'docs/runtime-evidence.md',
   'docs/troubleshooting.md',
   `evidence/${manifest.runtimeTarget === 'echo_native' ? 'native' : manifest.runtimeTarget === 'neoforge' ? 'neoforge' : 'standalone'}-harness-driver-manifest.template.json`,
-  'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json'
+  'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json',
+  'fixtures/sky-relay/gameplay-qa/evidence/CAPTURE_CHECKLIST.md'
 ];
 
 if (!manifest.packId?.startsWith('sky-relay-')) fail('packId must start with sky-relay-.');

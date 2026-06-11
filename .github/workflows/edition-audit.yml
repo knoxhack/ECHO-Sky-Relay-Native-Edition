@@ -22,3 +22,6 @@ jobs:
 
       - name: Validate gameplay evidence template
         run: node scripts/verify-manual-gameplay-evidence.mjs --template-only
+
+      - name: Validate evidence capture initializer
+        run: node scripts/init-manual-gameplay-evidence.mjs --dry-run
