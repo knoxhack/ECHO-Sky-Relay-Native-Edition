@@ -464,6 +464,18 @@ try {
   assert.match(`${mismatchedArtifact.stdout}\n${mismatchedArtifact.stderr}`, /run\.artifactSha256 must be/u);
 
   await completeEvidence(tmp);
+  const chronologyEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  const saveReloadSession = chronologyEvidence.sessions.find((session) => session.id === 'save_reload_verification');
+  saveReloadSession.startedAt = '2026-06-11T02:10:00Z';
+  await fs.writeFile(path.join(tmp, evidencePath), `${JSON.stringify(chronologyEvidence, null, 2)}\n`, 'utf8');
+  const chronologyRun = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(chronologyRun.status, 1);
+  assert.match(
+    `${chronologyRun.stdout}\n${chronologyRun.stderr}`,
+    /save_reload_verification\.startedAt must be at or after signal_crown_completion\.endedAt/u
+  );
+
+  await completeEvidence(tmp);
   const firstNotePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';
   await writeText(tmp, firstNotePath, noteFixture(firstNotePath).replace('- Tester: test fixture', '- Tester:'));
   const blankField = run(verifyScript, tmp, ['--require-release-ready']);

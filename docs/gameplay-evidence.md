@@ -39,6 +39,10 @@ Fill the `sessions` array with these required records:
 - `no_crash_review`: linked to the no-crash review, client log, and launcher
   install log.
 
+Release-ready sessions must be chronological: every session starts at or after
+`run.startedAt`; Signal Crown starts after the two-hour route window; save/reload
+starts after Signal Crown; no-crash review starts after save/reload.
+
 Do not leave `TBD` values or `1970-01-01T...` template timestamps in release-ready
 evidence.
 
