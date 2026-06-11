@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "echo.skyrelay.gameplay-qa.manual.v1",
+  "packId": "sky-relay-native-edition",
+  "generatedAt": "2026-06-11T15:11:55.808Z",
+  "claims": {
+    "realFirst30Playthrough": false,
+    "realFirst2HourPlaythrough": false,
+    "realSignalCrownPlaythrough": false,
+    "freshWorldCreated": false,
+    "saveReloadVerified": false,
+    "noCrashEvidence": false
+  },
+  "supportingFiles": [
+    "fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md",
+    "fixtures/sky-relay/gameplay-qa/evidence/first-2-hours-notes.md",
+    "fixtures/sky-relay/gameplay-qa/evidence/signal-crown-verification.md",
+    "fixtures/sky-relay/gameplay-qa/evidence/no-crash-review.md"
+  ],
+  "screenshots": [
+    "fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-30-minutes.png",
+    "fixtures/sky-relay/gameplay-qa/evidence/screenshots/first-2-hours.png",
+    "fixtures/sky-relay/gameplay-qa/evidence/screenshots/signal-crown-complete.png"
+  ],
+  "logs": [
+    "fixtures/sky-relay/gameplay-qa/evidence/logs/client-playthrough.log",
+    "fixtures/sky-relay/gameplay-qa/evidence/logs/launcher-install.log"
+  ],
+  "saveSnapshots": [
+    "fixtures/sky-relay/gameplay-qa/evidence/saves/first-30-minutes-save.zip",
+    "fixtures/sky-relay/gameplay-qa/evidence/saves/first-2-hours-save.zip",
+    "fixtures/sky-relay/gameplay-qa/evidence/saves/signal-crown-save.zip"
+  ],
+  "notes": [
+    "Template only. Do not set claims true until each referenced file is real playthrough evidence.",
+    "Copy this file to manual-evidence.json before running the Release Index verifier.",
+    "Initialized from template. Keep claims false until the referenced files are real playthrough evidence."
+  ]
+}
