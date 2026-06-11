@@ -135,16 +135,45 @@ async function writeText(root, relPath, value = 'test fixture\n') {
   await fs.writeFile(filePath, value, 'utf8');
 }
 
-function noteFixture(relPath) {
+function sessionForNote(evidence, relPath) {
+  return evidence?.sessions?.find((session) => session.evidence?.notes === relPath) ?? null;
+}
+
+function noteIdentityLines(relPath, evidence) {
+  const session = sessionForNote(evidence, relPath);
+  return [
+    `- Pack: ${evidence?.packId ?? 'sky-relay-test-edition'}`,
+    `- Release tag: ${evidence?.run?.releaseTag ?? 'sky-relay-test-0.1.0-alpha'}`,
+    `- Artifact asset: ${evidence?.run?.artifactAsset ?? 'sky-relay-test-edition-0.1.0.zip'}`,
+    `- Artifact SHA-256: ${evidence?.run?.artifactSha256 ?? '0'.repeat(64)}`,
+    `- Artifact size: ${evidence?.run?.artifactSize ?? 1}`,
+    `- Session ID: ${session?.id ?? 'fixture_session'}`,
+    `- Session started at: ${session?.startedAt ?? '2026-06-11T00:00:00Z'}`,
+    `- Session ended at: ${session?.endedAt ?? '2026-06-11T00:01:00Z'}`
+  ];
+}
+
+function noteEvidenceLines(relPath, evidence) {
+  const session = sessionForNote(evidence, relPath);
+  return Object.entries(session?.evidence ?? {})
+    .filter(([field]) => field !== 'notes')
+    .map(([field, value]) => `- ${field}: ${value}`);
+}
+
+function noteFixture(relPath, evidence = null) {
+  const identityLines = noteIdentityLines(relPath, evidence);
+  const evidenceLines = noteEvidenceLines(relPath, evidence);
   if (relPath.includes('no-crash')) {
     return `# No Crash Review
 
 ## Reviewed Files
 
+${identityLines.join('\n')}
 - Client playthrough log: client-playthrough.log reviewed
 - Launcher install log: launcher-install.log reviewed
 - Save snapshots: all snapshots opened
 - Screenshots: all screenshots reviewed
+${evidenceLines.join('\n')}
 
 ## Required Checks
 
@@ -172,8 +201,7 @@ function noteFixture(relPath) {
 
 ## Run Identity
 
-- Pack: sky-relay-test-edition
-- Release tag: sky-relay-test-0.1.0-alpha
+${identityLines.join('\n')}
 - Tester: test fixture
 - Date: 2026-06-11
 - World or profile: fixture-world
@@ -184,6 +212,7 @@ ${checks.map((line) => `- ${line}: confirmed`).join('\n')}
 
 ## Evidence Links
 
+${evidenceLines.join('\n')}
 - Screenshot: fixture.png
 - Save snapshot: fixture.zip
 - Client log: client-playthrough.log
@@ -395,7 +424,7 @@ async function completeEvidence(root) {
   evidence.sessions = sessionFixture(evidence);
   evidence.generatedAt = '2026-06-11T02:24:00Z';
 
-  for (const relPath of evidence.supportingFiles) await writeText(root, relPath, noteFixture(relPath));
+  for (const relPath of evidence.supportingFiles) await writeText(root, relPath, noteFixture(relPath, evidence));
   for (const [index, relPath] of evidence.screenshots.entries()) await writeBytes(root, relPath, pngFixture(1280, 720, index + 1));
   for (const relPath of evidence.logs) await writeText(root, relPath, logFixture(evidence, relPath));
   for (const [index, relPath] of evidence.saveSnapshots.entries()) {
@@ -471,6 +500,18 @@ try {
   const mismatchedArtifact = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(mismatchedArtifact.status, 1);
   assert.match(`${mismatchedArtifact.stdout}\n${mismatchedArtifact.stderr}`, /run\.artifactSha256 must be/u);
+
+  await completeEvidence(tmp);
+  const noteProvenanceEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  const noteProvenancePath = 'fixtures/sky-relay/gameplay-qa/evidence/first-30-minutes-notes.md';
+  await writeText(
+    tmp,
+    noteProvenancePath,
+    noteFixture(noteProvenancePath, noteProvenanceEvidence).replace(noteProvenanceEvidence.run.artifactSha256, '0'.repeat(64))
+  );
+  const noteProvenance = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(noteProvenance.status, 1);
+  assert.match(`${noteProvenance.stdout}\n${noteProvenance.stderr}`, /missing required note provenance artifactSha256/u);
 
   await completeEvidence(tmp);
   const chronologyEvidence = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
@@ -555,7 +596,8 @@ try {
   assert.match(`${incompletePng.stdout}\n${incompletePng.stderr}`, /complete PNG image with valid chunks/u);
 
   await completeEvidence(tmp);
-  await writeText(tmp, firstNotePath, noteFixture(firstNotePath));
+  const readyEvidenceFixture = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
+  await writeText(tmp, firstNotePath, noteFixture(firstNotePath, readyEvidenceFixture));
   const ready = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(ready.status, 0, `${ready.stdout}\n${ready.stderr}`);
   const readyReport = JSON.parse(ready.stdout);

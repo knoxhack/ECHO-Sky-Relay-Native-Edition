@@ -450,7 +450,12 @@ function validatePathListShape({ root, label, values, minItems, requiredPatterns
   }
 }
 
-function validateMarkdownNote({ text, relPath, label, index, blockers }) {
+function sessionForNote(evidence, relPath) {
+  if (!Array.isArray(evidence?.sessions)) return null;
+  return evidence.sessions.find((session) => normalizeRel(session?.evidence?.notes ?? '') === normalizeRel(relPath)) ?? null;
+}
+
+function validateMarkdownNote({ text, relPath, label, index, blockers, evidence }) {
   if (text.includes(TEMPLATE_MARKER)) {
     blockers.push(`${label}[${index}] target still contains template marker ${TEMPLATE_MARKER}: ${relPath}`);
   }
@@ -471,6 +476,39 @@ function validateMarkdownNote({ text, relPath, label, index, blockers }) {
     blockers.push(`${label}[${index}] target still contains blank worksheet fields: ${relPath}`);
   }
   BLANK_NOTE_FIELD.lastIndex = 0;
+
+  if (!evidence) return;
+  const session = sessionForNote(evidence, relPath);
+  if (!session) {
+    blockers.push(`${label}[${index}] target must be linked from a session evidence.notes path: ${relPath}`);
+    return;
+  }
+
+  const requiredProvenance = {
+    packId: evidence.packId,
+    releaseTag: evidence.run?.releaseTag,
+    artifactAsset: evidence.run?.artifactAsset,
+    artifactSha256: evidence.run?.artifactSha256,
+    artifactSize: evidence.run?.artifactSize,
+    sessionId: session.id,
+    sessionStartedAt: session.startedAt,
+    sessionEndedAt: session.endedAt
+  };
+  for (const [field, value] of Object.entries(requiredProvenance)) {
+    if (value === undefined || value === null || value === '') {
+      blockers.push(`${label}[${index}] cannot validate missing note provenance field ${field}: ${relPath}`);
+      continue;
+    }
+    if (!text.includes(String(value))) {
+      blockers.push(`${label}[${index}] target is missing required note provenance ${field}=${value}: ${relPath}`);
+    }
+  }
+  for (const [field, value] of Object.entries(session.evidence ?? {})) {
+    if (field === 'notes') continue;
+    if (typeof value === 'string' && value.trim() !== '' && !text.includes(value)) {
+      blockers.push(`${label}[${index}] target is missing linked session evidence path ${field}=${value}: ${relPath}`);
+    }
+  }
 }
 
 function normalizeNoteText(value) {
@@ -800,7 +838,7 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
     blockers,
     fileValidator: async ({ filePath, relPath, blockers: fileBlockers, label, index }) => {
       const text = await fs.readFile(filePath, 'utf8');
-      validateMarkdownNote({ text, relPath, label, index, blockers: fileBlockers });
+      validateMarkdownNote({ text, relPath, label, index, blockers: fileBlockers, evidence });
     }
   });
   validateUniqueCheckedHashes({ label: 'manualEvidence.supportingFiles', records: result.checked.supportingFiles, blockers });

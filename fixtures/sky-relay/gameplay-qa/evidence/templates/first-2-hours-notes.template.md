@@ -8,6 +8,12 @@ Replace this template with notes from a real Sky Relay Native Edition playthroug
 
 - Pack:
 - Release tag:
+- Artifact asset:
+- Artifact SHA-256:
+- Artifact size:
+- Session ID:
+- Session started at:
+- Session ended at:
 - Tester:
 - Date:
 - World or profile continued from first 30 minutes:
