@@ -32,6 +32,29 @@ function pngFixture(width = 1280, height = 720, shade = 0) {
   for (let row = 0; row < height; row += 1) {
     const rowStart = row * (width + 1);
     rawScanlines[rowStart] = 0;
+    for (let column = 0; column < width; column += 1) {
+      rawScanlines[rowStart + 1 + column] = (pixel + row + column) & 0xff;
+    }
+  }
+  return Buffer.concat([
+    pngSignature,
+    pngChunk('IHDR', ihdr),
+    pngChunk('IDAT', zlib.deflateSync(rawScanlines)),
+    pngChunk('IEND')
+  ]);
+}
+
+function blankPngFixture(width = 1280, height = 720, shade = 0) {
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(width, 0);
+  ihdr.writeUInt32BE(height, 4);
+  ihdr[8] = 8;
+  ihdr[9] = 0;
+  const rawScanlines = Buffer.alloc((width + 1) * height);
+  const pixel = shade & 0xff;
+  for (let row = 0; row < height; row += 1) {
+    const rowStart = row * (width + 1);
+    rawScanlines[rowStart] = 0;
     rawScanlines.fill(pixel, rowStart + 1, rowStart + 1 + width);
   }
   return Buffer.concat([
@@ -606,6 +629,12 @@ try {
   assert.match(`${incompletePng.stdout}\n${incompletePng.stderr}`, /complete PNG image with valid chunks/u);
 
   await completeEvidence(tmp);
+  await writeBytes(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png', blankPngFixture());
+  const blankPng = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(blankPng.status, 1);
+  assert.match(`${blankPng.stdout}\n${blankPng.stderr}`, /PNG must contain visible pixel variation/u);
+
+  await completeEvidence(tmp);
   const readyEvidenceFixture = JSON.parse(await fs.readFile(path.join(tmp, evidencePath), 'utf8'));
   await writeText(tmp, firstNotePath, noteFixture(firstNotePath, readyEvidenceFixture));
   const ready = run(verifyScript, tmp, ['--require-release-ready']);
@@ -620,6 +649,8 @@ try {
   assert.deepEqual(readyReport.manualEvidence.checked.screenshots[0].dimensions, { width: 1280, height: 720 });
   assert.equal(readyReport.manualEvidence.checked.screenshots[0].idatChunks, 1);
   assert.ok(readyReport.manualEvidence.checked.screenshots[0].chunks >= 3);
+  assert.equal(readyReport.manualEvidence.checked.screenshots[0].pixelVariation.supported, true);
+  assert.ok(readyReport.manualEvidence.checked.screenshots[0].pixelVariation.uniquePixelSamples >= 16);
   assert.equal(readyReport.manualEvidence.checked.logs[0].blockingSignatures, 0);
   assert.ok(readyReport.manualEvidence.checked.logs[0].lineCount >= 1);
   assert.deepEqual(readyReport.manualEvidence.checked.logs[0].provenanceMatches, ['packId', 'releaseTag', 'artifactAsset', 'artifactSha256', 'artifactSize']);

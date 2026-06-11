@@ -74,10 +74,11 @@ that match the same patterns:
 - `fixtures/sky-relay/gameplay-qa/evidence/saves/first-2-hours-save.zip`
 - `fixtures/sky-relay/gameplay-qa/evidence/saves/signal-crown-save.zip`
 
-Screenshots must be complete PNG images with valid chunks, an `IEND` chunk, and
-dimensions at least 640x360. Save snapshots must be ZIP archives with at least
-one entry, a `level.dat` world save entry, and no absolute or parent-directory
-entry paths. Text and log files must be non-empty. Logs must not contain blocking
+Screenshots must be complete PNG images with valid chunks, an `IEND` chunk,
+dimensions at least 640x360, and visible pixel variation rather than blank
+placeholder frames. Save snapshots must be ZIP archives with at least one entry,
+a `level.dat` world save entry, and no absolute or parent-directory entry paths.
+Text and log files must be non-empty. Logs must not contain blocking
 crash or corruption signatures such as `crash report`, `fatal`,
 `uncaught exception`, `unhandled exception`, `exception in thread`, Java stack
 trace lines, `failed to load world`, or world/save corruption markers. Logs must

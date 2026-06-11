@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import zlib from 'node:zlib';
 
 const DEFAULT_EVIDENCE = 'fixtures/sky-relay/gameplay-qa/manual-evidence.json';
 const DEFAULT_TEMPLATE = 'fixtures/sky-relay/gameplay-qa/manual-evidence.template.json';
@@ -339,8 +340,11 @@ async function pngImageInfo(filePath) {
 
   let offset = PNG_SIGNATURE.length;
   let dimensions = null;
+  let bitDepth = null;
+  let colorType = null;
   let chunkCount = 0;
   let idatChunks = 0;
+  const idatData = [];
 
   while (offset + 12 <= bytes.length) {
     const length = bytes.readUInt32BE(offset);
@@ -364,19 +368,112 @@ async function pngImageInfo(filePath) {
         width: bytes.readUInt32BE(dataStart),
         height: bytes.readUInt32BE(dataStart + 4)
       };
+      bitDepth = bytes[dataStart + 8];
+      colorType = bytes[dataStart + 9];
       if (dimensions.width < 1 || dimensions.height < 1) return null;
     } else if (type === 'IDAT') {
       if (!dimensions) return null;
       idatChunks += 1;
+      idatData.push(bytes.subarray(dataStart, dataEnd));
     } else if (type === 'IEND') {
       if (length !== 0 || !dimensions || idatChunks < 1 || crcEnd !== bytes.length) return null;
-      return { dimensions, chunks: chunkCount, idatChunks };
+      const pixelVariation = pngPixelVariation({ dimensions, bitDepth, colorType, idatData });
+      return { dimensions, chunks: chunkCount, idatChunks, bitDepth, colorType, pixelVariation };
     }
 
     offset = crcEnd;
   }
 
   return null;
+}
+
+function pngPixelVariation({ dimensions, bitDepth, colorType, idatData }) {
+  if (bitDepth !== 8) return { supported: false, reason: `unsupported bit depth ${bitDepth}` };
+  const channelsByColorType = new Map([
+    [0, 1],
+    [2, 3],
+    [3, 1],
+    [4, 2],
+    [6, 4]
+  ]);
+  const channels = channelsByColorType.get(colorType);
+  if (!channels) return { supported: false, reason: `unsupported color type ${colorType}` };
+
+  const rowBytes = dimensions.width * channels;
+  let inflated;
+  try {
+    inflated = zlib.inflateSync(Buffer.concat(idatData));
+  } catch {
+    return null;
+  }
+  if (inflated.length !== (rowBytes + 1) * dimensions.height) return null;
+
+  const uniquePixels = new Set();
+  let luminanceMin = 255;
+  let luminanceMax = 0;
+  let previousRow = Buffer.alloc(rowBytes);
+  let offset = 0;
+
+  for (let y = 0; y < dimensions.height; y += 1) {
+    const filter = inflated[offset];
+    offset += 1;
+    const rawRow = inflated.subarray(offset, offset + rowBytes);
+    offset += rowBytes;
+    const row = Buffer.alloc(rowBytes);
+
+    for (let index = 0; index < rowBytes; index += 1) {
+      const left = index >= channels ? row[index - channels] : 0;
+      const up = previousRow[index] ?? 0;
+      const upperLeft = index >= channels ? previousRow[index - channels] : 0;
+      let predictor = 0;
+      if (filter === 1) predictor = left;
+      else if (filter === 2) predictor = up;
+      else if (filter === 3) predictor = Math.floor((left + up) / 2);
+      else if (filter === 4) predictor = paethPredictor(left, up, upperLeft);
+      else if (filter !== 0) return null;
+      row[index] = (rawRow[index] + predictor) & 0xff;
+    }
+
+    for (let x = 0; x < dimensions.width; x += 1) {
+      const pixelStart = x * channels;
+      let red;
+      let green;
+      let blue;
+      if (colorType === 0 || colorType === 3) {
+        red = row[pixelStart];
+        green = red;
+        blue = red;
+      } else {
+        red = row[pixelStart];
+        green = row[pixelStart + 1] ?? red;
+        blue = row[pixelStart + 2] ?? red;
+      }
+      const luminance = Math.round((red + green + blue) / 3);
+      luminanceMin = Math.min(luminanceMin, luminance);
+      luminanceMax = Math.max(luminanceMax, luminance);
+      if (uniquePixels.size <= 256) {
+        uniquePixels.add(row.subarray(pixelStart, pixelStart + channels).toString('hex'));
+      }
+    }
+
+    previousRow = row;
+  }
+
+  return {
+    supported: true,
+    uniquePixelSamples: uniquePixels.size,
+    luminanceRange: luminanceMax - luminanceMin
+  };
+}
+
+function paethPredictor(left, up, upperLeft) {
+  const estimate = left + up - upperLeft;
+  const distanceLeft = Math.abs(estimate - left);
+  const distanceUp = Math.abs(estimate - up);
+  const distanceUpperLeft = Math.abs(estimate - upperLeft);
+  if (distanceLeft <= distanceUp && distanceLeft <= distanceUpperLeft) return left;
+  if (distanceUp <= distanceUpperLeft) return up;
+  return upperLeft;
 }
 
 async function zipArchiveInfo(filePath) {
@@ -897,6 +994,10 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
       }
       if (pngInfo.dimensions.width < 640 || pngInfo.dimensions.height < 360) {
         fileBlockers.push(`${label}[${index}] PNG dimensions must be at least 640x360: ${relPath}`);
+        return null;
+      }
+      if (!pngInfo.pixelVariation?.supported || pngInfo.pixelVariation.uniquePixelSamples < 16) {
+        fileBlockers.push(`${label}[${index}] PNG must contain visible pixel variation, not a blank placeholder: ${relPath}`);
         return null;
       }
       return pngInfo;
