@@ -226,32 +226,61 @@ async function sha256File(filePath) {
   return crypto.createHash('sha256').update(await fs.readFile(filePath)).digest('hex');
 }
 
-async function fileStartsWith(filePath, signatures) {
-  const longest = Math.max(...signatures.map((signature) => signature.length));
-  const handle = await fs.open(filePath, 'r');
-  try {
-    const buffer = Buffer.alloc(longest);
-    const result = await handle.read(buffer, 0, longest, 0);
-    return signatures.some((signature) => result.bytesRead >= signature.length && buffer.subarray(0, signature.length).equals(signature));
-  } finally {
-    await handle.close();
+function crc32(buffer) {
+  let crc = 0xffffffff;
+  for (const byte of buffer) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = (crc >>> 1) ^ (0xedb88320 & -(crc & 1));
+    }
   }
+  return (crc ^ 0xffffffff) >>> 0;
 }
 
-async function pngDimensions(filePath) {
-  const handle = await fs.open(filePath, 'r');
-  try {
-    const header = Buffer.alloc(24);
-    const result = await handle.read(header, 0, header.length, 0);
-    if (result.bytesRead < header.length || !header.subarray(0, PNG_SIGNATURE.length).equals(PNG_SIGNATURE)) return null;
-    if (header.subarray(12, 16).toString('ascii') !== 'IHDR') return null;
-    return {
-      width: header.readUInt32BE(16),
-      height: header.readUInt32BE(20)
-    };
-  } finally {
-    await handle.close();
+async function pngImageInfo(filePath) {
+  const bytes = await fs.readFile(filePath);
+  if (bytes.length < PNG_SIGNATURE.length + 12 || !bytes.subarray(0, PNG_SIGNATURE.length).equals(PNG_SIGNATURE)) return null;
+
+  let offset = PNG_SIGNATURE.length;
+  let dimensions = null;
+  let chunkCount = 0;
+  let idatChunks = 0;
+
+  while (offset + 12 <= bytes.length) {
+    const length = bytes.readUInt32BE(offset);
+    const typeStart = offset + 4;
+    const dataStart = offset + 8;
+    const dataEnd = dataStart + length;
+    const crcEnd = dataEnd + 4;
+    if (dataEnd > bytes.length || crcEnd > bytes.length) return null;
+
+    const typeBytes = bytes.subarray(typeStart, dataStart);
+    const type = typeBytes.toString('ascii');
+    const expectedCrc = bytes.readUInt32BE(dataEnd);
+    const actualCrc = crc32(Buffer.concat([typeBytes, bytes.subarray(dataStart, dataEnd)]));
+    if (expectedCrc !== actualCrc) return null;
+
+    chunkCount += 1;
+    if (!dimensions && type !== 'IHDR') return null;
+    if (type === 'IHDR') {
+      if (dimensions || length !== 13) return null;
+      dimensions = {
+        width: bytes.readUInt32BE(dataStart),
+        height: bytes.readUInt32BE(dataStart + 4)
+      };
+      if (dimensions.width < 1 || dimensions.height < 1) return null;
+    } else if (type === 'IDAT') {
+      if (!dimensions) return null;
+      idatChunks += 1;
+    } else if (type === 'IEND') {
+      if (length !== 0 || !dimensions || idatChunks < 1 || crcEnd !== bytes.length) return null;
+      return { dimensions, chunks: chunkCount, idatChunks };
+    }
+
+    offset = crcEnd;
   }
+
+  return null;
 }
 
 async function zipArchiveInfo(filePath) {
@@ -553,16 +582,16 @@ async function validateManualEvidence({ root, manifest, evidencePath, blockers }
     requiredPatterns: REQUIRED_SCREENSHOT_PATTERNS,
     blockers,
     fileValidator: async ({ filePath, relPath, blockers: fileBlockers, label, index }) => {
-      if (!(await fileStartsWith(filePath, [PNG_SIGNATURE]))) {
-        fileBlockers.push(`${label}[${index}] target is not a PNG file: ${relPath}`);
-        return;
+      const pngInfo = await pngImageInfo(filePath);
+      if (!pngInfo) {
+        fileBlockers.push(`${label}[${index}] target is not a complete PNG image with valid chunks: ${relPath}`);
+        return null;
       }
-      const dimensions = await pngDimensions(filePath);
-      if (!dimensions || dimensions.width < 640 || dimensions.height < 360) {
+      if (pngInfo.dimensions.width < 640 || pngInfo.dimensions.height < 360) {
         fileBlockers.push(`${label}[${index}] PNG dimensions must be at least 640x360: ${relPath}`);
         return null;
       }
-      return { dimensions };
+      return pngInfo;
     }
   });
   result.checked.logs = await validateFileList({

@@ -5,6 +5,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import process from 'node:process';
+import zlib from 'node:zlib';
 
 const repoRoot = process.cwd();
 const initScript = path.join(repoRoot, 'scripts', 'init-manual-gameplay-evidence.mjs');
@@ -21,6 +22,30 @@ const noteTemplatePaths = [
 const pngSignature = Buffer.from('89504e470d0a1a0a', 'hex');
 
 function pngFixture(width = 1280, height = 720) {
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(width, 0);
+  ihdr.writeUInt32BE(height, 4);
+  ihdr[8] = 8;
+  ihdr[9] = 0;
+  const rawScanlines = Buffer.alloc((width + 1) * height);
+  return Buffer.concat([
+    pngSignature,
+    pngChunk('IHDR', ihdr),
+    pngChunk('IDAT', zlib.deflateSync(rawScanlines)),
+    pngChunk('IEND')
+  ]);
+}
+
+function pngChunk(type, data = Buffer.alloc(0)) {
+  const typeBytes = Buffer.from(type, 'ascii');
+  const length = Buffer.alloc(4);
+  length.writeUInt32BE(data.length, 0);
+  const checksum = Buffer.alloc(4);
+  checksum.writeUInt32BE(crc32(Buffer.concat([typeBytes, data])), 0);
+  return Buffer.concat([length, typeBytes, data, checksum]);
+}
+
+function pngHeaderOnlyFixture(width = 1280, height = 720) {
   const header = Buffer.alloc(33);
   pngSignature.copy(header, 0);
   header.writeUInt32BE(13, 8);
@@ -28,7 +53,7 @@ function pngFixture(width = 1280, height = 720) {
   header.writeUInt32BE(width, 16);
   header.writeUInt32BE(height, 20);
   header[24] = 8;
-  header[25] = 6;
+  header[25] = 0;
   return header;
 }
 
@@ -363,6 +388,13 @@ try {
   assert.equal(missingSection.status, 1);
   assert.match(`${missingSection.stdout}\n${missingSection.stderr}`, /missing section ## Evidence Links/u);
 
+  await completeEvidence(tmp);
+  await writeBytes(tmp, 'fixtures/sky-relay/gameplay-qa/evidence/screenshots/fresh-world-created.png', pngHeaderOnlyFixture());
+  const incompletePng = run(verifyScript, tmp, ['--require-release-ready']);
+  assert.equal(incompletePng.status, 1);
+  assert.match(`${incompletePng.stdout}\n${incompletePng.stderr}`, /complete PNG image with valid chunks/u);
+
+  await completeEvidence(tmp);
   await writeText(tmp, firstNotePath, noteFixture(firstNotePath));
   const ready = run(verifyScript, tmp, ['--require-release-ready']);
   assert.equal(ready.status, 0, `${ready.stdout}\n${ready.stderr}`);
@@ -370,9 +402,11 @@ try {
   assert.equal(readyReport.status, 'PASS');
   assert.match(readyReport.manualEvidence.checked.supportingFiles[0].sha256, /^[a-f0-9]{64}$/u);
   assert.ok(readyReport.manualEvidence.checked.supportingFiles[0].size > 100);
-  assert.equal(readyReport.manualEvidence.checked.screenshots[0].size, 33);
+  assert.ok(readyReport.manualEvidence.checked.screenshots[0].size > 33);
   assert.match(readyReport.manualEvidence.checked.screenshots[0].sha256, /^[a-f0-9]{64}$/u);
   assert.deepEqual(readyReport.manualEvidence.checked.screenshots[0].dimensions, { width: 1280, height: 720 });
+  assert.equal(readyReport.manualEvidence.checked.screenshots[0].idatChunks, 1);
+  assert.ok(readyReport.manualEvidence.checked.screenshots[0].chunks >= 3);
   assert.equal(readyReport.manualEvidence.checked.saveSnapshots[0].entries, 1);
 } finally {
   await fs.rm(tmp, { recursive: true, force: true });

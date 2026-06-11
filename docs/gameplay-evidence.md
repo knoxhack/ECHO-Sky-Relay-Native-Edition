@@ -60,8 +60,9 @@ that match the same patterns:
 - `fixtures/sky-relay/gameplay-qa/evidence/saves/first-2-hours-save.zip`
 - `fixtures/sky-relay/gameplay-qa/evidence/saves/signal-crown-save.zip`
 
-Screenshots must be PNG files at least 640x360. Save snapshots must be ZIP
-archives with at least one entry. Text and log files must be non-empty.
+Screenshots must be complete PNG images with valid chunks, an `IEND` chunk, and
+dimensions at least 640x360. Save snapshots must be ZIP archives with at least
+one entry. Text and log files must be non-empty.
 
 The local verifier records byte size and SHA-256 for every accepted evidence
 file. Screenshot entries also include PNG dimensions, so the Release Index handoff
