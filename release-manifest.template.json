@@ -10,15 +10,40 @@
   "moduleSourcePattern": "<module>-<version>-sources.jar",
   "moduleRequirements": [
     {
+      "id": "echoadaptercore",
+      "version": ">=1.0.0"
+    },
+    {
+      "id": "echoblockworks",
+      "version": ">=1.0.0",
+      "required": true
+    },
+    {
       "id": "echocore",
       "version": ">=1.0.0"
     },
     {
-      "id": "echonetcore",
-      "version": ">=1.0.0"
+      "id": "echoholomap",
+      "version": ">=1.0.0",
+      "required": true
     },
     {
-      "id": "echoadaptercore",
+      "id": "echohudcore",
+      "version": ">=1.0.0",
+      "required": true
+    },
+    {
+      "id": "echoindex",
+      "version": ">=1.0.0",
+      "required": true
+    },
+    {
+      "id": "echolens",
+      "version": ">=1.0.0",
+      "required": true
+    },
+    {
+      "id": "echonetcore",
       "version": ">=1.0.0"
     },
     {
@@ -26,8 +51,28 @@
       "version": ">=1.0.0"
     },
     {
+      "id": "echoscreencore",
+      "version": ">=1.0.0",
+      "required": true
+    },
+    {
       "id": "echoskyrelayprotocol",
       "version": "0.1.0"
+    },
+    {
+      "id": "echoterminal",
+      "version": ">=1.0.0",
+      "required": true
+    },
+    {
+      "id": "echothemecore",
+      "version": ">=1.3.0",
+      "required": true
+    },
+    {
+      "id": "echoworldcore",
+      "version": ">=1.0.0",
+      "required": true
     }
   ],
   "requiredModuleDescriptors": [
