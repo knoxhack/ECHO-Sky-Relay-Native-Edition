@@ -4,8 +4,15 @@ import path from 'node:path';
 
 const root = path.resolve(process.argv.includes('--root') ? process.argv[process.argv.indexOf('--root') + 1] : '.');
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'release-manifest.template.json'), 'utf8'));
+const officialSelections = JSON.parse(fs.readFileSync(path.join(root, '..', 'ECHO-Modules', 'metadata', 'official-pack-module-selections.json'), 'utf8'));
 const fail = (message) => { throw new Error(message); };
 const edition = manifest.runtimeTarget === 'echo_native' ? 'native' : manifest.runtimeTarget === 'neoforge' ? 'neoforge' : 'standalone';
+const requiredModules = officialSelections.packs['sky-relay'].modules;
+const expectedFamily = {
+  echo_native: 'echo-addon',
+  neoforge: 'neoforge',
+  echo_runtime_standalone: 'standalone'
+}[manifest.runtimeTarget];
 const releaseTagByPackId = {
   'sky-relay-native-edition': 'sky-relay-native-0.1.0-alpha',
   'sky-relay-neoforge-edition': 'sky-relay-neoforge-0.1.0-alpha',
@@ -51,9 +58,14 @@ const requiredDocs = [
 ];
 
 if (!manifest.packId?.startsWith('sky-relay-')) fail('packId must start with sky-relay-.');
-if (manifest.moduleRequirements?.some((entry) => entry.id === 'echoskyrelayprotocol') !== true) {
-  fail('release manifest must require echoskyrelayprotocol.');
+if (manifest.moduleArtifactFamily !== expectedFamily) fail(`moduleArtifactFamily must be ${expectedFamily} for ${manifest.runtimeTarget}.`);
+const actualModules = (manifest.moduleRequirements ?? []).map((entry) => entry.id);
+for (const moduleId of requiredModules) {
+  if (!actualModules.includes(moduleId)) fail(`release manifest must require ${moduleId}.`);
 }
+const extraModules = actualModules.filter((moduleId) => !requiredModules.includes(moduleId));
+if (actualModules.length !== requiredModules.length) fail(`release manifest must require exactly ${requiredModules.length} Sky Relay modules.`);
+if (extraModules.length) fail(`release manifest has unexpected modules: ${extraModules.join(', ')}.`);
 if (!manifest.artifacts || !Array.isArray(manifest.artifacts)) fail('artifacts must be an array.');
 for (const doc of requiredDocs) {
   if (!fs.existsSync(path.join(root, doc))) fail(`Missing required file ${doc}.`);
@@ -91,5 +103,6 @@ console.log(JSON.stringify({
   runtimeTarget: manifest.runtimeTarget,
   loader: manifest.loader,
   artifactFamily: manifest.moduleArtifactFamily,
+  moduleRequirements: manifest.moduleRequirements.length,
   evidenceCount: manifest.requiredPublicAlphaEvidence.length
 }, null, 2));
