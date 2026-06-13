@@ -1,0 +1,59 @@
+{
+  "packId": "sky-relay-native-edition",
+  "displayName": "Sky Relay Native Edition",
+  "sourceRepo": "knoxhack/ECHO-Sky-Relay-Native-Edition",
+  "launcherFeed": "github-releases",
+  "runtimeTarget": "echo_native",
+  "loader": "echo-native-loader",
+  "moduleArtifactFamily": "echo-addon",
+  "moduleArtifactPattern": "<module>-<version>.echo-addon",
+  "moduleSourcePattern": "<module>-<version>-sources.jar",
+  "moduleRequirements": [
+    {
+      "id": "echocore",
+      "version": ">=1.0.0"
+    },
+    {
+      "id": "echonetcore",
+      "version": ">=1.0.0"
+    },
+    {
+      "id": "echoadaptercore",
+      "version": ">=1.0.0"
+    },
+    {
+      "id": "echoruntimeguard",
+      "version": ">=1.0.0"
+    },
+    {
+      "id": "echoskyrelayprotocol",
+      "version": "0.1.0"
+    }
+  ],
+  "requiredModuleDescriptors": [
+    "META-INF/echo.mod.json"
+  ],
+  "optionalPackageDescriptors": [
+    "echo-addon-package.json"
+  ],
+  "requiredRuntimeEvidenceContract": "data/echoskyrelayprotocol/skyrelay/plan/production_phase_matrix.json",
+  "requiredAdapterLoadPhases": [
+    "discover",
+    "load_data",
+    "register_content",
+    "bind_fragments",
+    "bind_power_weather_recovery",
+    "bind_launcher_manifest",
+    "ready",
+    "release_gate"
+  ],
+  "requiredPublicAlphaEvidence": [
+    "skyrelay_contract_validator_pass",
+    "native_neoforge_standalone_artifacts_uploaded_with_sha256",
+    "launcher_install_update_repair_rollback_pass",
+    "first_30_minute_playthrough_pass",
+    "first_2_hour_playthrough_pass",
+    "signal_crown_completion_pass"
+  ],
+  "artifacts": []
+}
