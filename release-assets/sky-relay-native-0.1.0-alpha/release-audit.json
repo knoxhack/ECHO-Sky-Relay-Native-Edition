@@ -1,114 +1,110 @@
 {
-    "schemaVersion":  1,
-    "generatedAt":  "2026-06-13T07:30:11.551Z",
-    "repository":  "knoxhack/ECHO-Sky-Relay-Native-Edition",
-    "releaseTag":  "sky-relay-native-0.1.0-alpha",
-    "status":  "verified-prerelease-assets",
-    "releaseUrl":  "https://github.com/knoxhack/ECHO-Sky-Relay-Native-Edition/releases/tag/sky-relay-native-0.1.0-alpha",
-    "assetDirectory":  "release-assets/sky-relay-native-0.1.0-alpha",
-    "uploadedReleaseAssets":  [
-                                  "checksums.txt",
-                                  "echo-release.json",
-                                  "native-harness-driver-manifest.template.json",
-                                  "release-manifest.template.json",
-                                  "sky-relay-native-edition-0.1.0.zip",
-                                  "sky-relay-native-edition-alpha-0.1.0.pack.json",
-                                  "sky-relay-pack-build-report.json"
-                              ],
-    "sidecarAssets":  [
-                          "release-audit.json"
-                      ],
-    "assets":  [
-                   {
-                       "name":  "checksums.txt",
-                       "size":  397,
-                       "sha256":  "b664f1dcf8e0a71e997c8ed8a09d5435fa1c21a848987c2ede1bba19d6a56d5e"
-                   },
-                   {
-                       "name":  "echo-release.json",
-                       "size":  4567,
-                       "sha256":  "ed88b56b7329f55f163a000a38eaa97bcb8eb498e91a954abe90aa737f7db95a"
-                   },
-                   {
-                       "name":  "native-harness-driver-manifest.template.json",
-                       "size":  1101,
-                       "sha256":  "b6caa117c45e8acc8fbd7a6a2e144ed4f914aa2b3670a48fe9c112ac1da1d949"
-                   },
-                   {
-                       "name":  "release-manifest.template.json",
-                       "size":  1575,
-                       "sha256":  "537426873b56335d2eb86fbae9e3a04ac592f3f3235931732b0eaa99f5434955"
-                   },
-                   {
-                       "name":  "sky-relay-native-edition-0.1.0.zip",
-                       "size":  39163330,
-                       "sha256":  "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa"
-                   },
-                   {
-                       "name":  "sky-relay-native-edition-alpha-0.1.0.pack.json",
-                       "size":  11013,
-                       "sha256":  "3ec3a450e08f92d1a5bd409b552a66c72f21d69be5815d98769357c86ee1c420"
-                   },
-                   {
-                       "name":  "sky-relay-pack-build-report.json",
-                       "size":  6330,
-                       "sha256":  "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d"
-                   }
-               ],
-    "zip":  {
-                "file":  "sky-relay-native-edition-0.1.0.zip",
-                "entries":  15,
-                "sha256":  "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa"
-            },
-    "checksumCoverage":  {
-                             "total":  4,
-                             "releaseAssetFiles":  4,
-                             "zipEntries":  0,
-                             "missing":  0,
-                             "mismatched":  0
-                         },
-    "checksumEntries":  [
-                            {
-                                "file":  "sky-relay-native-edition-alpha-0.1.0.pack.json",
-                                "expectedSha256":  "3ec3a450e08f92d1a5bd409b552a66c72f21d69be5815d98769357c86ee1c420",
-                                "actualSha256":  "3ec3a450e08f92d1a5bd409b552a66c72f21d69be5815d98769357c86ee1c420",
-                                "coveredBy":  "release-asset-file",
-                                "matchedPath":  "sky-relay-native-edition-alpha-0.1.0.pack.json",
-                                "size":  11013,
-                                "ok":  true
-                            },
-                            {
-                                "file":  "sky-relay-native-edition-0.1.0.zip",
-                                "expectedSha256":  "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa",
-                                "actualSha256":  "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa",
-                                "coveredBy":  "release-asset-file",
-                                "matchedPath":  "sky-relay-native-edition-0.1.0.zip",
-                                "size":  39163330,
-                                "ok":  true
-                            },
-                            {
-                                "file":  "sky-relay-pack-build-report.json",
-                                "expectedSha256":  "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d",
-                                "actualSha256":  "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d",
-                                "coveredBy":  "release-asset-file",
-                                "matchedPath":  "sky-relay-pack-build-report.json",
-                                "size":  6330,
-                                "ok":  true
-                            },
-                            {
-                                "file":  "echo-release.json",
-                                "expectedSha256":  "ed88b56b7329f55f163a000a38eaa97bcb8eb498e91a954abe90aa737f7db95a",
-                                "actualSha256":  "ed88b56b7329f55f163a000a38eaa97bcb8eb498e91a954abe90aa737f7db95a",
-                                "coveredBy":  "release-asset-file",
-                                "matchedPath":  "echo-release.json",
-                                "size":  4567,
-                                "ok":  true
-                            }
-                        ],
-    "missingChecksumEntries":  [
-
-                               ],
-    "mismatchedChecksumEntries":  [
-
-                                  ]
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-13T07:30:11.551Z",
+  "repository": "knoxhack/ECHO-Sky-Relay-Native-Edition",
+  "releaseTag": "sky-relay-native-0.1.0-alpha",
+  "status": "verified-prerelease-assets",
+  "releaseUrl": "https://github.com/knoxhack/ECHO-Sky-Relay-Native-Edition/releases/tag/sky-relay-native-0.1.0-alpha",
+  "assetDirectory": "release-assets/sky-relay-native-0.1.0-alpha",
+  "uploadedReleaseAssets": [
+    "checksums.txt",
+    "echo-release.json",
+    "native-harness-driver-manifest.template.json",
+    "release-manifest.template.json",
+    "sky-relay-native-edition-0.1.0.zip",
+    "sky-relay-native-edition-alpha-0.1.0.pack.json",
+    "sky-relay-pack-build-report.json"
+  ],
+  "sidecarAssets": [
+    "release-audit.json"
+  ],
+  "assets": [
+    {
+      "name": "checksums.txt",
+      "size": 397,
+      "sha256": "079012ba599a1bb879d9dd0eb593ca99b618a39b2d08bc9a51cc799b96f477c6"
+    },
+    {
+      "name": "echo-release.json",
+      "size": 4567,
+      "sha256": "b33d2919c63ab94cce05ffdfc759b6cae1ee4816825fa7c2ae3d00fa205bc1d7"
+    },
+    {
+      "name": "native-harness-driver-manifest.template.json",
+      "size": 1101,
+      "sha256": "b6caa117c45e8acc8fbd7a6a2e144ed4f914aa2b3670a48fe9c112ac1da1d949"
+    },
+    {
+      "name": "release-manifest.template.json",
+      "size": 1575,
+      "sha256": "537426873b56335d2eb86fbae9e3a04ac592f3f3235931732b0eaa99f5434955"
+    },
+    {
+      "name": "sky-relay-native-edition-0.1.0.zip",
+      "size": 39163330,
+      "sha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa"
+    },
+    {
+      "name": "sky-relay-native-edition-alpha-0.1.0.pack.json",
+      "size": 23641,
+      "sha256": "ab013251327e0fcacdfb4bd99dc3aa683fd76dfc1ab98d674af841fac3177d0f"
+    },
+    {
+      "name": "sky-relay-pack-build-report.json",
+      "size": 6330,
+      "sha256": "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d"
+    }
+  ],
+  "zip": {
+    "file": "sky-relay-native-edition-0.1.0.zip",
+    "entries": 15,
+    "sha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa"
+  },
+  "checksumCoverage": {
+    "total": 4,
+    "releaseAssetFiles": 4,
+    "zipEntries": 0,
+    "missing": 0,
+    "mismatched": 0
+  },
+  "checksumEntries": [
+    {
+      "file": "sky-relay-native-edition-alpha-0.1.0.pack.json",
+      "expectedSha256": "ab013251327e0fcacdfb4bd99dc3aa683fd76dfc1ab98d674af841fac3177d0f",
+      "actualSha256": "ab013251327e0fcacdfb4bd99dc3aa683fd76dfc1ab98d674af841fac3177d0f",
+      "coveredBy": "release-asset-file",
+      "matchedPath": "sky-relay-native-edition-alpha-0.1.0.pack.json",
+      "size": 23641,
+      "ok": true
+    },
+    {
+      "file": "sky-relay-native-edition-0.1.0.zip",
+      "expectedSha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa",
+      "actualSha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa",
+      "coveredBy": "release-asset-file",
+      "matchedPath": "sky-relay-native-edition-0.1.0.zip",
+      "size": 39163330,
+      "ok": true
+    },
+    {
+      "file": "sky-relay-pack-build-report.json",
+      "expectedSha256": "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d",
+      "actualSha256": "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d",
+      "coveredBy": "release-asset-file",
+      "matchedPath": "sky-relay-pack-build-report.json",
+      "size": 6330,
+      "ok": true
+    },
+    {
+      "file": "echo-release.json",
+      "expectedSha256": "b33d2919c63ab94cce05ffdfc759b6cae1ee4816825fa7c2ae3d00fa205bc1d7",
+      "actualSha256": "b33d2919c63ab94cce05ffdfc759b6cae1ee4816825fa7c2ae3d00fa205bc1d7",
+      "coveredBy": "release-asset-file",
+      "matchedPath": "echo-release.json",
+      "size": 4567,
+      "ok": true
+    }
+  ],
+  "missingChecksumEntries": [],
+  "mismatchedChecksumEntries": []
 }
