@@ -1,3 +1,3 @@
-4c9f2ae91855aeb25c4864be3729e4a4608dd47d14edd98aa1b691c929ad8eec  sky-relay-native-edition-alpha-0.1.0.pack.json
-953b626a7453fbcc9bbfca33ad9a598abf5ffafa0e098e775f9939c36143b366  sky-relay-native-edition-0.1.0.zip
-a0d05922bd55d27febbcb9709e9e49df671f5359e424b7f1a7f7aec19be38f8e  echo-release.json
+153142cceb14ab03b47b6e8d25175049481718d734877132e6d4343f257c922c  sky-relay-native-edition-0.1.0.zip
+4793c5a6c6a495e6f10a60d61433750aa927153b51f90dd65d18ebbc49b637eb  echo-release.json
+95328e4f717fb69912c3d49f8742ca719f9635703db67e1027b8c0a4740d245b  sky-relay-native-edition-alpha-0.1.0.pack.json
