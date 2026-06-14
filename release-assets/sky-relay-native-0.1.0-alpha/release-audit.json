@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-13T07:30:11.551Z",
+  "generatedAt": "2026-06-14T11:32:35.3368737Z",
   "repository": "knoxhack/ECHO-Sky-Relay-Native-Edition",
   "releaseTag": "sky-relay-native-0.1.0-alpha",
   "status": "verified-prerelease-assets",
@@ -21,87 +21,465 @@
   "assets": [
     {
       "name": "checksums.txt",
-      "size": 397,
-      "sha256": "079012ba599a1bb879d9dd0eb593ca99b618a39b2d08bc9a51cc799b96f477c6"
+      "size": 301,
+      "sha256": "6311171320e9b6c0b58e0dbaa43c9faad9f29531d2b801d5eaecf3ef15a68577"
     },
     {
       "name": "echo-release.json",
-      "size": 4567,
-      "sha256": "b33d2919c63ab94cce05ffdfc759b6cae1ee4816825fa7c2ae3d00fa205bc1d7"
+      "size": 12514,
+      "sha256": "03128d837e2023f72383761b591441bcb4f464b3f548743e7e7c55fc2e060a28"
     },
     {
       "name": "native-harness-driver-manifest.template.json",
-      "size": 1101,
-      "sha256": "b6caa117c45e8acc8fbd7a6a2e144ed4f914aa2b3670a48fe9c112ac1da1d949"
+      "size": 1134,
+      "sha256": "6a8e8d62936c2bda3df0170da8eb7af02042731d29b67ae7079392f9430c204d"
     },
     {
       "name": "release-manifest.template.json",
-      "size": 1575,
-      "sha256": "537426873b56335d2eb86fbae9e3a04ac592f3f3235931732b0eaa99f5434955"
+      "size": 1634,
+      "sha256": "7e03fd7d0070ec28ebf7bcb7f871f4be02ca169bc32b4d2a67ad3e0d7f3d4bb7"
     },
     {
       "name": "sky-relay-native-edition-0.1.0.zip",
-      "size": 39163330,
-      "sha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa"
+      "size": 154910908,
+      "sha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884"
     },
     {
       "name": "sky-relay-native-edition-alpha-0.1.0.pack.json",
-      "size": 23641,
-      "sha256": "ab013251327e0fcacdfb4bd99dc3aa683fd76dfc1ab98d674af841fac3177d0f"
+      "size": 53070,
+      "sha256": "2acd2a4c8e2abadd9092fc6c2a7eed7727d01b8c74408c677c153afa8932afcc"
     },
     {
       "name": "sky-relay-pack-build-report.json",
-      "size": 6330,
-      "sha256": "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d"
+      "size": 6503,
+      "sha256": "2e3de26acfc4658a65af61573e6c1edde4ba30b995eb1cbc6b1958af3803e9ab"
     }
   ],
   "zip": {
     "file": "sky-relay-native-edition-0.1.0.zip",
-    "entries": 15,
-    "sha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa"
+    "entries": 46,
+    "sha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884"
   },
   "checksumCoverage": {
-    "total": 4,
-    "releaseAssetFiles": 4,
-    "zipEntries": 0,
+    "total": 46,
+    "releaseAssetFiles": 3,
+    "zipEntries": 43,
     "missing": 0,
     "mismatched": 0
   },
   "checksumEntries": [
     {
-      "file": "sky-relay-native-edition-alpha-0.1.0.pack.json",
-      "expectedSha256": "ab013251327e0fcacdfb4bd99dc3aa683fd76dfc1ab98d674af841fac3177d0f",
-      "actualSha256": "ab013251327e0fcacdfb4bd99dc3aa683fd76dfc1ab98d674af841fac3177d0f",
-      "coveredBy": "release-asset-file",
-      "matchedPath": "sky-relay-native-edition-alpha-0.1.0.pack.json",
-      "size": 23641,
-      "ok": true
-    },
-    {
       "file": "sky-relay-native-edition-0.1.0.zip",
-      "expectedSha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa",
-      "actualSha256": "8cf781726f5cfbd1e9d87c0c8eb3c1fc502c1e6459d66a697941f814b0fa71fa",
+      "expectedSha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884",
+      "actualSha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884",
       "coveredBy": "release-asset-file",
       "matchedPath": "sky-relay-native-edition-0.1.0.zip",
-      "size": 39163330,
-      "ok": true
-    },
-    {
-      "file": "sky-relay-pack-build-report.json",
-      "expectedSha256": "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d",
-      "actualSha256": "d245f6f17438e2ba4025289de37f9bb81ed817ab2235496c127e5ea73e14709d",
-      "coveredBy": "release-asset-file",
-      "matchedPath": "sky-relay-pack-build-report.json",
-      "size": 6330,
+      "size": 154910908,
       "ok": true
     },
     {
       "file": "echo-release.json",
-      "expectedSha256": "b33d2919c63ab94cce05ffdfc759b6cae1ee4816825fa7c2ae3d00fa205bc1d7",
-      "actualSha256": "b33d2919c63ab94cce05ffdfc759b6cae1ee4816825fa7c2ae3d00fa205bc1d7",
+      "expectedSha256": "03128d837e2023f72383761b591441bcb4f464b3f548743e7e7c55fc2e060a28",
+      "actualSha256": "03128d837e2023f72383761b591441bcb4f464b3f548743e7e7c55fc2e060a28",
       "coveredBy": "release-asset-file",
       "matchedPath": "echo-release.json",
-      "size": 4567,
+      "size": 12514,
+      "ok": true
+    },
+    {
+      "file": "sky-relay-native-edition-alpha-0.1.0.pack.json",
+      "expectedSha256": "2acd2a4c8e2abadd9092fc6c2a7eed7727d01b8c74408c677c153afa8932afcc",
+      "actualSha256": "2acd2a4c8e2abadd9092fc6c2a7eed7727d01b8c74408c677c153afa8932afcc",
+      "coveredBy": "release-asset-file",
+      "matchedPath": "sky-relay-native-edition-alpha-0.1.0.pack.json",
+      "size": 53070,
+      "ok": true
+    },
+    {
+      "file": "echoadaptercore-1.0.0.echo-addon",
+      "expectedSha256": "61db05fdf9d4ae5da1f7bc4bc2c064b28cc3f7da116c57d2f0fd7b874c85735c",
+      "actualSha256": "61db05fdf9d4ae5da1f7bc4bc2c064b28cc3f7da116c57d2f0fd7b874c85735c",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoadaptercore-1.0.0.echo-addon",
+      "size": 815660,
+      "ok": true
+    },
+    {
+      "file": "echoagriculturereclamation-1.0.0.echo-addon",
+      "expectedSha256": "987a2877d29e92bffa7e1bb94fa85b66034a4978121f4a03943c1a00489019cb",
+      "actualSha256": "987a2877d29e92bffa7e1bb94fa85b66034a4978121f4a03943c1a00489019cb",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoagriculturereclamation-1.0.0.echo-addon",
+      "size": 383092,
+      "ok": true
+    },
+    {
+      "file": "echoassetcore-1.0.0.echo-addon",
+      "expectedSha256": "51645c1d8e5a6efa2159c733b274835bdcfe5f5b2667176525889b225d214ab8",
+      "actualSha256": "51645c1d8e5a6efa2159c733b274835bdcfe5f5b2667176525889b225d214ab8",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoassetcore-1.0.0.echo-addon",
+      "size": 45062,
+      "ok": true
+    },
+    {
+      "file": "echoatmospherecore-1.0.0.echo-addon",
+      "expectedSha256": "d6fd7010c0cdea15ecda3251b9cf638248bffbbf0a779cb3f7266a177cfbc6c2",
+      "actualSha256": "d6fd7010c0cdea15ecda3251b9cf638248bffbbf0a779cb3f7266a177cfbc6c2",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoatmospherecore-1.0.0.echo-addon",
+      "size": 29399,
+      "ok": true
+    },
+    {
+      "file": "echoblockworks-1.0.0.echo-addon",
+      "expectedSha256": "49eb8c8a7da716d28d1bd306c2aed2113ce7e506b3bdc85044db0f05c70a9155",
+      "actualSha256": "49eb8c8a7da716d28d1bd306c2aed2113ce7e506b3bdc85044db0f05c70a9155",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoblockworks-1.0.0.echo-addon",
+      "size": 793472,
+      "ok": true
+    },
+    {
+      "file": "echocameracore-1.0.0.echo-addon",
+      "expectedSha256": "fce70925f29c3db004d39b68a313b5866748e7793b843047b9e627db3e8d9368",
+      "actualSha256": "fce70925f29c3db004d39b68a313b5866748e7793b843047b9e627db3e8d9368",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echocameracore-1.0.0.echo-addon",
+      "size": 19600,
+      "ok": true
+    },
+    {
+      "file": "echocommonloot-0.1.0.echo-addon",
+      "expectedSha256": "5c511089cd455a3b517e9a0f0a943a86690a70c5e903980415259a8bef1cc738",
+      "actualSha256": "5c511089cd455a3b517e9a0f0a943a86690a70c5e903980415259a8bef1cc738",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echocommonloot-0.1.0.echo-addon",
+      "size": 9261,
+      "ok": true
+    },
+    {
+      "file": "echocontentcore-1.0.0.echo-addon",
+      "expectedSha256": "bacd81b8e0cb8bd7643c7045819798ebf7e835dbb8298d608e1b3a777462a466",
+      "actualSha256": "bacd81b8e0cb8bd7643c7045819798ebf7e835dbb8298d608e1b3a777462a466",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echocontentcore-1.0.0.echo-addon",
+      "size": 33666,
+      "ok": true
+    },
+    {
+      "file": "echocore-1.0.0.echo-addon",
+      "expectedSha256": "8430e73f31f9a4b5989dfe560a1dc499059475ce40656b70383d53470dc63b54",
+      "actualSha256": "8430e73f31f9a4b5989dfe560a1dc499059475ce40656b70383d53470dc63b54",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echocore-1.0.0.echo-addon",
+      "size": 330460,
+      "ok": true
+    },
+    {
+      "file": "echocreatureroles-0.1.0.echo-addon",
+      "expectedSha256": "d3ee6f6690021030529803a61999c3fef3933756b03e57633e20d97b56b0ffe2",
+      "actualSha256": "d3ee6f6690021030529803a61999c3fef3933756b03e57633e20d97b56b0ffe2",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echocreatureroles-0.1.0.echo-addon",
+      "size": 8937,
+      "ok": true
+    },
+    {
+      "file": "echoeconomycore-1.0.0.echo-addon",
+      "expectedSha256": "f110b80d62eb9415f713338b25b6f941f9d9bdb5e6d6ac9b39682cac29a595c9",
+      "actualSha256": "f110b80d62eb9415f713338b25b6f941f9d9bdb5e6d6ac9b39682cac29a595c9",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoeconomycore-1.0.0.echo-addon",
+      "size": 29492,
+      "ok": true
+    },
+    {
+      "file": "echofoundationcore-0.1.0.echo-addon",
+      "expectedSha256": "15691deaa6da72efd42e95c172360721082382dc6196206c05cce6b8bc65abd5",
+      "actualSha256": "15691deaa6da72efd42e95c172360721082382dc6196206c05cce6b8bc65abd5",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echofoundationcore-0.1.0.echo-addon",
+      "size": 12276,
+      "ok": true
+    },
+    {
+      "file": "echoholomap-1.0.0.echo-addon",
+      "expectedSha256": "54c7d6a9c276bc660f98c71598879fae9c0f3faf11a28edd7597d79517844535",
+      "actualSha256": "54c7d6a9c276bc660f98c71598879fae9c0f3faf11a28edd7597d79517844535",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoholomap-1.0.0.echo-addon",
+      "size": 1470814,
+      "ok": true
+    },
+    {
+      "file": "echohudcore-1.0.0.echo-addon",
+      "expectedSha256": "9fa4829f7ac910f19d4e4c07b70325a6719c40e18f44bf616ab1ca673d22e942",
+      "actualSha256": "9fa4829f7ac910f19d4e4c07b70325a6719c40e18f44bf616ab1ca673d22e942",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echohudcore-1.0.0.echo-addon",
+      "size": 47347,
+      "ok": true
+    },
+    {
+      "file": "echoindex-1.0.0.echo-addon",
+      "expectedSha256": "a0f37bd2dda20b6e9a3b23826213c961a0c84ae294e53d4084bd8bf2903bf6df",
+      "actualSha256": "a0f37bd2dda20b6e9a3b23826213c961a0c84ae294e53d4084bd8bf2903bf6df",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoindex-1.0.0.echo-addon",
+      "size": 561355,
+      "ok": true
+    },
+    {
+      "file": "echoindustrialnexus-1.0.0.echo-addon",
+      "expectedSha256": "5c72c5066ab99f743ecd2d61cccd0dd545715f32a67cf6b9ded5da41e0581aca",
+      "actualSha256": "5c72c5066ab99f743ecd2d61cccd0dd545715f32a67cf6b9ded5da41e0581aca",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoindustrialnexus-1.0.0.echo-addon",
+      "size": 5000165,
+      "ok": true
+    },
+    {
+      "file": "echolens-1.0.0.echo-addon",
+      "expectedSha256": "6bdb5bedc6c8e1cf71c124d1891ce832ec7d620afda92ef94a9491b1cb28f0c6",
+      "actualSha256": "6bdb5bedc6c8e1cf71c124d1891ce832ec7d620afda92ef94a9491b1cb28f0c6",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echolens-1.0.0.echo-addon",
+      "size": 206659,
+      "ok": true
+    },
+    {
+      "file": "echologisticsnetwork-1.0.0.echo-addon",
+      "expectedSha256": "16f9ea8e631a9ca041b72b4032f79b0ef59fc9dbeb08de48ca0cd788a1224fe3",
+      "actualSha256": "16f9ea8e631a9ca041b72b4032f79b0ef59fc9dbeb08de48ca0cd788a1224fe3",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echologisticsnetwork-1.0.0.echo-addon",
+      "size": 3640652,
+      "ok": true
+    },
+    {
+      "file": "echomaterialcore-0.1.0.echo-addon",
+      "expectedSha256": "2ee82176d06c2d8a716960adae524928be4080435c91712f8c0828cc21442f86",
+      "actualSha256": "2ee82176d06c2d8a716960adae524928be4080435c91712f8c0828cc21442f86",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echomaterialcore-0.1.0.echo-addon",
+      "size": 14555,
+      "ok": true
+    },
+    {
+      "file": "echomissioncore-1.0.0.echo-addon",
+      "expectedSha256": "6a158fa230ca5de8b2fcc5b00fef29736178ed4b0d4563ae3cd32bdb76ec431d",
+      "actualSha256": "6a158fa230ca5de8b2fcc5b00fef29736178ed4b0d4563ae3cd32bdb76ec431d",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echomissioncore-1.0.0.echo-addon",
+      "size": 102772,
+      "ok": true
+    },
+    {
+      "file": "echomultiblockcore-1.0.0.echo-addon",
+      "expectedSha256": "d99c892dfbc1ced2bea19ddd01bf687fdab6dfd89f55ae41f393c4f95d9b84b3",
+      "actualSha256": "d99c892dfbc1ced2bea19ddd01bf687fdab6dfd89f55ae41f393c4f95d9b84b3",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echomultiblockcore-1.0.0.echo-addon",
+      "size": 12611319,
+      "ok": true
+    },
+    {
+      "file": "echonetcore-1.0.0.echo-addon",
+      "expectedSha256": "03063a86a4f9bbd04dec4552553e5dd7967a64993484b73ebae6cceba82105c2",
+      "actualSha256": "03063a86a4f9bbd04dec4552553e5dd7967a64993484b73ebae6cceba82105c2",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echonetcore-1.0.0.echo-addon",
+      "size": 64950,
+      "ok": true
+    },
+    {
+      "file": "echoorbitalremnants-1.0.0.echo-addon",
+      "expectedSha256": "cff2ae1fa50d91cf5af4404ff76c5be3be09d7c2d335cfb93e64c29aab6e806c",
+      "actualSha256": "cff2ae1fa50d91cf5af4404ff76c5be3be09d7c2d335cfb93e64c29aab6e806c",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoorbitalremnants-1.0.0.echo-addon",
+      "size": 14310530,
+      "ok": true
+    },
+    {
+      "file": "echoplatformcore-1.0.0.echo-addon",
+      "expectedSha256": "848e3680f79fe5fec2a37bdb1d62be7bd34af7adb4607d43b72afaa34f872bcf",
+      "actualSha256": "848e3680f79fe5fec2a37bdb1d62be7bd34af7adb4607d43b72afaa34f872bcf",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoplatformcore-1.0.0.echo-addon",
+      "size": 45215,
+      "ok": true
+    },
+    {
+      "file": "echopowergrid-1.0.0.echo-addon",
+      "expectedSha256": "8d7d5d3df88872e6845804448e9e12e9ac0bc46703bb34eb0388d84ed0b3a207",
+      "actualSha256": "8d7d5d3df88872e6845804448e9e12e9ac0bc46703bb34eb0388d84ed0b3a207",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echopowergrid-1.0.0.echo-addon",
+      "size": 7141545,
+      "ok": true
+    },
+    {
+      "file": "echoprogressioncore-1.0.0.echo-addon",
+      "expectedSha256": "74f0fff94615b2a7467b99755becb3efd938444b2628ab0f567ec55194f2df25",
+      "actualSha256": "74f0fff94615b2a7467b99755becb3efd938444b2628ab0f567ec55194f2df25",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoprogressioncore-1.0.0.echo-addon",
+      "size": 46252,
+      "ok": true
+    },
+    {
+      "file": "echorecipecore-1.0.0.echo-addon",
+      "expectedSha256": "385dc2cf7db487a69e670867e77afcc9a60bb7a6141dcf39d1bbfce5760be1dd",
+      "actualSha256": "385dc2cf7db487a69e670867e77afcc9a60bb7a6141dcf39d1bbfce5760be1dd",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echorecipecore-1.0.0.echo-addon",
+      "size": 38508,
+      "ok": true
+    },
+    {
+      "file": "echorecovery-1.3.0.echo-addon",
+      "expectedSha256": "18e198d7f69dff123834cbe7351f6e4928f44ef85516911eded8b35f7f988274",
+      "actualSha256": "18e198d7f69dff123834cbe7351f6e4928f44ef85516911eded8b35f7f988274",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echorecovery-1.3.0.echo-addon",
+      "size": 2668580,
+      "ok": true
+    },
+    {
+      "file": "echoruntimeguard-1.0.0.echo-addon",
+      "expectedSha256": "31e91a6dcba5889a177d48a031b16472ff42c334e53fbe49e69f68ed737eea44",
+      "actualSha256": "31e91a6dcba5889a177d48a031b16472ff42c334e53fbe49e69f68ed737eea44",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoruntimeguard-1.0.0.echo-addon",
+      "size": 121543,
+      "ok": true
+    },
+    {
+      "file": "echoschemacore-1.0.0.echo-addon",
+      "expectedSha256": "8e1fd28608fa3f1d53314dc35eec9096f5b7126f552f1c8bdc59df1e1e4185a0",
+      "actualSha256": "8e1fd28608fa3f1d53314dc35eec9096f5b7126f552f1c8bdc59df1e1e4185a0",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoschemacore-1.0.0.echo-addon",
+      "size": 31239,
+      "ok": true
+    },
+    {
+      "file": "echoscreencore-1.0.0.echo-addon",
+      "expectedSha256": "6e0308068501268bb85f563dc37d9e29a22e4562eb9c0bbe9a987b9a1c94c6c4",
+      "actualSha256": "6e0308068501268bb85f563dc37d9e29a22e4562eb9c0bbe9a987b9a1c94c6c4",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoscreencore-1.0.0.echo-addon",
+      "size": 362439,
+      "ok": true
+    },
+    {
+      "file": "echoskyrelayprotocol-0.1.0.echo-addon",
+      "expectedSha256": "448376bafbe1f64384f844ffd32e532c57df5b110d7de49d8b416c4eaa816927",
+      "actualSha256": "448376bafbe1f64384f844ffd32e532c57df5b110d7de49d8b416c4eaa816927",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoskyrelayprotocol-0.1.0.echo-addon",
+      "size": 48415,
+      "ok": true
+    },
+    {
+      "file": "echosocialcore-1.0.0.echo-addon",
+      "expectedSha256": "98e5aeddcf02c99ffba1d147925d2a588ff2436e72ce38536a96fa119088d270",
+      "actualSha256": "98e5aeddcf02c99ffba1d147925d2a588ff2436e72ce38536a96fa119088d270",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echosocialcore-1.0.0.echo-addon",
+      "size": 55903,
+      "ok": true
+    },
+    {
+      "file": "echosoundcore-1.0.0.echo-addon",
+      "expectedSha256": "2535a4dd7eda9ac77ba88d3a976faa3ecfcaaee717bae1eacb0a4e5db12852e8",
+      "actualSha256": "2535a4dd7eda9ac77ba88d3a976faa3ecfcaaee717bae1eacb0a4e5db12852e8",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echosoundcore-1.0.0.echo-addon",
+      "size": 11080710,
+      "ok": true
+    },
+    {
+      "file": "echostationcore-0.1.0.echo-addon",
+      "expectedSha256": "0bc2fe29306d3c5cf194deba026605a48a0170b327a04e54fd5322f40983a64d",
+      "actualSha256": "0bc2fe29306d3c5cf194deba026605a48a0170b327a04e54fd5322f40983a64d",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echostationcore-0.1.0.echo-addon",
+      "size": 10578,
+      "ok": true
+    },
+    {
+      "file": "echoterminal-1.0.0.echo-addon",
+      "expectedSha256": "d0a5b23f3e55e8dc3ff55ee45b0f17a2cdf3da3fe03ec27dbd98a187f1987dc2",
+      "actualSha256": "d0a5b23f3e55e8dc3ff55ee45b0f17a2cdf3da3fe03ec27dbd98a187f1987dc2",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoterminal-1.0.0.echo-addon",
+      "size": 22456021,
+      "ok": true
+    },
+    {
+      "file": "echothemecore-1.3.0.echo-addon",
+      "expectedSha256": "3fd2b610eb1334b1fe98f9200fed46e408db4c11f5074926b648c57f33393eb1",
+      "actualSha256": "3fd2b610eb1334b1fe98f9200fed46e408db4c11f5074926b648c57f33393eb1",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echothemecore-1.3.0.echo-addon",
+      "size": 69527145,
+      "ok": true
+    },
+    {
+      "file": "echotoolcore-0.1.0.echo-addon",
+      "expectedSha256": "531ba484bf0343a06154cc6b866f58f11fa6d56056003f897e46b5c277d8c167",
+      "actualSha256": "531ba484bf0343a06154cc6b866f58f11fa6d56056003f897e46b5c277d8c167",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echotoolcore-0.1.0.echo-addon",
+      "size": 10473,
+      "ok": true
+    },
+    {
+      "file": "echotutorialcore-1.0.0.echo-addon",
+      "expectedSha256": "4799100a9cd562565592a7f560321939694365470e879b86317b0510d17403c9",
+      "actualSha256": "4799100a9cd562565592a7f560321939694365470e879b86317b0510d17403c9",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echotutorialcore-1.0.0.echo-addon",
+      "size": 200353,
+      "ok": true
+    },
+    {
+      "file": "echovalidationcore-1.0.0.echo-addon",
+      "expectedSha256": "ba2ad0c87bbbb744e9bca1142dc5cea538a13e88fd8fe0e8b77812b22a25083b",
+      "actualSha256": "ba2ad0c87bbbb744e9bca1142dc5cea538a13e88fd8fe0e8b77812b22a25083b",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echovalidationcore-1.0.0.echo-addon",
+      "size": 41824,
+      "ok": true
+    },
+    {
+      "file": "echoweathercore-1.0.0.echo-addon",
+      "expectedSha256": "a720027a594e3d610862abdb4761f88f1cd7aea83f3d6b393aff2bd806327501",
+      "actualSha256": "a720027a594e3d610862abdb4761f88f1cd7aea83f3d6b393aff2bd806327501",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoweathercore-1.0.0.echo-addon",
+      "size": 201158,
+      "ok": true
+    },
+    {
+      "file": "echoworldcore-1.0.0.echo-addon",
+      "expectedSha256": "a30fb6932dadd5f2c52cdbd3d56ac2ba19930297ff99564d704708ee3de7deaa",
+      "actualSha256": "a30fb6932dadd5f2c52cdbd3d56ac2ba19930297ff99564d704708ee3de7deaa",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoworldcore-1.0.0.echo-addon",
+      "size": 168140,
+      "ok": true
+    },
+    {
+      "file": "echoworldstarter-0.1.0.echo-addon",
+      "expectedSha256": "9925c703dfe94be1ed9b13e3a648d543ee600511c6df36c3e022487578b4ea32",
+      "actualSha256": "9925c703dfe94be1ed9b13e3a648d543ee600511c6df36c3e022487578b4ea32",
+      "coveredBy": "zip-entry",
+      "matchedPath": "addons/echoworldstarter-0.1.0.echo-addon",
+      "size": 11614,
       "ok": true
     }
   ],

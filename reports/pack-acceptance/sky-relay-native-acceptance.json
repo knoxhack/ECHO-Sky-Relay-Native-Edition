@@ -1,0 +1,546 @@
+{
+  "schema": "echo.pack.manual_acceptance_report.v1",
+  "generatedAt": "2026-06-14T00:26:26.444Z",
+  "product": "Sky-Relay",
+  "lane": "Native",
+  "runtime": "echo_native",
+  "repo": "ECHO-Sky-Relay-Native-Edition",
+  "manifestPath": "release-manifest.template.json",
+  "moduleCount": 43,
+  "status": "PASS",
+  "acceptanceStandard": "Manual or automated player-facing proof. Install/session/UI/action/world/save checks must be backed by logs, screenshots, save files, runtime reports, or equivalent QA artifacts.",
+  "reportPath": "C:/Development/Github/ECHO-Sky-Relay-Native-Edition/reports/pack-acceptance/sky-relay-native-acceptance.json",
+  "requiredChecks": [
+    {
+      "id": "installLaunchSucceeds",
+      "description": "Launch or install path succeeds without missing-module diagnostics."
+    },
+    {
+      "id": "freshSessionStarts",
+      "description": "Fresh world or runtime session starts."
+    },
+    {
+      "id": "hudAppears",
+      "description": "HUD appears when the product expects one."
+    },
+    {
+      "id": "inventoryOverlayAndIndexRespond",
+      "description": "Inventory overlay and Index appear and respond."
+    },
+    {
+      "id": "terminalExecutesAction",
+      "description": "Terminal opens and executes at least one route or action."
+    },
+    {
+      "id": "holoMapOpens",
+      "description": "HoloMap opens and shows product-relevant layers or waypoints."
+    },
+    {
+      "id": "lensScans",
+      "description": "Lens opens or activates and performs a scan."
+    },
+    {
+      "id": "screenCoreScreensRenderAndHandleInput",
+      "description": "ScreenCore-backed screens render and handle input."
+    },
+    {
+      "id": "blockPlaceUseBreakWorks",
+      "description": "At least one module-owned block can be placed, used, broken, and saved."
+    },
+    {
+      "id": "blockActionMutatesState",
+      "description": "At least one block action mutates runtime state."
+    },
+    {
+      "id": "worldgenAppears",
+      "description": "Worldgen or data features appear where expected."
+    },
+    {
+      "id": "saveReloadPreservesState",
+      "description": "Save and reload preserves module state."
+    },
+    {
+      "id": "trustedMutationsReported",
+      "description": "Runtime report shows trusted mutations, not metadata-only claims."
+    }
+  ],
+  "sourceDocs": [
+    "ECHO-Sky-Relay-Native-Edition/README.md",
+    "ECHO-Sky-Relay-Native-Edition/PUBLIC_ALPHA_RELEASE_STATUS.md",
+    "ECHO-Sky-Relay-Native-Edition/docs/runtime-evidence.md",
+    "ECHO-Sky-Relay-Native-Edition/docs/gameplay-evidence.md",
+    "ECHO-Sky-Relay-Native-Edition/docs/module-requirements.md"
+  ],
+  "checks": {
+    "installLaunchSucceeds": {
+      "status": "PASS",
+      "passed": true,
+      "description": "Launch or install path succeeds without missing-module diagnostics.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "freshSessionStarts": {
+      "status": "PASS",
+      "passed": true,
+      "description": "Fresh world or runtime session starts.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "hudAppears": {
+      "status": "PASS",
+      "passed": true,
+      "description": "HUD appears when the product expects one.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "inventoryOverlayAndIndexRespond": {
+      "status": "PASS",
+      "passed": true,
+      "description": "Inventory overlay and Index appear and respond.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "terminalExecutesAction": {
+      "status": "PASS",
+      "passed": true,
+      "description": "Terminal opens and executes at least one route or action.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "holoMapOpens": {
+      "status": "PASS",
+      "passed": true,
+      "description": "HoloMap opens and shows product-relevant layers or waypoints.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "lensScans": {
+      "status": "PASS",
+      "passed": true,
+      "description": "Lens opens or activates and performs a scan.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "screenCoreScreensRenderAndHandleInput": {
+      "status": "PASS",
+      "passed": true,
+      "description": "ScreenCore-backed screens render and handle input.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-ui-surfaces/native-ui-surfaces.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "blockPlaceUseBreakWorks": {
+      "status": "PASS",
+      "passed": true,
+      "description": "At least one module-owned block can be placed, used, broken, and saved.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "blockActionMutatesState": {
+      "status": "PASS",
+      "passed": true,
+      "description": "At least one block action mutates runtime state.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-block-actions/native-block-actions.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "worldgenAppears": {
+      "status": "PASS",
+      "passed": true,
+      "description": "Worldgen or data features appear where expected.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-registry-content/native-registry-content.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "saveReloadPreservesState": {
+      "status": "PASS",
+      "passed": true,
+      "description": "Save and reload preserves module state.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-save-network/native-save-network.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-save-network/native-save-network.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-save-network/native-save-network.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    },
+    "trustedMutationsReported": {
+      "status": "PASS",
+      "passed": true,
+      "description": "Runtime report shows trusted mutations, not metadata-only claims.",
+      "evidence": [
+        "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+        "C:/Development/Github/ECHO-Native-Platform/build/native-save-network/native-save-network.json"
+      ],
+      "evidenceDetails": [
+        {
+          "reference": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Modules/reports/runtime-parity/echo-module-runtime-parity-audit.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-full-catalog-play/native-full-catalog-play.json"
+        },
+        {
+          "reference": "C:/Development/Github/ECHO-Native-Platform/build/native-save-network/native-save-network.json",
+          "kind": "local_file",
+          "resolvable": true,
+          "path": "C:/Development/Github/ECHO-Native-Platform/build/native-save-network/native-save-network.json"
+        }
+      ],
+      "notes": "Automated strict-play acceptance seeded from runtime evidence reports.",
+      "owner": "ECHO strict-play automation",
+      "verifiedAt": "2026-06-14T00:26:26.444Z",
+      "blockers": []
+    }
+  },
+  "summary": {
+    "requiredCheckCount": 13,
+    "passedCheckCount": 13,
+    "failedCheckCount": 0,
+    "missingEvidenceCount": 0,
+    "pendingCheckCount": 0
+  }
+}
