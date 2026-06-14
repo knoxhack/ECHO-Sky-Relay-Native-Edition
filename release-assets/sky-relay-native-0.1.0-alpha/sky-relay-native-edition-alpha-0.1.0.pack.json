@@ -1175,8 +1175,8 @@
       ]
     }
   },
-  "artifactSha256": "153142cceb14ab03b47b6e8d25175049481718d734877132e6d4343f257c922c",
-  "artifactSize": 154871107,
+  "artifactSha256": "a5cbaee41f97378ad21395883d2049d076a1066bd0d0e20ddb429b89ef14dec9",
+  "artifactSize": 154888169,
   "runtimeTarget": "echo_native",
   "id": "sky-relay-native-edition",
   "artifactUrl": "https://github.com/knoxhack/ECHO-Sky-Relay-Native-Edition/releases/download/sky-relay-native-0.1.0-alpha/sky-relay-native-edition-0.1.0.zip",

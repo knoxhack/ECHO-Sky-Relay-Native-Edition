@@ -6,12 +6,12 @@
   "channel": "alpha",
   "releasedAt": "2026-06-14T01:26:51.619Z",
   "manifestAsset": "sky-relay-native-edition-alpha-0.1.0.pack.json",
-  "manifestSha256": "2acd2a4c8e2abadd9092fc6c2a7eed7727d01b8c74408c677c153afa8932afcc",
+  "manifestSha256": "c5553c0b5befcc04131fcd202bd79e8555c730cebd5452daa60127d4ed4f37ec",
   "manifestSize": 53070,
   "artifactMode": "zip",
   "artifactAsset": "sky-relay-native-edition-0.1.0.zip",
-  "artifactSha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884",
-  "artifactSize": 154910908,
+  "artifactSha256": "a5cbaee41f97378ad21395883d2049d076a1066bd0d0e20ddb429b89ef14dec9",
+  "artifactSize": 154888169,
   "moduleRelease": "modules-all-official-modpacks-runtime-fix-20260614",
   "packs": [
     {
@@ -27,14 +27,14 @@
     {
       "name": "sky-relay-native-edition-alpha-0.1.0.pack.json",
       "role": "pack-manifest",
-      "sha256": "2acd2a4c8e2abadd9092fc6c2a7eed7727d01b8c74408c677c153afa8932afcc",
+      "sha256": "c5553c0b5befcc04131fcd202bd79e8555c730cebd5452daa60127d4ed4f37ec",
       "size": 53070
     },
     {
       "name": "sky-relay-native-edition-0.1.0.zip",
       "role": "pack-artifact",
-      "sha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884",
-      "size": 154910908
+      "sha256": "a5cbaee41f97378ad21395883d2049d076a1066bd0d0e20ddb429b89ef14dec9",
+      "size": 154888169
     },
     {
       "name": "echoadaptercore-1.0.0.echo-addon",

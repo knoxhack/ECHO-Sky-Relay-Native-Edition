@@ -21,13 +21,13 @@
   "assets": [
     {
       "name": "checksums.txt",
-      "size": 301,
-      "sha256": "6311171320e9b6c0b58e0dbaa43c9faad9f29531d2b801d5eaecf3ef15a68577"
+      "size": 298,
+      "sha256": "9eacd4115cf231f9fa2709cd44287d7d4c1df69880facc11cf63d2348ab8e12c"
     },
     {
       "name": "echo-release.json",
       "size": 12514,
-      "sha256": "03128d837e2023f72383761b591441bcb4f464b3f548743e7e7c55fc2e060a28"
+      "sha256": "70a27be0c75d51cfe18421237f8ffe68e8a1cf512fa34e09f87005c0c614cda2"
     },
     {
       "name": "native-harness-driver-manifest.template.json",
@@ -41,13 +41,13 @@
     },
     {
       "name": "sky-relay-native-edition-0.1.0.zip",
-      "size": 154910908,
-      "sha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884"
+      "size": 154888169,
+      "sha256": "a5cbaee41f97378ad21395883d2049d076a1066bd0d0e20ddb429b89ef14dec9"
     },
     {
       "name": "sky-relay-native-edition-alpha-0.1.0.pack.json",
       "size": 53070,
-      "sha256": "2acd2a4c8e2abadd9092fc6c2a7eed7727d01b8c74408c677c153afa8932afcc"
+      "sha256": "c5553c0b5befcc04131fcd202bd79e8555c730cebd5452daa60127d4ed4f37ec"
     },
     {
       "name": "sky-relay-pack-build-report.json",
@@ -58,7 +58,7 @@
   "zip": {
     "file": "sky-relay-native-edition-0.1.0.zip",
     "entries": 46,
-    "sha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884"
+    "sha256": "a5cbaee41f97378ad21395883d2049d076a1066bd0d0e20ddb429b89ef14dec9"
   },
   "checksumCoverage": {
     "total": 46,
@@ -70,17 +70,17 @@
   "checksumEntries": [
     {
       "file": "sky-relay-native-edition-0.1.0.zip",
-      "expectedSha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884",
-      "actualSha256": "6b1e9d013f64bc134be5f488b9a40f0c3309ebcb2bb07e4cb2fabe6244c0e884",
+      "expectedSha256": "a5cbaee41f97378ad21395883d2049d076a1066bd0d0e20ddb429b89ef14dec9",
+      "actualSha256": "a5cbaee41f97378ad21395883d2049d076a1066bd0d0e20ddb429b89ef14dec9",
       "coveredBy": "release-asset-file",
       "matchedPath": "sky-relay-native-edition-0.1.0.zip",
-      "size": 154910908,
+      "size": 154888169,
       "ok": true
     },
     {
       "file": "echo-release.json",
-      "expectedSha256": "03128d837e2023f72383761b591441bcb4f464b3f548743e7e7c55fc2e060a28",
-      "actualSha256": "03128d837e2023f72383761b591441bcb4f464b3f548743e7e7c55fc2e060a28",
+      "expectedSha256": "70a27be0c75d51cfe18421237f8ffe68e8a1cf512fa34e09f87005c0c614cda2",
+      "actualSha256": "70a27be0c75d51cfe18421237f8ffe68e8a1cf512fa34e09f87005c0c614cda2",
       "coveredBy": "release-asset-file",
       "matchedPath": "echo-release.json",
       "size": 12514,
@@ -88,8 +88,8 @@
     },
     {
       "file": "sky-relay-native-edition-alpha-0.1.0.pack.json",
-      "expectedSha256": "2acd2a4c8e2abadd9092fc6c2a7eed7727d01b8c74408c677c153afa8932afcc",
-      "actualSha256": "2acd2a4c8e2abadd9092fc6c2a7eed7727d01b8c74408c677c153afa8932afcc",
+      "expectedSha256": "c5553c0b5befcc04131fcd202bd79e8555c730cebd5452daa60127d4ed4f37ec",
+      "actualSha256": "c5553c0b5befcc04131fcd202bd79e8555c730cebd5452daa60127d4ed4f37ec",
       "coveredBy": "release-asset-file",
       "matchedPath": "sky-relay-native-edition-alpha-0.1.0.pack.json",
       "size": 53070,
