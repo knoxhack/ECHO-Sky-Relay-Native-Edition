@@ -19,9 +19,9 @@
       "path": "addons/echoadaptercore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "280f187007105ba217c7ac9d8a0ef66c36c46e9f693513349093dfd00eb65b8f",
-      "size": 819388,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoadaptercore-1.0.0.echo-addon"
+      "sha256": "5bb723d1ecff3e4c8dc2ad372548fce0f178df5ff78e8d1444ac493e31b365f6",
+      "size": 827816,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoadaptercore-1.0.0.echo-addon"
     },
     {
       "id": "echoagriculturereclamation",
@@ -33,9 +33,9 @@
       "path": "addons/echoagriculturereclamation-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "46ac7af965841995030b685336f4c7c252fc166784163d90a3c56aef527f35f5",
-      "size": 383153,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoagriculturereclamation-1.0.0.echo-addon"
+      "sha256": "c73aabce2cfaa79cc65c6de61e503c98483d96d941adaeaa7d3fdb8e4e3f6dd7",
+      "size": 396543,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoagriculturereclamation-1.0.0.echo-addon"
     },
     {
       "id": "echoassetcore",
@@ -47,9 +47,9 @@
       "path": "addons/echoassetcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "503d753e4ee6f81e505105f5c2f0a9a85e2860584fded695c3bfcecdf4b96e65",
-      "size": 45121,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoassetcore-1.0.0.echo-addon"
+      "sha256": "befc1f6dda320c8712e6455e109117243b4458fef6acdceb88bd8b33622ca977",
+      "size": 51094,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoassetcore-1.0.0.echo-addon"
     },
     {
       "id": "echoatmospherecore",
@@ -61,9 +61,9 @@
       "path": "addons/echoatmospherecore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "33cc3c5b7439719719049643cf46adb27b74eff460b3f5de5fa52f6a19b33727",
-      "size": 29454,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoatmospherecore-1.0.0.echo-addon"
+      "sha256": "150b3137b9aede05665bfb1184d762789f218ffaecc7fe00502b639122f1354a",
+      "size": 35461,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoatmospherecore-1.0.0.echo-addon"
     },
     {
       "id": "echoblockworks",
@@ -75,9 +75,9 @@
       "path": "addons/echoblockworks-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "8d23c2ef90d376830130d10fc0491299bc496a21bc2b6fded62cabb5c5623b27",
-      "size": 793525,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoblockworks-1.0.0.echo-addon"
+      "sha256": "5bc3c99787dae97b48d04b5053e2a86816f1ac778c1a93f3db5c6ba4613b73b0",
+      "size": 836554,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoblockworks-1.0.0.echo-addon"
     },
     {
       "id": "echocameracore",
@@ -89,9 +89,9 @@
       "path": "addons/echocameracore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "bfa8ab412cd3f97b0abbb5bcf413a8b5cdd3b257b90980ace4a328561da27dcc",
-      "size": 19651,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echocameracore-1.0.0.echo-addon"
+      "sha256": "5a49e33a4526b9c102cfcbefc154c906dd52651d96c7d02f1572e9f3e9562e69",
+      "size": 25358,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echocameracore-1.0.0.echo-addon"
     },
     {
       "id": "echocommonloot",
@@ -103,9 +103,9 @@
       "path": "addons/echocommonloot-0.1.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "94935662a2b0be71d303a6575f9c70ffac3e0da4f38fb6e642e53a4ec6079812",
-      "size": 9355,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echocommonloot-0.1.0.echo-addon"
+      "sha256": "68e2e3a16e2823c62ad8940ee6d5915243d91f4264355dc265c1c11e8b8548f1",
+      "size": 15383,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echocommonloot-0.1.0.echo-addon"
     },
     {
       "id": "echocontentcore",
@@ -117,9 +117,9 @@
       "path": "addons/echocontentcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "833745d02539b1987b4e606e17bc7d5fe1d0d702b6c64fb6209cfb91af220253",
-      "size": 33719,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echocontentcore-1.0.0.echo-addon"
+      "sha256": "56646bcdd84f19a1220f979cd37ef304b3a0bf2c0f9956376a61e54ada13c81e",
+      "size": 39434,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echocontentcore-1.0.0.echo-addon"
     },
     {
       "id": "echocore",
@@ -131,9 +131,9 @@
       "path": "addons/echocore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "d8f0cf080494f54c5468d8b761bc4177c098175fe8c82a2d249619f0599a1a2f",
-      "size": 333827,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echocore-1.0.0.echo-addon"
+      "sha256": "dfa2ad577f125af09e289e423d2aec70eca1147ed3fc7a867f6932bdc8269050",
+      "size": 339969,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echocore-1.0.0.echo-addon"
     },
     {
       "id": "echocreatureroles",
@@ -145,9 +145,9 @@
       "path": "addons/echocreatureroles-0.1.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "112a89a2253a478003c88247716fd7b5aed06df133cfdc929a16f63f96140178",
-      "size": 9029,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echocreatureroles-0.1.0.echo-addon"
+      "sha256": "38924cf33f84ebdaca59d247878ad6c8e99c509c210ab9fa6da6a16bc0900bee",
+      "size": 14974,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echocreatureroles-0.1.0.echo-addon"
     },
     {
       "id": "echoeconomycore",
@@ -159,9 +159,9 @@
       "path": "addons/echoeconomycore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "83ca6e5f8abb1b99286d8d606b91eb69dd80c7149006da9cab3ac39bcf159049",
-      "size": 29565,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoeconomycore-1.0.0.echo-addon"
+      "sha256": "9f1458713daf005b3cb7b76cf05d4a4212b009692614b994703d9ffa6a94a27f",
+      "size": 35341,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoeconomycore-1.0.0.echo-addon"
     },
     {
       "id": "echofoundationcore",
@@ -173,9 +173,9 @@
       "path": "addons/echofoundationcore-0.1.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "167719c62f1c302363888b097a673ae2137e030774bf062aa04994abfef67a28",
-      "size": 12366,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echofoundationcore-0.1.0.echo-addon"
+      "sha256": "909d57b8420f5ad7a352de494eb671fba05e31f7de5085d1ded1894a7c8316af",
+      "size": 18446,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echofoundationcore-0.1.0.echo-addon"
     },
     {
       "id": "echoholomap",
@@ -187,9 +187,9 @@
       "path": "addons/echoholomap-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "8581c9e05167678e92ea22da13931c85278b6dd64814f478b4922b231dcd9842",
-      "size": 1471376,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoholomap-1.0.0.echo-addon"
+      "sha256": "6ca3165acce209c051cfa6986c823ddfe238e65ff9e25033648fc7c7a0e62b60",
+      "size": 1477073,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoholomap-1.0.0.echo-addon"
     },
     {
       "id": "echohudcore",
@@ -201,9 +201,9 @@
       "path": "addons/echohudcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "3ea250880f2a32e28851ee4e1259509507062a04ec370782000b823fa2745a4d",
-      "size": 47417,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echohudcore-1.0.0.echo-addon"
+      "sha256": "f851761e409cc6993490ada6fbc5948ca4c733b95f8a577c07d9a676aa0bfd6f",
+      "size": 53226,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echohudcore-1.0.0.echo-addon"
     },
     {
       "id": "echoindex",
@@ -215,9 +215,9 @@
       "path": "addons/echoindex-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "9ca8da64ba6daed19eb65f2578a2cc236c2ac3017bd7e0657b5fc295fd51dcba",
-      "size": 562026,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoindex-1.0.0.echo-addon"
+      "sha256": "7f6bc7812f3cd630be6494622a1e179f14dc584dce7217add6674c9adf3dc314",
+      "size": 569931,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoindex-1.0.0.echo-addon"
     },
     {
       "id": "echoindustrialnexus",
@@ -229,9 +229,9 @@
       "path": "addons/echoindustrialnexus-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "fdf5ba00625a3496023c8b930653c4fe97f696a85c40bb57257fd0b102e14c08",
-      "size": 5000773,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoindustrialnexus-1.0.0.echo-addon"
+      "sha256": "77c85707c02bf4da1acff35951bdb94f7c85c5f00423fc9d97660062895786bf",
+      "size": 5036734,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoindustrialnexus-1.0.0.echo-addon"
     },
     {
       "id": "echolens",
@@ -243,9 +243,9 @@
       "path": "addons/echolens-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "8ddcbf43f58dbab7b1922a715e56abb968b6efe279d0975a713cb4d219bdf463",
-      "size": 207297,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echolens-1.0.0.echo-addon"
+      "sha256": "20d62160a9488ab5fe567f9e073f6c36f27a18674d3f8dc770329117ef02eaca",
+      "size": 213078,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echolens-1.0.0.echo-addon"
     },
     {
       "id": "echologisticsnetwork",
@@ -257,9 +257,9 @@
       "path": "addons/echologisticsnetwork-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "6a8190793158ee3a9d045d88a50d323eee2fa5c2d0b86f3fb1df101f734cc26d",
-      "size": 3642081,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echologisticsnetwork-1.0.0.echo-addon"
+      "sha256": "4c619ac037146b0b16755760e262d48bac924833bcf74eec29107668a4278833",
+      "size": 3652910,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echologisticsnetwork-1.0.0.echo-addon"
     },
     {
       "id": "echomaterialcore",
@@ -271,9 +271,9 @@
       "path": "addons/echomaterialcore-0.1.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "5677249a5b2b86a81da5a6f77afff62b76efd0116026d66d6538ec5fad8dc34f",
-      "size": 14649,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echomaterialcore-0.1.0.echo-addon"
+      "sha256": "c235b66ecadc516e963d43002a23deffa64f82359b3bcc47d5ef183bee0fef3e",
+      "size": 29607,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echomaterialcore-0.1.0.echo-addon"
     },
     {
       "id": "echomissioncore",
@@ -285,9 +285,9 @@
       "path": "addons/echomissioncore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "8e041412c8f971fbccbca8e1f7c4829bf1051f628f01b6515fadb03297116c14",
-      "size": 103635,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echomissioncore-1.0.0.echo-addon"
+      "sha256": "0536645f818abbcad762cd9de4c25c62acf9594463d13403a26d0d4e0c64b21b",
+      "size": 109232,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echomissioncore-1.0.0.echo-addon"
     },
     {
       "id": "echomultiblockcore",
@@ -299,9 +299,9 @@
       "path": "addons/echomultiblockcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "b5d51c84459886f720da68b122515bc6a52c2fca6a8b39d60ecdfc28e895a4af",
-      "size": 12611993,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echomultiblockcore-1.0.0.echo-addon"
+      "sha256": "4ae035060743475ea76f630d00be4bcebb387a12781c4e0c446d0892bce0fe43",
+      "size": 12628005,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echomultiblockcore-1.0.0.echo-addon"
     },
     {
       "id": "echonetcore",
@@ -313,9 +313,9 @@
       "path": "addons/echonetcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "1e597d1d3d543c6f6c29a464f8dc866714e635bf7294ae2acdb9534ba7ce42df",
-      "size": 64993,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echonetcore-1.0.0.echo-addon"
+      "sha256": "426c5316c0ed6d6c9689163f69d2b4dc78bdcc1d39829c4ba780f63812e55de3",
+      "size": 70395,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echonetcore-1.0.0.echo-addon"
     },
     {
       "id": "echoorbitalremnants",
@@ -327,9 +327,9 @@
       "path": "addons/echoorbitalremnants-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "8f7634e337b2f0ef69c0400ff726fbdd56f6201b5b7d9ccf6470bb115c38aa27",
-      "size": 14311777,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoorbitalremnants-1.0.0.echo-addon"
+      "sha256": "0341110f63ee2b3172f714f4d56876ed010b3dd77da011f2edd574cc446a88da",
+      "size": 14335333,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoorbitalremnants-1.0.0.echo-addon"
     },
     {
       "id": "echoplatformcore",
@@ -341,9 +341,9 @@
       "path": "addons/echoplatformcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "4c38be04c68453932907f1d7033bee5b82687985116b20c7f82194b530fb2fbc",
-      "size": 45274,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoplatformcore-1.0.0.echo-addon"
+      "sha256": "2659ff731ce6aa28f76a0337cd4d7012e486a47363498ffdef4e69476c37a2d2",
+      "size": 50630,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoplatformcore-1.0.0.echo-addon"
     },
     {
       "id": "echopowergrid",
@@ -355,9 +355,9 @@
       "path": "addons/echopowergrid-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "f0a64f39f58278238e2a1554e82391cc4341c2c11f4e09ebff779a450aec9906",
-      "size": 7146713,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echopowergrid-1.0.0.echo-addon"
+      "sha256": "e019aeb1135c16b272b7c8d13cf8973dac984de84696d572c3a67ab0aa3b3320",
+      "size": 7159425,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echopowergrid-1.0.0.echo-addon"
     },
     {
       "id": "echoprogressioncore",
@@ -369,9 +369,9 @@
       "path": "addons/echoprogressioncore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "9f2051005c5b0dc4dfc9e105e87b27f07ae89f03b6c8994330351a205327cddd",
-      "size": 46297,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoprogressioncore-1.0.0.echo-addon"
+      "sha256": "34c2560193f7d584f8662db31e0990ea1db02bf685cce925b57490876b0cb1c8",
+      "size": 52331,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoprogressioncore-1.0.0.echo-addon"
     },
     {
       "id": "echorecipecore",
@@ -383,9 +383,9 @@
       "path": "addons/echorecipecore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "2102de9d3104b30b302e5a5757b9ae5a0658df3bae1e7e8ebdd6e4a5bd39265a",
-      "size": 38563,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echorecipecore-1.0.0.echo-addon"
+      "sha256": "435b1ccbf66d239a8099e3a40fbf9e7ec91f1113393fad4692f10e47eda8c6f3",
+      "size": 44211,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echorecipecore-1.0.0.echo-addon"
     },
     {
       "id": "echorecovery",
@@ -397,9 +397,9 @@
       "path": "addons/echorecovery-1.3.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "3060ab875190b5369f28d1411e8b378a40f4045ef2634af522566d42df1c473e",
-      "size": 2669308,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echorecovery-1.3.0.echo-addon"
+      "sha256": "2fdaa5c9574f7ba562a11e9c8c30790fdf5cec5820247576ac9c3450bccd0edd",
+      "size": 2676882,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echorecovery-1.3.0.echo-addon"
     },
     {
       "id": "echoruntimeguard",
@@ -411,9 +411,9 @@
       "path": "addons/echoruntimeguard-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "f430250dd8ea14f650941fd4174bd01a67bb65abcf81de4458abf383ee47a280",
-      "size": 121825,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoruntimeguard-1.0.0.echo-addon"
+      "sha256": "7be8067cb62a826aaf6c3630c1a004add56b0fe9f5732abc3594a92b346b2138",
+      "size": 128092,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoruntimeguard-1.0.0.echo-addon"
     },
     {
       "id": "echoschemacore",
@@ -425,9 +425,9 @@
       "path": "addons/echoschemacore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "d1aaf68539b171003b09a1637e218e45916f5bc3d103f7432396c11bbf76b2bd",
-      "size": 31301,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoschemacore-1.0.0.echo-addon"
+      "sha256": "4521dc297dcdf6c1220957703e5c46b33dc81ac4209ec7869caf20f875215bb9",
+      "size": 36652,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoschemacore-1.0.0.echo-addon"
     },
     {
       "id": "echoscreencore",
@@ -439,9 +439,9 @@
       "path": "addons/echoscreencore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "a545d806263224c32487754b8ee64f7a3696b8353006521125420942cb3b4c4d",
-      "size": 362496,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoscreencore-1.0.0.echo-addon"
+      "sha256": "41e17967012c6cebee58e139e904c763df04f168d6d1b7d73a70a12ffed879a0",
+      "size": 368863,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoscreencore-1.0.0.echo-addon"
     },
     {
       "id": "echoskyrelayprotocol",
@@ -453,9 +453,9 @@
       "path": "addons/echoskyrelayprotocol-0.1.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "a812999cc78687a189197176f092ee8a81498dfeaefbde2a6e0e412804d143de",
-      "size": 48415,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoskyrelayprotocol-0.1.0.echo-addon"
+      "sha256": "87639afcbd2f9f50cf4bf4c8b388f616e697ea525a69b8acae7f4d25a9d31c1c",
+      "size": 60322,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoskyrelayprotocol-0.1.0.echo-addon"
     },
     {
       "id": "echosocialcore",
@@ -467,9 +467,9 @@
       "path": "addons/echosocialcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "9edb2158d559f42315ce97babeb4f9d901cc3e7b39da9cda4bbb37db3e2b7609",
-      "size": 55955,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echosocialcore-1.0.0.echo-addon"
+      "sha256": "585691064c7a9884f27a2548b4601fe1c139e881c6991f0207d3d17cafaa3dab",
+      "size": 61773,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echosocialcore-1.0.0.echo-addon"
     },
     {
       "id": "echosoundcore",
@@ -481,9 +481,9 @@
       "path": "addons/echosoundcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "8b4f90f967d90535e74bef5a6b23a42740908811a358712d3a839dbca76a3435",
-      "size": 11080755,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echosoundcore-1.0.0.echo-addon"
+      "sha256": "489075b2ef683f3a124939f04a82d5cddecf7dee38c13edfcb5bb5aab4f0d23e",
+      "size": 11087302,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echosoundcore-1.0.0.echo-addon"
     },
     {
       "id": "echostationcore",
@@ -495,9 +495,9 @@
       "path": "addons/echostationcore-0.1.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "8e85d5323f03140bc6a77a8310f45af6c0f8c3fde8640dc9e606d3e2e117672f",
-      "size": 10666,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echostationcore-0.1.0.echo-addon"
+      "sha256": "df84edb4fdc371757dd420b67f7c1c5ce69a5d431c8a8281544fed89a1108ee5",
+      "size": 19059,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echostationcore-0.1.0.echo-addon"
     },
     {
       "id": "echoterminal",
@@ -509,9 +509,9 @@
       "path": "addons/echoterminal-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "9f14e4573a128542b77190762cf6e5eaad3aeed5739128d4ad4b750b6cf700b7",
-      "size": 22458319,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoterminal-1.0.0.echo-addon"
+      "sha256": "8e4438effe00c0029d8e84d8737362ed20265fd6ebee9703851fe3a7001bfe2c",
+      "size": 22466672,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoterminal-1.0.0.echo-addon"
     },
     {
       "id": "echothemecore",
@@ -523,9 +523,9 @@
       "path": "addons/echothemecore-1.3.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "8bae7aa39512fdd25d7b6cf83e7229433bd9ab582bbfb2d3ae4dc10cfefef54c",
-      "size": 69527108,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echothemecore-1.3.0.echo-addon"
+      "sha256": "2cd26f7877c586ea65af1ad8717358830333fb68bca2645efa5bec87512750a3",
+      "size": 69533994,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echothemecore-1.3.0.echo-addon"
     },
     {
       "id": "echotoolcore",
@@ -537,9 +537,9 @@
       "path": "addons/echotoolcore-0.1.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "4aa467e60780789d3e06dcfab7529d4eb1dc608802150e726190358c8b233234",
-      "size": 10565,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echotoolcore-0.1.0.echo-addon"
+      "sha256": "3e6188706ee26adccda7a28e156218cf4f61067fb1204192e9f69f639a7decb1",
+      "size": 18634,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echotoolcore-0.1.0.echo-addon"
     },
     {
       "id": "echotutorialcore",
@@ -551,9 +551,9 @@
       "path": "addons/echotutorialcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "6f5347c59556127fdd34aa2f2fa709895c974f3901712821bc31ad54b693c42d",
-      "size": 200596,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echotutorialcore-1.0.0.echo-addon"
+      "sha256": "25bab0c894519028e15ffa4034da87b1fa1a66b4fb590474b6468490fe6d1260",
+      "size": 206560,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echotutorialcore-1.0.0.echo-addon"
     },
     {
       "id": "echovalidationcore",
@@ -565,9 +565,9 @@
       "path": "addons/echovalidationcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "ab1d2cc7fdec7a9793fab55bc13ff978b97b09cb3c341959ff12e3b6094dc915",
-      "size": 41901,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echovalidationcore-1.0.0.echo-addon"
+      "sha256": "1e0daa0b380d378a00a800d29d01e630efda80f531bd50c7aac4f5bf526b57d7",
+      "size": 47417,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echovalidationcore-1.0.0.echo-addon"
     },
     {
       "id": "echoweathercore",
@@ -579,9 +579,9 @@
       "path": "addons/echoweathercore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "38022e28e967a8afd7bd45a0cc88fc7e64e6fe6090eef2b81d446599b696f664",
-      "size": 201236,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoweathercore-1.0.0.echo-addon"
+      "sha256": "3051f775393069a54940909db9abc06bb5df860ab0d9730dbcbee6a055b59e4a",
+      "size": 214601,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoweathercore-1.0.0.echo-addon"
     },
     {
       "id": "echoworldcore",
@@ -593,9 +593,9 @@
       "path": "addons/echoworldcore-1.0.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "f9f22aa69c115c4229ef2bc605b4dc260badb5ed0b6e832e8cdbd22a8eda26de",
-      "size": 168787,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoworldcore-1.0.0.echo-addon"
+      "sha256": "ab9ea9d52231b6b962d8c728e0832eea2f2d250c39c4f3268dc883d476447fdc",
+      "size": 174395,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoworldcore-1.0.0.echo-addon"
     },
     {
       "id": "echoworldstarter",
@@ -607,9 +607,9 @@
       "path": "addons/echoworldstarter-0.1.0.echo-addon",
       "required": true,
       "side": "both",
-      "sha256": "ce21df1079db615ad0be77f57c53781282cd46bfe72a7718ad22d8dde80e1b7a",
-      "size": 11707,
-      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-all-official-modpacks-runtime-fix-20260614/echoworldstarter-0.1.0.echo-addon"
+      "sha256": "fefc65d09209887e1b185c3ef6be2b88a7ee514babb98e792034dcc34b780ea8",
+      "size": 19728,
+      "url": "https://github.com/knoxhack/ECHO-Modules/releases/download/modules-runtime-parity-hotfix-20260614/echoworldstarter-0.1.0.echo-addon"
     }
   ],
   "requiredModuleDescriptors": [
