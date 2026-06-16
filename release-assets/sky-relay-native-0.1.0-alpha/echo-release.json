@@ -4,15 +4,15 @@
   "name": "Sky Relay Native Edition",
   "version": "0.1.0",
   "channel": "alpha",
-  "releasedAt": "2026-06-14T01:26:51.619Z",
+  "releasedAt": "2026-06-16T00:34:24.456Z",
   "manifestAsset": "sky-relay-native-edition-alpha-0.1.0.pack.json",
-  "manifestSha256": "a09379b62bfb3912455080e958de8073fef1d9027f578499d5d7bea28662fc2c",
+  "manifestSha256": "df51c48e5643f9f8babee8858a9725d0386a2e7c1141c2c439dbf68c0e6f21f8",
   "manifestSize": 55003,
   "artifactMode": "zip",
   "artifactAsset": "sky-relay-native-edition-0.1.0.zip",
-  "artifactSha256": "1f66d178f71c8a458295399000f40cad00290c347fc2024d93ab239f58e6eafe",
-  "artifactSize": 155247484,
-  "moduleRelease": "modules-all-official-modpacks-runtime-fix-20260614",
+  "artifactSha256": "e09d863b3fae3dcef64fc2f82dfc4ccc003db655881c8cf8769b22b1f5b82460",
+  "artifactSize": 155311205,
+  "moduleRelease": "release-index-current-module-artifacts-20260616",
   "packs": [
     {
       "pack": "sky-relay-native-edition",
@@ -27,320 +27,320 @@
     {
       "name": "sky-relay-native-edition-alpha-0.1.0.pack.json",
       "role": "pack-manifest",
-      "sha256": "a09379b62bfb3912455080e958de8073fef1d9027f578499d5d7bea28662fc2c",
-      "size": 55003
+      "sha256": "df51c48e5643f9f8babee8858a9725d0386a2e7c1141c2c439dbf68c0e6f21f8",
+      "size": 56743
     },
     {
       "name": "sky-relay-native-edition-0.1.0.zip",
       "role": "pack-artifact",
-      "sha256": "1f66d178f71c8a458295399000f40cad00290c347fc2024d93ab239f58e6eafe",
-      "size": 155247484
+      "sha256": "e09d863b3fae3dcef64fc2f82dfc4ccc003db655881c8cf8769b22b1f5b82460",
+      "size": 155311205
     },
     {
       "name": "echoadaptercore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "5bb723d1ecff3e4c8dc2ad372548fce0f178df5ff78e8d1444ac493e31b365f6",
-      "size": 827816,
-      "path": "addons/echoadaptercore-1.0.0.echo-addon"
+      "path": "addons/echoadaptercore-1.0.0.echo-addon",
+      "sha256": "6419877b2fdf5c9396408c71fb2a013301884416c8d3131209b8e5a03dabde7a",
+      "size": 827788
     },
     {
       "name": "echoagriculturereclamation-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "c73aabce2cfaa79cc65c6de61e503c98483d96d941adaeaa7d3fdb8e4e3f6dd7",
-      "size": 396543,
-      "path": "addons/echoagriculturereclamation-1.0.0.echo-addon"
+      "path": "addons/echoagriculturereclamation-1.0.0.echo-addon",
+      "sha256": "dcce8b529cd4dd399c76f2b3cb2bc9c61a6d5abc61e322f441c5439deaedb3f1",
+      "size": 396586
     },
     {
       "name": "echoassetcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "befc1f6dda320c8712e6455e109117243b4458fef6acdceb88bd8b33622ca977",
-      "size": 51094,
-      "path": "addons/echoassetcore-1.0.0.echo-addon"
+      "path": "addons/echoassetcore-1.0.0.echo-addon",
+      "sha256": "cb57ab72fef2de50fb9b749dfa5a2b66fb162e7ab3f130da7e9053caec4bc4aa",
+      "size": 51072
     },
     {
       "name": "echoatmospherecore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "150b3137b9aede05665bfb1184d762789f218ffaecc7fe00502b639122f1354a",
-      "size": 35461,
-      "path": "addons/echoatmospherecore-1.0.0.echo-addon"
+      "path": "addons/echoatmospherecore-1.0.0.echo-addon",
+      "sha256": "41a77b845e4c39a0d8442fd9bbb52fd32038fb7015f4f7b0756bcb78ea40ac1a",
+      "size": 35435
     },
     {
       "name": "echoblockworks-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "5bc3c99787dae97b48d04b5053e2a86816f1ac778c1a93f3db5c6ba4613b73b0",
-      "size": 836554,
-      "path": "addons/echoblockworks-1.0.0.echo-addon"
+      "path": "addons/echoblockworks-1.0.0.echo-addon",
+      "sha256": "e78114c1c924cec81acdecee6dc6c1a732cb6df07a3fdd7f488d12d62793e317",
+      "size": 839329
     },
     {
       "name": "echocameracore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "5a49e33a4526b9c102cfcbefc154c906dd52651d96c7d02f1572e9f3e9562e69",
-      "size": 25358,
-      "path": "addons/echocameracore-1.0.0.echo-addon"
+      "path": "addons/echocameracore-1.0.0.echo-addon",
+      "sha256": "fc3f888a902451477263047e449f7a60fc68fa4fda551d826755d15fa08be57b",
+      "size": 25340
     },
     {
       "name": "echocommonloot-0.1.0.echo-addon",
       "role": "pack-file",
-      "sha256": "68e2e3a16e2823c62ad8940ee6d5915243d91f4264355dc265c1c11e8b8548f1",
-      "size": 15383,
-      "path": "addons/echocommonloot-0.1.0.echo-addon"
+      "path": "addons/echocommonloot-0.1.0.echo-addon",
+      "sha256": "a9033420753114ce8deb5da806e1dd6f1fcca6245cfc3221d236a983a63a9b44",
+      "size": 15366
     },
     {
       "name": "echocontentcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "56646bcdd84f19a1220f979cd37ef304b3a0bf2c0f9956376a61e54ada13c81e",
-      "size": 39434,
-      "path": "addons/echocontentcore-1.0.0.echo-addon"
+      "path": "addons/echocontentcore-1.0.0.echo-addon",
+      "sha256": "00c4e85764a30cdb12448881e67a94b59766abc28eb1d1a7e33214786d428780",
+      "size": 39409
     },
     {
       "name": "echocore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "dfa2ad577f125af09e289e423d2aec70eca1147ed3fc7a867f6932bdc8269050",
-      "size": 339969,
-      "path": "addons/echocore-1.0.0.echo-addon"
+      "path": "addons/echocore-1.0.0.echo-addon",
+      "sha256": "2ab4d76bbb40e0110e70cf71b190ec6ae719ee8d7f3f8756cb32791db69061b2",
+      "size": 339976
     },
     {
       "name": "echocreatureroles-0.1.0.echo-addon",
       "role": "pack-file",
-      "sha256": "38924cf33f84ebdaca59d247878ad6c8e99c509c210ab9fa6da6a16bc0900bee",
-      "size": 14974,
-      "path": "addons/echocreatureroles-0.1.0.echo-addon"
+      "path": "addons/echocreatureroles-0.1.0.echo-addon",
+      "sha256": "c54fd527fa709d84f4db7be3fadfcc705266a26a1e2ee991f71dbd4da41c0109",
+      "size": 14955
     },
     {
       "name": "echoeconomycore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "9f1458713daf005b3cb7b76cf05d4a4212b009692614b994703d9ffa6a94a27f",
-      "size": 35341,
-      "path": "addons/echoeconomycore-1.0.0.echo-addon"
+      "path": "addons/echoeconomycore-1.0.0.echo-addon",
+      "sha256": "66f8ebd7bcfc77c7e691cc123f04b90624c4e8cad7527b864d9dc172f4b87a96",
+      "size": 35331
     },
     {
       "name": "echofoundationcore-0.1.0.echo-addon",
       "role": "pack-file",
-      "sha256": "909d57b8420f5ad7a352de494eb671fba05e31f7de5085d1ded1894a7c8316af",
-      "size": 18446,
-      "path": "addons/echofoundationcore-0.1.0.echo-addon"
+      "path": "addons/echofoundationcore-0.1.0.echo-addon",
+      "sha256": "790cba682e16ed8b9dd5c28214f2dfb9b0d96e1596b0a491ed68c6621976f0c3",
+      "size": 18407
     },
     {
       "name": "echoholomap-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "6ca3165acce209c051cfa6986c823ddfe238e65ff9e25033648fc7c7a0e62b60",
-      "size": 1477073,
-      "path": "addons/echoholomap-1.0.0.echo-addon"
+      "path": "addons/echoholomap-1.0.0.echo-addon",
+      "sha256": "04355f87cea3268dc36e7dbf29ac802db0f36070d0411bf1a01dd675d9280a96",
+      "size": 1477056
     },
     {
       "name": "echohudcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "f851761e409cc6993490ada6fbc5948ca4c733b95f8a577c07d9a676aa0bfd6f",
-      "size": 53226,
-      "path": "addons/echohudcore-1.0.0.echo-addon"
+      "path": "addons/echohudcore-1.0.0.echo-addon",
+      "sha256": "8ca7d14c7c5fee5835bf01652a23a9116eef5f89636ab64e446ebdf2cc236704",
+      "size": 53197
     },
     {
       "name": "echoindex-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "7f6bc7812f3cd630be6494622a1e179f14dc584dce7217add6674c9adf3dc314",
-      "size": 569931,
-      "path": "addons/echoindex-1.0.0.echo-addon"
+      "path": "addons/echoindex-1.0.0.echo-addon",
+      "sha256": "9fa1a16d74e3887e84bb063d715605612f36ca6642e82ac551749fcce4ec553e",
+      "size": 569728
     },
     {
       "name": "echoindustrialnexus-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "77c85707c02bf4da1acff35951bdb94f7c85c5f00423fc9d97660062895786bf",
-      "size": 5036734,
-      "path": "addons/echoindustrialnexus-1.0.0.echo-addon"
+      "path": "addons/echoindustrialnexus-1.0.0.echo-addon",
+      "sha256": "9b8b8af3a0c3733fcb1034e72ea8567e4f059f59283ee46f934573fabc615a07",
+      "size": 5038321
     },
     {
       "name": "echolens-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "20d62160a9488ab5fe567f9e073f6c36f27a18674d3f8dc770329117ef02eaca",
-      "size": 213078,
-      "path": "addons/echolens-1.0.0.echo-addon"
+      "path": "addons/echolens-1.0.0.echo-addon",
+      "sha256": "743d44eb45c3db4bedda5d821c9c7ac98d62f09f9e3ebad4d02ce41566d64a56",
+      "size": 213064
     },
     {
       "name": "echologisticsnetwork-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "4c619ac037146b0b16755760e262d48bac924833bcf74eec29107668a4278833",
-      "size": 3652910,
-      "path": "addons/echologisticsnetwork-1.0.0.echo-addon"
+      "path": "addons/echologisticsnetwork-1.0.0.echo-addon",
+      "sha256": "a94612273739696ecf8a1bc766df115b3e5687ecc317f316341155c8c2b56db7",
+      "size": 3652688
     },
     {
       "name": "echomaterialcore-0.1.0.echo-addon",
       "role": "pack-file",
-      "sha256": "c235b66ecadc516e963d43002a23deffa64f82359b3bcc47d5ef183bee0fef3e",
-      "size": 29607,
-      "path": "addons/echomaterialcore-0.1.0.echo-addon"
+      "path": "addons/echomaterialcore-0.1.0.echo-addon",
+      "sha256": "bbfa3e46853b3ad9856d9f57c94088412d369a32d609bbc699db1d3f23d01764",
+      "size": 29562
     },
     {
       "name": "echomissioncore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "0536645f818abbcad762cd9de4c25c62acf9594463d13403a26d0d4e0c64b21b",
-      "size": 109232,
-      "path": "addons/echomissioncore-1.0.0.echo-addon"
+      "path": "addons/echomissioncore-1.0.0.echo-addon",
+      "sha256": "c05ae4915ef8c698df6676fdf8095556d31767554b80ed9ca63af0bd56c6731c",
+      "size": 109209
     },
     {
       "name": "echomultiblockcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "4ae035060743475ea76f630d00be4bcebb387a12781c4e0c446d0892bce0fe43",
-      "size": 12628005,
-      "path": "addons/echomultiblockcore-1.0.0.echo-addon"
+      "path": "addons/echomultiblockcore-1.0.0.echo-addon",
+      "sha256": "de41397cf72cf1dd6bc54305ec010265b543116635cbcb0a19c5224a976d42b6",
+      "size": 12628080
     },
     {
       "name": "echonetcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "426c5316c0ed6d6c9689163f69d2b4dc78bdcc1d39829c4ba780f63812e55de3",
-      "size": 70395,
-      "path": "addons/echonetcore-1.0.0.echo-addon"
+      "path": "addons/echonetcore-1.0.0.echo-addon",
+      "sha256": "3d412f52b6535f06f6daad8f0f6f4de320b9832c2cd970048610bb3aac7adea3",
+      "size": 70376
     },
     {
       "name": "echoorbitalremnants-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "0341110f63ee2b3172f714f4d56876ed010b3dd77da011f2edd574cc446a88da",
-      "size": 14335333,
-      "path": "addons/echoorbitalremnants-1.0.0.echo-addon"
+      "path": "addons/echoorbitalremnants-1.0.0.echo-addon",
+      "sha256": "fd228b8f827f9499d4bcfb728be88d8c5224b6a8865223539f4350f1e6022cca",
+      "size": 14334949
     },
     {
       "name": "echoplatformcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "2659ff731ce6aa28f76a0337cd4d7012e486a47363498ffdef4e69476c37a2d2",
-      "size": 50630,
-      "path": "addons/echoplatformcore-1.0.0.echo-addon"
+      "path": "addons/echoplatformcore-1.0.0.echo-addon",
+      "sha256": "84665d65f829e48077751e8e168a13e476302e8aa41d2fa6ce1e1209e62dba0c",
+      "size": 50619
     },
     {
       "name": "echopowergrid-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "e019aeb1135c16b272b7c8d13cf8973dac984de84696d572c3a67ab0aa3b3320",
-      "size": 7159425,
-      "path": "addons/echopowergrid-1.0.0.echo-addon"
+      "path": "addons/echopowergrid-1.0.0.echo-addon",
+      "sha256": "666fa4bf2e1e81cbd9c6188cb7699d2cc554a441affac4ab6cf38d2a5346afae",
+      "size": 7160311
     },
     {
       "name": "echoprogressioncore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "34c2560193f7d584f8662db31e0990ea1db02bf685cce925b57490876b0cb1c8",
-      "size": 52331,
-      "path": "addons/echoprogressioncore-1.0.0.echo-addon"
+      "path": "addons/echoprogressioncore-1.0.0.echo-addon",
+      "sha256": "4a345d4172f909a0e9229feea4d9bf523f8c2b172db39d5edeafa0c607baca0c",
+      "size": 52311
     },
     {
       "name": "echorecipecore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "435b1ccbf66d239a8099e3a40fbf9e7ec91f1113393fad4692f10e47eda8c6f3",
-      "size": 44211,
-      "path": "addons/echorecipecore-1.0.0.echo-addon"
+      "path": "addons/echorecipecore-1.0.0.echo-addon",
+      "sha256": "90c722c136ca4bba6d86c97c26b36cdbc079f1aae44c01878936dd52599bb881",
+      "size": 44190
     },
     {
       "name": "echorecovery-1.3.0.echo-addon",
       "role": "pack-file",
-      "sha256": "2fdaa5c9574f7ba562a11e9c8c30790fdf5cec5820247576ac9c3450bccd0edd",
-      "size": 2676882,
-      "path": "addons/echorecovery-1.3.0.echo-addon"
+      "path": "addons/echorecovery-1.3.0.echo-addon",
+      "sha256": "565b8646ef6930c48cb1ea39dd320df61996f55a8fdac577ec1efc31b3aaddb8",
+      "size": 2676838
     },
     {
       "name": "echoruntimeguard-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "7be8067cb62a826aaf6c3630c1a004add56b0fe9f5732abc3594a92b346b2138",
-      "size": 128092,
-      "path": "addons/echoruntimeguard-1.0.0.echo-addon"
+      "path": "addons/echoruntimeguard-1.0.0.echo-addon",
+      "sha256": "a3c3139c218e6fe1af075ea21320a9e0c0fe1f8d0b6ddc4ab3eddcb39a1b1d75",
+      "size": 128074
     },
     {
       "name": "echoschemacore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "4521dc297dcdf6c1220957703e5c46b33dc81ac4209ec7869caf20f875215bb9",
-      "size": 36652,
-      "path": "addons/echoschemacore-1.0.0.echo-addon"
+      "path": "addons/echoschemacore-1.0.0.echo-addon",
+      "sha256": "3dbcbd428c213a2a3f77d3e286122bbc4ddd8013eabe67375e902cf91442d3ef",
+      "size": 36632
     },
     {
       "name": "echoscreencore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "41e17967012c6cebee58e139e904c763df04f168d6d1b7d73a70a12ffed879a0",
-      "size": 368863,
-      "path": "addons/echoscreencore-1.0.0.echo-addon"
+      "path": "addons/echoscreencore-1.0.0.echo-addon",
+      "sha256": "cf2baff45b3f273eaf5f05fb8589c1adee8d8c9024767e119cba4d2f55df59b0",
+      "size": 368538
     },
     {
       "name": "echoskyrelayprotocol-0.1.0.echo-addon",
       "role": "pack-file",
-      "sha256": "87639afcbd2f9f50cf4bf4c8b388f616e697ea525a69b8acae7f4d25a9d31c1c",
-      "size": 60322,
-      "path": "addons/echoskyrelayprotocol-0.1.0.echo-addon"
+      "path": "addons/echoskyrelayprotocol-0.1.0.echo-addon",
+      "sha256": "f1659bad0de3ad055f2dd068b8b1a80f35f62651ccf05b5974bd1ff2ecac2195",
+      "size": 60212
     },
     {
       "name": "echosocialcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "585691064c7a9884f27a2548b4601fe1c139e881c6991f0207d3d17cafaa3dab",
-      "size": 61773,
-      "path": "addons/echosocialcore-1.0.0.echo-addon"
+      "path": "addons/echosocialcore-1.0.0.echo-addon",
+      "sha256": "24f305157fc3bed5f78a78f653fd8705ef6ff79559040c98331ac424201e2b45",
+      "size": 61761
     },
     {
       "name": "echosoundcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "489075b2ef683f3a124939f04a82d5cddecf7dee38c13edfcb5bb5aab4f0d23e",
-      "size": 11087302,
-      "path": "addons/echosoundcore-1.0.0.echo-addon"
+      "path": "addons/echosoundcore-1.0.0.echo-addon",
+      "sha256": "bd1aa6e321112e98a3460d4c65c8595fa39a52ba27a23403a507a12eed7ddeed",
+      "size": 11087224
     },
     {
       "name": "echostationcore-0.1.0.echo-addon",
       "role": "pack-file",
-      "sha256": "df84edb4fdc371757dd420b67f7c1c5ce69a5d431c8a8281544fed89a1108ee5",
-      "size": 19059,
-      "path": "addons/echostationcore-0.1.0.echo-addon"
+      "path": "addons/echostationcore-0.1.0.echo-addon",
+      "sha256": "07a6fa99ee4c2bccf217e6929e0f38c84e547dc93b8ae2131d5ed33cee94c0ef",
+      "size": 19030
     },
     {
       "name": "echoterminal-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "8e4438effe00c0029d8e84d8737362ed20265fd6ebee9703851fe3a7001bfe2c",
-      "size": 22466672,
-      "path": "addons/echoterminal-1.0.0.echo-addon"
+      "path": "addons/echoterminal-1.0.0.echo-addon",
+      "sha256": "d1243a1356c08f937aefba749cdd4a459d6eb6099aee89fcd55e9132a8e9fbe0",
+      "size": 22466256
     },
     {
       "name": "echothemecore-1.3.0.echo-addon",
       "role": "pack-file",
-      "sha256": "2cd26f7877c586ea65af1ad8717358830333fb68bca2645efa5bec87512750a3",
-      "size": 69533994,
-      "path": "addons/echothemecore-1.3.0.echo-addon"
+      "path": "addons/echothemecore-1.3.0.echo-addon",
+      "sha256": "dafee6503db9856893a86414ea52bc21b55fdec3c0291ed24310325dfbacded5",
+      "size": 69533713
     },
     {
       "name": "echotoolcore-0.1.0.echo-addon",
       "role": "pack-file",
-      "sha256": "3e6188706ee26adccda7a28e156218cf4f61067fb1204192e9f69f639a7decb1",
-      "size": 18634,
-      "path": "addons/echotoolcore-0.1.0.echo-addon"
+      "path": "addons/echotoolcore-0.1.0.echo-addon",
+      "sha256": "26d4b1009c6c250997c39e000ef0fb3f40892bbef6792e6e7f01dac1e8fb3801",
+      "size": 18590
     },
     {
       "name": "echotutorialcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "25bab0c894519028e15ffa4034da87b1fa1a66b4fb590474b6468490fe6d1260",
-      "size": 206560,
-      "path": "addons/echotutorialcore-1.0.0.echo-addon"
+      "path": "addons/echotutorialcore-1.0.0.echo-addon",
+      "sha256": "cfdf52b56f8696737ac3c7faed69de3cc731ee970306ad18b4cd8ccc8635c568",
+      "size": 206254
     },
     {
       "name": "echovalidationcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "1e0daa0b380d378a00a800d29d01e630efda80f531bd50c7aac4f5bf526b57d7",
-      "size": 47417,
-      "path": "addons/echovalidationcore-1.0.0.echo-addon"
+      "path": "addons/echovalidationcore-1.0.0.echo-addon",
+      "sha256": "676dfc6b6b2867ae15b6d21f9bcb0eb99641f485dad99db6e9c9f1472eabe382",
+      "size": 47386
     },
     {
       "name": "echoweathercore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "3051f775393069a54940909db9abc06bb5df860ab0d9730dbcbee6a055b59e4a",
-      "size": 214601,
-      "path": "addons/echoweathercore-1.0.0.echo-addon"
+      "path": "addons/echoweathercore-1.0.0.echo-addon",
+      "sha256": "383346ae734086cf2f2c7c6e5c33d16ffa7acbe70751c22c8aa27d6d11ca26ad",
+      "size": 215363
     },
     {
       "name": "echoworldcore-1.0.0.echo-addon",
       "role": "pack-file",
-      "sha256": "ab9ea9d52231b6b962d8c728e0832eea2f2d250c39c4f3268dc883d476447fdc",
-      "size": 174395,
-      "path": "addons/echoworldcore-1.0.0.echo-addon"
+      "path": "addons/echoworldcore-1.0.0.echo-addon",
+      "sha256": "27060c532f1dc790a8209061a9e67f889552835b5769d377ee740ae50e001a1a",
+      "size": 174167
     },
     {
       "name": "echoworldstarter-0.1.0.echo-addon",
       "role": "pack-file",
-      "sha256": "fefc65d09209887e1b185c3ef6be2b88a7ee514babb98e792034dcc34b780ea8",
-      "size": 19728,
-      "path": "addons/echoworldstarter-0.1.0.echo-addon"
+      "path": "addons/echoworldstarter-0.1.0.echo-addon",
+      "sha256": "b146cd7e2472761adc64b00a28f913205493f89e4b6e02da4269627a38495d1d",
+      "size": 19701
     }
   ],
   "notes": [
-    "Rebuilt sky-relay-native-edition against approved module release modules-all-official-modpacks-install-fix-20260613.",
-    "Manifest files contain GitHub HTTPS URLs for every module artifact used by install, repair, and update."
+    "Sky Relay Native Edition refreshed against the current Release Index module catalog.",
+    "Pack module files, sidecar metadata, and archive checksums are pinned to current GitHub module artifacts."
   ],
-  "moduleSourceRevision": "0beb164098526cf791cc6c649704e6a434769a17"
+  "moduleSourceRevision": "ECHO-Release-Index modules/*.json current artifacts, 2026-06-16"
 }
