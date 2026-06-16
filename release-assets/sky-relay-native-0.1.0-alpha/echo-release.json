@@ -4,14 +4,14 @@
   "name": "Sky Relay Native Edition",
   "version": "0.1.0",
   "channel": "alpha",
-  "releasedAt": "2026-06-16T00:34:24.456Z",
+  "releasedAt": "2026-06-16T01:23:10.061Z",
   "manifestAsset": "sky-relay-native-edition-alpha-0.1.0.pack.json",
-  "manifestSha256": "df51c48e5643f9f8babee8858a9725d0386a2e7c1141c2c439dbf68c0e6f21f8",
-  "manifestSize": 55003,
+  "manifestSha256": "113cd68ffb7f3237f73fc7f998dcf818a2a76d4de7d08d8fd0b24293ee824305",
+  "manifestSize": 56721,
   "artifactMode": "zip",
   "artifactAsset": "sky-relay-native-edition-0.1.0.zip",
-  "artifactSha256": "e09d863b3fae3dcef64fc2f82dfc4ccc003db655881c8cf8769b22b1f5b82460",
-  "artifactSize": 155311205,
+  "artifactSha256": "49af828eff8c8d2c30a87f9d518ad45c8d0ea856326096b2fe478840ccfda679",
+  "artifactSize": 155402113,
   "moduleRelease": "release-index-current-module-artifacts-20260616",
   "packs": [
     {
@@ -27,21 +27,21 @@
     {
       "name": "sky-relay-native-edition-alpha-0.1.0.pack.json",
       "role": "pack-manifest",
-      "sha256": "df51c48e5643f9f8babee8858a9725d0386a2e7c1141c2c439dbf68c0e6f21f8",
-      "size": 56743
+      "sha256": "113cd68ffb7f3237f73fc7f998dcf818a2a76d4de7d08d8fd0b24293ee824305",
+      "size": 56721
     },
     {
       "name": "sky-relay-native-edition-0.1.0.zip",
       "role": "pack-artifact",
-      "sha256": "e09d863b3fae3dcef64fc2f82dfc4ccc003db655881c8cf8769b22b1f5b82460",
-      "size": 155311205
+      "sha256": "49af828eff8c8d2c30a87f9d518ad45c8d0ea856326096b2fe478840ccfda679",
+      "size": 155402113
     },
     {
       "name": "echoadaptercore-1.0.0.echo-addon",
       "role": "pack-file",
       "path": "addons/echoadaptercore-1.0.0.echo-addon",
-      "sha256": "6419877b2fdf5c9396408c71fb2a013301884416c8d3131209b8e5a03dabde7a",
-      "size": 827788
+      "sha256": "909cc422566f138e65ad927e33775cff20f3caef963181ebd7c3716f711cfbf9",
+      "size": 841135
     },
     {
       "name": "echoagriculturereclamation-1.0.0.echo-addon",
