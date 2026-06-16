@@ -5,20 +5,20 @@
   "name": "Sky Relay Native Edition",
   "version": "0.1.1",
   "channel": "alpha",
-  "moduleRelease": "release-index-current-module-artifacts-20260616",
-  "moduleSourceRevision": "ECHO-Release-Index modules/*.json current artifacts, 2026-06-16",
+  "moduleRelease": "modules-canonical-full-20260616",
+  "moduleSourceRevision": "ECHO-Modules modules-canonical-full-20260616 (9f25b667), 2026-06-16",
   "releaseTag": "sky-relay-native-0.1.1-alpha",
   "sourceRepo": "knoxhack/ECHO-Sky-Relay-Native-Edition",
   "moduleCount": 43,
   "artifact": {
     "name": "sky-relay-native-edition-0.1.1.zip",
-    "sha256": "b529b9b6cdcc2d54dd37ae4c19b262315f1bcc80dbeedc2c1da8b31ba6a8901d",
-    "size": 155398300
+    "sha256": "8563b98499c639dd96cc8033c69a2cef16449eecae2bf8c18e21dff9ae461793",
+    "size": 155403907
   },
   "manifest": {
     "name": "sky-relay-native-edition-alpha-0.1.1.pack.json",
-    "sha256": "c1315d10279da3f3a511ae229d4f06496f43d1c46adc62c956406e871d3a99f4",
-    "size": 57120
+    "sha256": "601c577d60aafa97e051eb3b70d20294eb2bf70bc3a10452bae7200acc6a851c",
+    "size": 55694
   },
-  "generatedAt": "2026-06-16T10:10:59.549Z"
+  "generatedAt": "2026-06-16T15:38:02.850Z"
 }
