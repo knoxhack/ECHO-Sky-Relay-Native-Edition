@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "echo.skyrelay.gameplay-qa.manual.v1",
+  "packId": "REPLACED_BY_INIT_FROM_RELEASE_MANIFEST",
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "claims": {
+    "realFirst30Playthrough": false,
+    "realFirst2HourPlaythrough": false,
+    "realSignalCrownPlaythrough": false,
+    "freshWorldCreated": false,
+    "saveReloadVerified": false,
+    "noCrashEvidence": false
+  },
+  "notes": [
+    "Template only. Run scripts/init-manual-gameplay-evidence.mjs, replace every template file with real capture artifacts, then run scripts/verify-manual-gameplay-evidence.mjs --require-release-ready."
+  ]
+}
