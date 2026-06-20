@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "echo.official_modpack.release_audit.v1",
+  "status": "rebuilt-from-current-module-catalog",
+  "pack": "sky-relay-native-edition",
+  "name": "Sky Relay Native Edition",
+  "version": "0.1.2",
+  "channel": "beta",
+  "moduleRelease": "modules-beta-full-20260620",
+  "moduleSourceRevision": "ECHO-Modules modules-beta-full-20260620 (2a1c2ec8), 2026-06-20",
+  "releaseTag": "sky-relay-native-0.1.2-beta",
+  "sourceRepo": "knoxhack/ECHO-Sky-Relay-Native-Edition",
+  "moduleCount": 43,
+  "artifact": {
+    "name": "sky-relay-native-edition-0.1.2.zip",
+    "sha256": "9aebb1f1500aa7e1b6e3b69ff82c0390c37d9a7825c287f654f003bfa291a46a",
+    "size": 155503904
+  },
+  "manifest": {
+    "name": "sky-relay-native-edition-beta-0.1.2.pack.json",
+    "sha256": "e39f4c6d715f2913d2ab2bdafdeadcf3f57470ab98d2c17acac084d332c1e6f7",
+    "size": 55301
+  },
+  "generatedAt": "2026-06-20T04:42:02.985Z"
+}

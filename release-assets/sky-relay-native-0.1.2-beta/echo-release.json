@@ -1,0 +1,346 @@
+{
+  "formatVersion": 2,
+  "pack": "sky-relay-native-edition",
+  "name": "Sky Relay Native Edition",
+  "version": "0.1.2",
+  "channel": "beta",
+  "releasedAt": "2026-06-20T04:42:02.986Z",
+  "manifestAsset": "sky-relay-native-edition-beta-0.1.2.pack.json",
+  "manifestSha256": "e39f4c6d715f2913d2ab2bdafdeadcf3f57470ab98d2c17acac084d332c1e6f7",
+  "manifestSize": 55301,
+  "artifactMode": "zip",
+  "artifactAsset": "sky-relay-native-edition-0.1.2.zip",
+  "artifactSha256": "9aebb1f1500aa7e1b6e3b69ff82c0390c37d9a7825c287f654f003bfa291a46a",
+  "artifactSize": 155503904,
+  "moduleRelease": "modules-beta-full-20260620",
+  "packs": [
+    {
+      "pack": "sky-relay-native-edition",
+      "name": "Sky Relay Native Edition",
+      "version": "0.1.2",
+      "channel": "beta",
+      "manifestAsset": "sky-relay-native-edition-beta-0.1.2.pack.json",
+      "artifactAsset": "sky-relay-native-edition-0.1.2.zip"
+    }
+  ],
+  "assets": [
+    {
+      "name": "sky-relay-native-edition-beta-0.1.2.pack.json",
+      "role": "pack-manifest",
+      "sha256": "e39f4c6d715f2913d2ab2bdafdeadcf3f57470ab98d2c17acac084d332c1e6f7",
+      "size": 55301
+    },
+    {
+      "name": "sky-relay-native-edition-0.1.2.zip",
+      "role": "pack-artifact",
+      "sha256": "9aebb1f1500aa7e1b6e3b69ff82c0390c37d9a7825c287f654f003bfa291a46a",
+      "size": 155503904
+    },
+    {
+      "name": "echoadaptercore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoadaptercore-1.0.0.echo-addon",
+      "sha256": "23d664f765328180dfd6a3e8d902088076bd7db0b701be1eef339a3e24afc15c",
+      "size": 847600
+    },
+    {
+      "name": "echoagriculturereclamation-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoagriculturereclamation-1.0.0.echo-addon",
+      "sha256": "792fe8be38ebe67d02d0fa291eb7be16abfa3fcefed56d9f37fe9367185dd666",
+      "size": 405502
+    },
+    {
+      "name": "echoassetcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoassetcore-1.0.0.echo-addon",
+      "sha256": "0d8a3295818fa09761573b9e7351ac6983e468d6fa2d03cae4ca2d57cf0e0f0d",
+      "size": 51124
+    },
+    {
+      "name": "echoatmospherecore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoatmospherecore-1.0.0.echo-addon",
+      "sha256": "78342aa6970eef200944aa6982e507780eb3a92dbf09eb49683c84b41a5bccb9",
+      "size": 35723
+    },
+    {
+      "name": "echoblockworks-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoblockworks-1.0.0.echo-addon",
+      "sha256": "f596a2182cbb28df138e140b70ed476950752dbaff8f8478ab6a06d7d8f49e07",
+      "size": 837485
+    },
+    {
+      "name": "echocameracore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echocameracore-1.0.0.echo-addon",
+      "sha256": "305a78d3fa7e73f60e0ab4b2b9817922f5f8d690a73a3058fd31492f11d977d4",
+      "size": 25385
+    },
+    {
+      "name": "echocommonloot-0.1.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echocommonloot-0.1.0.echo-addon",
+      "sha256": "f4828426a74511dddfb260e7082ca7f7eda8300d9c6187df5b9bef8a3b3fc9a5",
+      "size": 15400
+    },
+    {
+      "name": "echocontentcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echocontentcore-1.0.0.echo-addon",
+      "sha256": "8fc78d70c659cec20864d4cf447674448e5932ad3b56414158759a4f6caae90b",
+      "size": 39443
+    },
+    {
+      "name": "echocore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echocore-1.0.0.echo-addon",
+      "sha256": "68b6107082a2677fc73f645bd4b33c7117dfb90f280879b8240d633193b5b879",
+      "size": 341859
+    },
+    {
+      "name": "echocreatureroles-0.1.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echocreatureroles-0.1.0.echo-addon",
+      "sha256": "91914565c00c8da4e98fdd2dfdfef4f8847ace471bf7a5f1c52cb1619a6dcfbd",
+      "size": 14995
+    },
+    {
+      "name": "echoeconomycore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoeconomycore-1.0.0.echo-addon",
+      "sha256": "ca11ab66e67e30ed8d3037aa7eb3d7f8993a719a6b91118468de9a32ed6a249d",
+      "size": 35370
+    },
+    {
+      "name": "echofoundationcore-0.1.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echofoundationcore-0.1.0.echo-addon",
+      "sha256": "bcdde80f9bac1aab6f3b5ee89c4a92abcd63fb55ecfc3e7e5abd0a187791b6d2",
+      "size": 18479
+    },
+    {
+      "name": "echoholomap-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoholomap-1.0.0.echo-addon",
+      "sha256": "caaeafe73abbd94c5a0f33c8c4c084cc3c8e08fe1889cfd74e9436b598163e10",
+      "size": 1478585
+    },
+    {
+      "name": "echohudcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echohudcore-1.0.0.echo-addon",
+      "sha256": "6d17a27390490e873446753afdda27f1ed364a02c367cc5da24683297fe3baa1",
+      "size": 54179
+    },
+    {
+      "name": "echoindex-1.0.1.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoindex-1.0.1.echo-addon",
+      "sha256": "98f960bd5ffb479d2013e446d9bb4841eda744cccc83185a2d37931909427fb0",
+      "size": 588637
+    },
+    {
+      "name": "echoindustrialnexus-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoindustrialnexus-1.0.0.echo-addon",
+      "sha256": "c42fc7bfbc4c323306cad01367ee13d9acc7724ae92aba77471e65edd1b9440d",
+      "size": 5040146
+    },
+    {
+      "name": "echolens-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echolens-1.0.0.echo-addon",
+      "sha256": "311b1dd288781baf3ad42fecb98a37e30991fe8f96e9b8fda0c8337afb355cdc",
+      "size": 215270
+    },
+    {
+      "name": "echologisticsnetwork-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echologisticsnetwork-1.0.0.echo-addon",
+      "sha256": "b339c13cd2143000ec73ce961460401010a06942bbc7a0f046210ed2916a90a9",
+      "size": 3653832
+    },
+    {
+      "name": "echomaterialcore-0.1.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echomaterialcore-0.1.0.echo-addon",
+      "sha256": "104d03d3ffab358c46320016a0e390673df5436fa2ac521a876606b588c4f2a8",
+      "size": 29714
+    },
+    {
+      "name": "echomissioncore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echomissioncore-1.0.0.echo-addon",
+      "sha256": "187b2942b1ab111923ef113431c746b3e9ed23ec8036e5260711248fdc9842cc",
+      "size": 124450
+    },
+    {
+      "name": "echomultiblockcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echomultiblockcore-1.0.0.echo-addon",
+      "sha256": "2a19a05b8b87cfc0b7333b3a99c63dc141196526b7ee8a08bd153ca1b7fd243e",
+      "size": 12630273
+    },
+    {
+      "name": "echonetcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echonetcore-1.0.0.echo-addon",
+      "sha256": "6bb7b749d5dfd5ae7836cf51262f2b7a19b0c6dadbc13d65056c9444d6f4b454",
+      "size": 76247
+    },
+    {
+      "name": "echoorbitalremnants-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoorbitalremnants-1.0.0.echo-addon",
+      "sha256": "b6018143828f1d30a15694f2f5eccc791ba4e3385acb05ee1374222a2175fb3b",
+      "size": 14338003
+    },
+    {
+      "name": "echoplatformcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoplatformcore-1.0.0.echo-addon",
+      "sha256": "f68017cb526d6c2308584fa13890edb92fb37cd11272630a2313eca1676a6ce1",
+      "size": 50645
+    },
+    {
+      "name": "echopowergrid-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echopowergrid-1.0.0.echo-addon",
+      "sha256": "2acacdf58f5d546c2389710525068cbde629463fc4a97523d68ec28c3160c396",
+      "size": 7159979
+    },
+    {
+      "name": "echoprogressioncore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoprogressioncore-1.0.0.echo-addon",
+      "sha256": "fdfac6eb0f486e6def2cea4a1da97585348c0bada3d0adf5e9606efd3ba7f2f9",
+      "size": 52350
+    },
+    {
+      "name": "echorecipecore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echorecipecore-1.0.0.echo-addon",
+      "sha256": "dc389e844688bc23f63b1bc6a17788eeeadb119b34dea9d5e283f2d7c4169578",
+      "size": 44239
+    },
+    {
+      "name": "echorecovery-1.3.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echorecovery-1.3.0.echo-addon",
+      "sha256": "486e54ba3193f0132843e01a0617060be5adc232296d23858dda49a4969fce7d",
+      "size": 2678143
+    },
+    {
+      "name": "echoruntimeguard-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoruntimeguard-1.0.0.echo-addon",
+      "sha256": "7db1c93687c59e6b8785b1d250e8b1b35279e564931c9ff1a2dd0e0ac1bb10a3",
+      "size": 128122
+    },
+    {
+      "name": "echoschemacore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoschemacore-1.0.0.echo-addon",
+      "sha256": "1c461fcd922fba9b0b11d7b505ddb33782d0ec1f54d2aa755ba05bcd79c009cb",
+      "size": 36674
+    },
+    {
+      "name": "echoscreencore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoscreencore-1.0.0.echo-addon",
+      "sha256": "820621fe58ba8fcecc4128a9356588ee92fe233a11c67c0d896d7f9bbdad4ecf",
+      "size": 374330
+    },
+    {
+      "name": "echoskyrelayprotocol-0.1.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoskyrelayprotocol-0.1.0.echo-addon",
+      "sha256": "997da9084c92fa34229d522f752a4e2bb1da188a895a7905ec740c4097537133",
+      "size": 60426
+    },
+    {
+      "name": "echosocialcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echosocialcore-1.0.0.echo-addon",
+      "sha256": "c29ae57c9b88cc534cb6fca2e0def5a7ee7c19fbad90a66f627ebd6aed372d38",
+      "size": 61790
+    },
+    {
+      "name": "echosoundcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echosoundcore-1.0.0.echo-addon",
+      "sha256": "37aeb84ff29529aefd230b5461f7c3aeda27f087435abe76ec713db38d0f8924",
+      "size": 11087314
+    },
+    {
+      "name": "echostationcore-0.1.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echostationcore-0.1.0.echo-addon",
+      "sha256": "06d832b949e0ef861ea854ec2568ce73b142f710d53871307bac53690aa1e536",
+      "size": 19133
+    },
+    {
+      "name": "echoterminal-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoterminal-1.0.0.echo-addon",
+      "sha256": "cd898e6485337c7b9516ccfe552c65cfe51eef53e5a0ab15c60933d62f3e4062",
+      "size": 22479731
+    },
+    {
+      "name": "echothemecore-1.3.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echothemecore-1.3.0.echo-addon",
+      "sha256": "343effcaee56c8dbf68bfb63660226176d7c2b30768795fab6198a0243401104",
+      "size": 69535269
+    },
+    {
+      "name": "echotoolcore-0.1.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echotoolcore-0.1.0.echo-addon",
+      "sha256": "e45abaf241aff5cc00b22af6b1d9c2cd4b1071213022a3e0f2af7375c810fd58",
+      "size": 18689
+    },
+    {
+      "name": "echotutorialcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echotutorialcore-1.0.0.echo-addon",
+      "sha256": "2310bc36cc141fbef8167f15c3272f731751f90cdb7031bf2d9682cda7acff05",
+      "size": 206575
+    },
+    {
+      "name": "echovalidationcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echovalidationcore-1.0.0.echo-addon",
+      "sha256": "d04f80b76769d34d7af8f0003348b15fb045351607cd2f22881135830b27add5",
+      "size": 47445
+    },
+    {
+      "name": "echoweathercore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoweathercore-1.0.0.echo-addon",
+      "sha256": "1355fdfb08860345509127f69be8359743dc6e46467d75fea33526b306c57214",
+      "size": 226037
+    },
+    {
+      "name": "echoworldcore-1.0.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoworldcore-1.0.0.echo-addon",
+      "sha256": "c29f67ee861d9f5f18609b8365ea51a94ba6f1cba85fb7c6379803d359cea2b8",
+      "size": 174428
+    },
+    {
+      "name": "echoworldstarter-0.1.0.echo-addon",
+      "role": "pack-file",
+      "path": "addons/echoworldstarter-0.1.0.echo-addon",
+      "sha256": "80c371ebd22b025f60f0a793b1b7844fa4987b7d834a660565570bf27c3d2447",
+      "size": 19830
+    }
+  ],
+  "notes": [
+    "Sky Relay Native Edition refreshed against the current Release Index module catalog.",
+    "Pack module files, sidecar metadata, and archive checksums are pinned to current GitHub module artifacts."
+  ],
+  "moduleSourceRevision": "ECHO-Modules modules-beta-full-20260620 (2a1c2ec8), 2026-06-20"
+}
